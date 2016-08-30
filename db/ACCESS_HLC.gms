@@ -1,0 +1,12 @@
+$onecho > cmd.txt
+I=db\SaudiPower.accdb
+X=db\load.gdx
+
+Q1=SELECT 'EOA',ID,EOA FROM [Data 2015] \
+UNION SELECT 'WOA',ID,WOA FROM [Data 2015] \
+UNION SELECT 'COA',ID,COA FROM [Data 2015] \
+UNION SELECT 'SOA',ID,SOA FROM [Data 2015]
+P1=HLC
+$offecho
+
+$call =mdb2gms @cmd.txt

@@ -1,0 +1,11 @@
+**/*.~gm
+**/*.lst
+**/*.lxi
+**/*.accdb
+*.gdx
+/ValidationData
+**/*.log
+**/225*/
+**/GDX/*
+**/*.par
+**/*.twb
