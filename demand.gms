@@ -40,11 +40,11 @@ table duration(seasons,l) duration of segemt l in region r and season e
 *(winter,spring-fall,summer)      12   6   6
  ;
 
- parameter block_start(e,l) start hour for hour in load block l
-           block_end(e,l);
+ parameter block_start(seasons,l) start hour for hour in load block l
+           block_end(seasons,l);
 
- block_start(e,l) = sum(ll$(ord(ll)<ord(l)),duration(e,ll));
- block_end(e,l) = sum(ll$(ord(ll)<=ord(l)),duration(e,ll));
+ block_start(seasons,l) = sum(ll$(ord(ll)<ord(l)),duration(seasons,ll));
+ block_end(seasons,l) = sum(ll$(ord(ll)<=ord(l)),duration(seasons,ll));
 
 parameter start_day(seasons) first day to sample hourly data from for season e
 
@@ -71,18 +71,13 @@ end_day('spring-fall') = start_day('summer')-1;
 end_day('summer') = start_day_fall-1;
 end_day_fall = start_day('winter')-1;
 
-number_of_days(e)$(not winter(e)) = end_day(e)-start_day(e)+1;
+number_of_days(seasons)$(not winter(seasons)) = end_day(seasons)-start_day(seasons)+1;
 number_of_days('spring-fall') = number_of_days('spring-fall')+end_day_fall-start_day_fall+1;
-number_of_days('winter') = smax(hrs,day(hrs))-sum(e,number_of_days(e));
+number_of_days('winter') = smax(hrs,day(hrs))-sum(seasons,number_of_days(seasons));
 
 
-*
-if(card(e)=1 ,
-duration(e,l)$(card(e)=1)=duration(e,l)*365;
-else
-   duration(e,l)$(card(e)=1)=duration(e,l)*number_of_days(e);
+   duration(seasons,l)=duration(seasons,l)*number_of_days(seasons);
 
-);
 ELlcgw(r,e,l) =
 sum(hrs$(
                 (        (day(hrs)>=start_day(e) and
@@ -100,6 +95,11 @@ sum(hrs$(
          ), HLC(r,hrs))/(duration(e,l))
 ;
 
+
+if(card(e)=1 ,
+duration(e,l)$(card(e)=1)=duration(e,l)*365;
+
+);
 
 
 

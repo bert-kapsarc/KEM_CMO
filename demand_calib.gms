@@ -10,12 +10,12 @@ COA      1.217
 *        apply growth equally to all demand segments
          EL_Demand(r,e,l,s) = ELlcgw(r,e,l)*EL_demgro(r);
 
-parameter elasticity(r);
+parameter elasticity(r) demand elasticity for eletricity ???;
 elasticity(r) = 0.3;
 
 * Energy Price calibration                                                     *
             a(r,e,l,s) = smax(h,mc(h,r,s))*(1+elasticity(r));
-            b(r,e,l,s) = smax(h,mc(h,r,s)/(EL_demand(r,e,l,s)))*elasticity(r);
+            b(r,e,l,s) = smax(h,mc(h,r,s)/(EL_demand(r,e,l,s)))*0.8;
 
 *            b(r,e,l,s) = smax(h,mc(h,r,s))*d(e,l)/
 *            sum(ll$(EL_Demand(r,e,ll,s)<=EL_Demand(r,e,l,s)),EL_demand(r,e,ll,s)*d(e,ll))*elasticity(r)
@@ -30,11 +30,11 @@ beta('GT',r,'l5')=1;
 beta('GT',r,'l6')=1;
 beta('GT',r,'l7')=1;
 
-*beta('CCGT',r,'l1')=1;
-*beta('CCGT',r,'l2')=1;
-*beta('CCGT',r,'l3')=1;
-*beta('CCGT',r,'l4')=1;
-*beta('CCGT',r,'l8')=1;
+beta('CCGT',r,'l1')=1;
+beta('CCGT',r,'l2')=1;
+beta('CCGT',r,'l3')=1;
+beta('CCGT',r,'l4')=1;
+beta('CCGT',r,'l8')=1;
 ;
 * no capacity markets
 *beta(h,r,l)=0;
