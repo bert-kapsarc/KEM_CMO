@@ -7,18 +7,37 @@ SOA      1.329
 COA      1.217
 /
 ;
+
+*/
+*WOA      1.183
+*EOA      1.368
+*SOA      1.329
+*COA      1.217
+*/
+*;
+
+
 *        apply growth equally to all demand segments
          EL_Demand(r,e,l,s) = ELlcgw(r,e,l)*EL_demgro(r);
 
 parameter elasticity(r) demand elasticity for eletricity ???;
+
+parameter  LRMC(r,e,l,s) long run marginal cost in each load segment USD per MWH;
+
+* long run maringal cost. rescale capacity payment to USD/MW
+LRMC(r,e,l,s) =
+*smin(h,mc(h,r,s)+(ic(h)+om(h))/sum((ll,ss),prob(ss)*d(e,ll)*EL_Demand(r,e,ll,s)));
+smin(h,mc(h,r,s)+(ic(h)+om(h))/sum((ll)$(EL_Demand(r,e,ll,s)>=EL_Demand(r,e,l,s)),d(e,ll)) )
+;
+
 elasticity(r) = 0.3;
 
 * Energy Price calibration                                                     *
-            a(r,e,l,s) = smax(h,mc(h,r,s))*(1+elasticity(r));
-            b(r,e,l,s) = smax(h,mc(h,r,s)/(EL_demand(r,e,l,s)))*elasticity(r);
+            a(r,e,l,s) = LRMC(r,e,l,s)*(1+1/elasticity(r));
+            b(r,e,l,s) = LRMC(r,e,l,s)/EL_demand(r,e,l,s)/elasticity(r) ;
 
 *            b(r,e,l,s) = smax(h,mc(h,r,s))*d(e,l)/
-*            sum(ll$(EL_Demand(r,e,ll,s)<=EL_Demand(r,e,l,s)),EL_demand(r,e,ll,s)*d(e,ll))*elasticity(r)
+*
          ;
 
 
@@ -26,31 +45,22 @@ elasticity(r) = 0.3;
 * Capacity Price calibration                                                   *
 
 *capacity market for GT only in 3 highest demand segments
-beta('GT',r,'l5')=1;
-beta('GT',r,'l6')=1;
-beta('GT',r,'l7')=1;
-
-*beta('CCGT',r,'l1')=1;
-*beta('CCGT',r,'l2')=1;
-*beta('CCGT',r,'l3')=1;
-*beta('CCGT',r,'l4')=1;
-*beta('CCGT',r,'l8')=1;
-;
 * no capacity markets
-*beta(h,r,l)=0;
+beta(h,r,l)=1;
 
 
 * assume a flat inverse demand curve for capacity
 * price is set to the maximum fixed cost of all generators operating in the market
 * divided by the expected number of hours in each load segment
 
-theta(r,e,m) = smax(h$(beta(h,r,m)=1),(ici(h)+om(h)))/
-*                 d(e,m)    ;
-                 sum((s,ll)$(EL_Demand(r,e,ll,s)>=EL_Demand(r,e,m,s)),prob(s)*d(e,ll));
-
+theta(r,e,m) =  0
+                 +smax(h,(ic(h)+om(h)))/sum(l,d(e,l))
+*                 sum((s),prob(s)*d(e,m))    ;
+*                 sum((s,ll)$(EL_Demand(r,e,ll,s)>=EL_Demand(r,e,m,s)),prob(s)*d(e,ll));
+;
                  xi(r,e,m) =0;
 
-theta(r,e,m)$(smax((h),beta(h,r,m))=0)=0;
+
 
 $ontext
          a(r,'l1',s) = 1200 +uniform(0,100);
@@ -72,10 +82,4 @@ xi(r,e,'l3') = 0.00003 ;
 $offtext
 
 
-$ontext
-parameter  LRMC(r,e,l,s) long run marginal cost in each load segment USD per MWH;
 
-* long run maringal cost. rescale capacity payment to USD/MW
-LRMC(r,e,l,s) = smax(h,mc(h,r,s)+(ic(h)+om(h))/sum(ll$(EL_Demand(r,e,ll,s)<=EL_Demand(r,e,l,s)),d(e,ll,s)));
-
-$offtext

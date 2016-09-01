@@ -1,4 +1,3 @@
-
 $title Dynamic Programming Investment
 $ontext
 
@@ -15,11 +14,11 @@ $include demand_calib.gms
 
 
 Option Savepoint=1;
-e1.optfile = 1 ;
+CMO.optfile = 1 ;
 
 Execute_Loadpoint 'e1_p.gdx'
 
-solve e1 using mcp;
+solve CMO using mcp;
 
 
 
@@ -41,12 +40,18 @@ Parameters
 
 *$ontext
          error_demand(r,e,l) =
-         sum(s,prob(s)*
+         -sum(s,prob(s)*
            (EL_demand(r,e,l,s)-
                  (sum(j,sales.l(j,r,e,l,s))-sum(rr,arbitrage.l(r,rr,e,l,s))+sum(rr,arbitrage.l(rr,r,e,l,s)) )
            )
          )/sum(s,EL_demand(r,e,l,s))
 ;
+
+
+
+
+
+
 $ontext
 profit(i)=sum((h,r,l,s),prob(s)*(price.l(r,l,s)-mc(h,r,s))*q.l(i,h,r,l,s)*d(l,s))-sum((h,r),ici(h)*Cap_avail.l(i,h,r))-sum((h,r),icr(h)*ret.l(i,h,r))+sum((r,m,h,s),capacity_price.l(r,m)*beta(h,r,m)*Cap_avail.l(i,h,r)*prob(s)*d(m,s));
 

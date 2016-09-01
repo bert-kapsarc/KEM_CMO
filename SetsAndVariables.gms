@@ -8,10 +8,9 @@ Sets i generators       /fringe, g1*g4/
      summer(seasons) /summer/
      fall(seasons) /spring-fall/
 
-     m(l) capacity market /l5*l7/
+     m(l) capacity market /l5*l5/
      s scenarios        /s1*s2/
-     r regions          /COA,EOA,SOA,WOA/
-
+     r regions          /COA,EOA,SOA,WOA/;
 
 
 Alias (h,hh), (i,j), (m,mm), (r,rr);
@@ -27,7 +26,7 @@ variables
          sales(i,r,e,l,s) sales of firm in region r market l scenario s in MW
          lambda_high(i,h,r,e,l,s) shadow prices for the high capacity constraint in USD per  MWh
          lambda_low(i,h,r,e,l,s)  shadows prices for low constraint in USD per  MWh
-         delta(r,e,m)   shadow prices for the capacity market in USD per  MW per hour
+         delta(r,e,l)   shadow prices for the capacity market in USD per  MW per hour
          price(r,e,l,s) energy price in USD per MWh
          price_trans(r,rr,e,l,s) tranmission price in USD per MWh
          alpha(i,h,r) shadow prices for the non-negative investment constraints in USD per  MW

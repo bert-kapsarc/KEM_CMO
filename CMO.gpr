@@ -164,10 +164,10 @@ Decim=7
 PlaneRownr=-1
 
 [GDXDISP: Cap_avail Var 3]
-PlaneDim=0
-RowDim=3
+PlaneDim=1
+RowDim=2
 Squeeze=1
-Order=1,2,3,4
+Order=4,2,3,1
 Decim=7
 PlaneRownr=-1
 
@@ -529,9 +529,9 @@ RowDim=0
 Squeeze=1
 Order=1,4,3,2
 Decim=7
-PlaneRownr=3
+PlaneRownr=-1
 PlaneFilter1=EOA
-PlaneFilter2=s2
+PlaneFilter2=s1
 
 [GDXDISP: ELlcgw Par 3]
 PlaneDim=1
@@ -540,6 +540,7 @@ Squeeze=1
 Order=1,3,2
 Decim=7
 PlaneRownr=-1
+PlaneFilter1=EOA
 
 [GDXDISP: start_day Par 1]
 PlaneDim=0
@@ -571,7 +572,7 @@ RowDim=1
 Squeeze=1
 Order=2,6,5,1,4,3
 Decim=7
-PlaneRownr=2
+PlaneRownr=-1
 PlaneFilter1=EOA
 PlaneFilter2=Level
 PlaneFilter3=s1
@@ -590,10 +591,10 @@ RowDim=2
 Squeeze=1
 Order=6,7,2,3,1,4,5
 Decim=7
-PlaneRownr=12
+PlaneRownr=4
 PlaneFilter1=s1
 PlaneFilter2=Level
-PlaneFilter3=WOA
+PlaneFilter3=EOA
 PlaneFilter4=COA
 
 [GDXDISP: a Par 4]
@@ -653,10 +654,10 @@ Decim=7
 PlaneRownr=-1
 
 [GDXDISP: q Var 6]
-PlaneDim=0
-RowDim=6
+PlaneDim=3
+RowDim=3
 Squeeze=1
-Order=1,2,3,4,5,6,7
+Order=7,2,6,3,4,5,1
 Decim=7
 PlaneRownr=-1
 
@@ -732,16 +733,10 @@ PlaneRownr=-1
 1=
 2=idir=
 
-[RP:UNTITLED_1]
-1=
-
 [RP:DEMAND_CALIBRATION]
 1=
 
 [RP:PROJECTIONS]
-1=
-
-[RP:POWERSUBMODEL]
 1=
 
 [GDXDISP: error_demand Par 3]
@@ -856,27 +851,500 @@ Order=1,2,3,4,5,6
 Decim=7
 PlaneRownr=-1
 
-[RP:EQUATIONS]
-1=
-
-[RP:RUN_MODEL_2]
-1=idir=db;load; gdx=test
-2=idir=db;load; gdx=test2
-3=
-
-[RP:SETSANDVARIABLES]
-1=
-
 [RP:DISCOUNTING]
 1=
 
 [RP:MACROS]
 1=
 
-[RP:PARAMETERS]
+[GDXDISP: winter Set 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: end_day_fall Par 0]
+PlaneDim=0
+RowDim=0
+Squeeze=1
+Order=
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: start_day_fall Par 0]
+PlaneDim=0
+RowDim=0
+Squeeze=1
+Order=
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: heat_rate Par 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: hh Alias 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: hrs Set 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: Eq9_1 Equ 5]
+PlaneDim=0
+RowDim=5
+Squeeze=1
+Order=1,2,3,4,5,6
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: Eq8_8 Equ 5]
+PlaneDim=0
+RowDim=5
+Squeeze=1
+Order=1,2,3,4,5,6
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: Eq8_7 Equ 3]
+PlaneDim=0
+RowDim=3
+Squeeze=1
+Order=1,2,3,4
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: Eq8_6 Equ 3]
+PlaneDim=0
+RowDim=3
+Squeeze=1
+Order=1,2,3,4
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: index Set 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: port Set 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: E Alias 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: EL_surcharge Par 0]
+PlaneDim=0
+RowDim=0
+Squeeze=1
+Order=
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: ELp Set 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: ELpurchbal Equ 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: ELpwon Set 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: ELpurcst Par 3]
+PlaneDim=0
+RowDim=3
+Squeeze=1
+Order=1,2,3
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: ELc Set 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: ELcapadd Par 2]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: ELcapcontr Equ 4]
+PlaneDim=0
+RowDim=4
+Squeeze=1
+Order=1,2,3,4,5
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: ELCOcons Equ 5]
+PlaneDim=0
+RowDim=5
+Squeeze=1
+Order=1,2,3,4,5,6
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: ELconstcst Par 3]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=2,3,1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: ELcapital Par 2]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: Accounting Par 2]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: Dcoalexports Equ 5]
+PlaneDim=0
+RowDim=5
+Squeeze=1
+Order=1,2,3,4,5,6
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: DCOdem Var 6]
+PlaneDim=1
+RowDim=5
+Squeeze=1
+Order=2,1,3,4,5,6,7
+Decim=7
+PlaneRownr=6
+PlaneFilter1=CV68
+
+[GDXDISP: C Alias 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: coal Set 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: Cotr Par 2]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: COtrans Var 8]
+PlaneDim=0
+RowDim=8
+Squeeze=1
+Order=1,2,3,4,5,6,7,8,9
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: COtransbld Var 4]
+PlaneDim=0
+RowDim=4
+Squeeze=1
+Order=1,2,3,4,5
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: COpricetrend Par 3]
+PlaneDim=0
+RowDim=3
+Squeeze=1
+Order=1,2,3
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: COstatistics Par 3]
+PlaneDim=0
+RowDim=3
+Squeeze=1
+Order=1,2,3
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: COsulf Set 2]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: COsup Equ 6]
+PlaneDim=0
+RowDim=6
+Squeeze=1
+Order=1,2,3,4,5,6,7
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: DCOsulflim Var 3]
+PlaneDim=0
+RowDim=3
+Squeeze=1
+Order=1,2,3,4
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: DCOsup Var 6]
+PlaneDim=1
+RowDim=5
+Squeeze=1
+Order=2,1,3,4,5,6,7
+Decim=7
+PlaneRownr=-1
+PlaneFilter1=CV68
+
+[GDXDISP: COprod Var 7]
+PlaneDim=0
+RowDim=7
+Squeeze=1
+Order=1,2,3,4,5,6,7,8
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: DCOsuplim Var 6]
+PlaneDim=2
+RowDim=5
+Squeeze=1
+Order=7,2,1,3,4,5,6
+Decim=7
+PlaneRownr=6
+PlaneFilter1=Level
+PlaneFilter2=CV68
+
+[GDXDISP: a1 Par 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: coal_cap Par 0]
+PlaneDim=0
+RowDim=0
+Squeeze=1
+Order=
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: coal_price Par 3]
+PlaneDim=0
+RowDim=3
+Squeeze=1
+Order=1,2,3
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: coal_imp_SCE Par 2]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: coalimports Var 6]
+PlaneDim=0
+RowDim=6
+Squeeze=1
+Order=1,2,3,4,5,6,7
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: coalexports Var 5]
+PlaneDim=0
+RowDim=5
+Squeeze=1
+Order=1,2,3,4,5,6
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: coalintlcv Par 4]
+PlaneDim=0
+RowDim=4
+Squeeze=1
+Order=1,2,3,4
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: coalintlcvEIA Par 4]
+PlaneDim=0
+RowDim=4
+Squeeze=1
+Order=1,2,3,4
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: coalintlprice Par 4]
+PlaneDim=0
+RowDim=4
+Squeeze=1
+Order=1,2,3,4
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: COimportbal Equ 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: COimports Var 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: COimportlim Equ 3]
+PlaneDim=0
+RowDim=3
+Squeeze=1
+Order=1,2,3,4
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: COimportsuplim Equ 5]
+PlaneDim=0
+RowDim=5
+Squeeze=1
+Order=1,2,3,4,5,6
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: COintlprice Par 6]
+PlaneDim=1
+RowDim=5
+Squeeze=1
+Order=1,2,3,4,5,6
+Decim=7
+PlaneRownr=-1
+
+[RP:RW_CO]
+1=
+
+[RP:POWERSUBMODEL]
+1=
+
+[RP:COALTRANSSUBMODEL]
 1=
 
 [RP:DEMAND]
+1=
+
+[RP:PARAMETERS]
+1=
+
+[RP:UNTITLED_1]
+1=
+
+[RP:SETSANDVARIABLES]
+1=
+
+[RP:DEMAND_CALIB]
+1=
+
+[RP:RUN_MODEL_2]
+1=idir=db;load; gdx=test2
+2=idir=db;load; gdx=test
+3=
+
+[RP:CHINAPOWERMARKET]
+1=idir =model_files;db;integration_files;report_writer; gdx=LongRun2
+2=idir =model_files;db;integration_files;report_writer; gdx=LongRun
+3=idir =model_files;db;integration_files;report_writer; gdx=LongRunCaps
+4=idir =model_files;db;integration_files;report_writer; gdx=LongRun_50
+5=idir =model_files;db;integration_files;report_writer; gdx=LongRun_25
+6=idir =model_files;db;integration_files;report_writer; gdx=LongRun_100
+7=idir =model_files;db;integration_files;report_writer; LongRun
+8=idir =model_files;db;integration_files;report_writer; gdx=LongRunDereg_5-
+9=idir =model_files;db;integration_files;report_writer; gdx=LongRunDereg
+10=idir =model_files;db;integration_files;report_writer; gdx=LongRunFIT
+11=idir =model_files;db;integration_files;report_writer; gdx=LongRunTariff
+12=idir =model_files;db;integration_files;report_writer; gdx=
+13=idir =model_files;db;integration_files;report_writer; gdx=test3
+14=idir =model_files;db;integration_files;report_writer; gdx=ShortRun
+15=idir =model_files;db;integration_files;report_writer; gdx=test2
+16=idir =model_files;db;integration_files;report_writer; gdx=LongRunWind
+17=idir =model_files;db;integration_files;report_writer; gdx=LongRunWind2020
+18=idir =model_files;db;integration_files;report_writer; gdx=LongRunSOxstd
+19=idir =model_files;db;integration_files;report_writer; test2
+20=idir =model_files;db;integration_files;report_writer; gdx=LongRunReg
+
+[RP:EQUATIONS]
 1=
 
 [RP:RUN_MODEL]
@@ -886,28 +1354,32 @@ PlaneRownr=-1
 4=idir=db;load;
 5=
 
-[RP:DEMAND_CALIB]
-1=
-
 [MRUFILES]
-1=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\SetsAndVariables.gms
-2=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_model_2.lst
-3=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_model_2.gms
-4=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\equations.gms
-5=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\discounting.gms
-6=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\demand_calib.lst
+1=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\Untitled_1.gms
+2=C:\Users\willbj0b\OneDrive\KEM_China\GDX\ShortRunCaps.gdx
+3=C:\Users\willbj0b\OneDrive\KEM_China\model_files\coaltranssubmodel.gms
+4=C:\Users\willbj0b\OneDrive\KEM_China\model_files\powersubmodel.gms
+5=C:\Users\willbj0b\OneDrive\KEM_China\report_writer\RW_CO.gms
+6=C:\Users\willbj0b\OneDrive\KEM_China\GDX\LongRun.gdx
+7=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\discounting.gms
+8=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\demand_calib.lst
 
 [OPENWINDOW_1]
 FILE0=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\demand.gms
 FILE1=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\demand_calib.gms
-FILE2=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\Macros.gms
-FILE3=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\parameters.gms
-FILE4=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_model.gms
-FILE5=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_model.lst
-FILE6=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\test.gdx
-FILE7=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\test.gdx
+FILE2=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\equations.gms
+FILE3=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\Macros.gms
+FILE4=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\parameters.gms
+FILE5=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_model.gms
+FILE6=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_model.lst
+FILE7=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_model_2.gms
+FILE8=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_model_2.lst
+FILE9=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\SetsAndVariables.gms
+FILE10=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\test.gdx
+FILE11=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\test2.gdx
+FILE12=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\equations.gms
 MAXIM=0
-TOP=-6
-LEFT=12
-HEIGHT=605
-WIDTH=1152
+TOP=60
+LEFT=46
+HEIGHT=844
+WIDTH=1658
