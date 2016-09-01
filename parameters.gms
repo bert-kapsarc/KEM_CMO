@@ -1,6 +1,6 @@
 Parameters
-           v(i)   CONJECTURAL VARIANTION for production by player /g1 0, g2 0, g3 0, g4 0, fringe 0/
-           z(i)   CONJECTURAL VARIANTION for capacity by player /g1 0, g2 0, g3 0, g4 0, fringe 0/
+           v(i)   CONJECTURAL VARIANTION for production by player /g1 0, g2 0, g3 0, g4 0, fringe -1/
+           z(i)   CONJECTURAL VARIANTION for capacity by player /g1 0, g2 0, g3 0, g4 0, fringe -1/
 
 
            capital_cost(h) Capital cost in USD per MW /CCGT 1740000, GT 1485000, ST 2120000, Nuclear 4896000/
@@ -31,7 +31,6 @@ Parameters
 
 
 Parameters ici(h)  investment cost
-           ic0(h)  investment initial capacity cost
            icr(h)  retirement capacity cost;
 
 ici(h) = ic(h)
@@ -169,11 +168,6 @@ kind_trans0(r,rr)=kind_trans0(r,rr)*1000;
 
 
 
-table  x(i,r,rr)   CONJECTURAL VARIANTION for electricity by player between region r and rr
-
-                     WOA   SOA   COA   EOA
-         g1*g4.WOA   0     0     0     0
-         g1*g4.SOA   0     0     0     0
-         g1*g4.COA   0     0     0     0
-         g1*g4.EOA   0     0     0     0
+parameter  x(i,r,rr)   CONJECTURAL VARIANTION for electricity by player between region r and rr
 ;
+x(i,r,rr)=v(i);

@@ -97,7 +97,7 @@ sum(hrs$(
 
 
 if(card(e)=1 ,
-duration(e,l)$(card(e)=1)=duration(e,l)*365;
+duration(e,l)$(card(e)=1)=duration(e,l)*365/number_of_days(e);
 
 );
 

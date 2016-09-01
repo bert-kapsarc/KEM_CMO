@@ -15,7 +15,7 @@ elasticity(r) = 0.3;
 
 * Energy Price calibration                                                     *
             a(r,e,l,s) = smax(h,mc(h,r,s))*(1+elasticity(r));
-            b(r,e,l,s) = smax(h,mc(h,r,s)/(EL_demand(r,e,l,s)))*0.8;
+            b(r,e,l,s) = smax(h,mc(h,r,s)/(EL_demand(r,e,l,s)))*elasticity(r);
 
 *            b(r,e,l,s) = smax(h,mc(h,r,s))*d(e,l)/
 *            sum(ll$(EL_Demand(r,e,ll,s)<=EL_Demand(r,e,l,s)),EL_demand(r,e,ll,s)*d(e,ll))*elasticity(r)
@@ -30,11 +30,11 @@ beta('GT',r,'l5')=1;
 beta('GT',r,'l6')=1;
 beta('GT',r,'l7')=1;
 
-beta('CCGT',r,'l1')=1;
-beta('CCGT',r,'l2')=1;
-beta('CCGT',r,'l3')=1;
-beta('CCGT',r,'l4')=1;
-beta('CCGT',r,'l8')=1;
+*beta('CCGT',r,'l1')=1;
+*beta('CCGT',r,'l2')=1;
+*beta('CCGT',r,'l3')=1;
+*beta('CCGT',r,'l4')=1;
+*beta('CCGT',r,'l8')=1;
 ;
 * no capacity markets
 *beta(h,r,l)=0;
@@ -44,9 +44,9 @@ beta('CCGT',r,'l8')=1;
 * price is set to the maximum fixed cost of all generators operating in the market
 * divided by the expected number of hours in each load segment
 
-theta(r,e,m) = smax(h$(beta(h,r,m)=1),(ic(h)+om(h)))/
-*                 sum((s),prob(s)*d(e,m))    ;
-                 sum((s,ll)$(EL_Demand(r,e,ll,s)<=EL_Demand(r,e,m,s)),prob(s)*d(e,ll));
+theta(r,e,m) = smax(h$(beta(h,r,m)=1),(ici(h)+om(h)))/
+*                 d(e,m)    ;
+                 sum((s,ll)$(EL_Demand(r,e,ll,s)>=EL_Demand(r,e,m,s)),prob(s)*d(e,ll));
 
                  xi(r,e,m) =0;
 
