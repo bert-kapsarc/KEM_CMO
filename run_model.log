@@ -1,0 +1,281 @@
+
+--- Job run_model.gms Start 09/19/16 13:23:49 24.1.3 r41464 WEX-WEI x86_64/MS Windows
+GAMS 24.1.3   Copyright (C) 1987-2013 GAMS Development. All rights reserved
+Licensee: Information Technology, 10 user license        G131120:0812CN-WIN
+          King Abdullah Petroleum Studies & Research Center         DC10216
+--- Starting compilation
+--- run_model.gms(7) 2 Mb
+--- .Macros.gms(37) 2 Mb
+--- run_model.gms(10) 2 Mb
+--- .SetsAndVariables.gms(59) 3 Mb
+--- run_model.gms(11) 3 Mb
+--- .Demand.gms(9) 3 Mb
+--- GDXin=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\db\load.gdx
+--- .Demand.gms(102) 5 Mb
+--- run_model.gms(12) 5 Mb
+--- .parameters.gms(172) 5 Mb
+--- run_model.gms(13) 5 Mb
+--- .equations.gms(125) 5 Mb
+--- run_model.gms(14) 5 Mb
+--- .demand_calib.gms(15) 5 Mb
+--- ..solar.gms(71) 5 Mb
+--- .demand_calib.gms(68) 5 Mb
+--- run_model.gms(131) 5 Mb
+--- Starting execution: elapsed 0:00:00.016
+--- run_model.gms(654) 6 Mb
+--- GDXin=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\CMO_p.gdx
+--- run_model.gms(658) 8 Mb
+--- Generating MCP model CMO
+--- run_model.gms(659) 13 Mb
+---   8,976 rows  8,976 columns  29,904 non-zeroes
+---   0 nl-code  0 nl-non-zeroes
+--- run_model.gms(659) 11 Mb
+--- Executing PATH: elapsed 0:00:00.471
+Reading dictionary...
+Reading row data...
+Evaluating functions...
+Checking model...
+Calculating Jacobian...
+
+PATH             24.1.3 r41464 Released Jul 26, 2013 WEI x86_64/MS Windows    
+
+8976 row/cols, 29904 non-zeros, 0.04% dense.
+
+Reading parameter(s) from "D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\path.opt"
+>>  major_iteration_limit 1500;
+>>  time_limit 1e5;
+>>  #crash_searchtype arc;
+>>  convergence_tolerance 1e-5;
+>>  lemke rank deficiency iterations 20;
+*** Error line 5: Unknown option "lemke"
+>> 
+>> 
+Finished reading from "D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\path.opt"
+Path 4.7.02 (Fri Jul 26 11:52:49 2013)
+Written by Todd Munson, Steven Dirkse, and Michael Ferris
+
+
+INITIAL POINT STATISTICS
+Maximum of X. . . . . . . . . .  4.6696e+005 var: (eta_high(g1,Nuclear,COA))
+Maximum of F. . . . . . . . . .  9.8884e+003 eqn: (Eq8_6(g4,ST,WOA))
+Maximum of Grad F . . . . . . .  4.8800e+002 eqn: (Eq8_2(fringe,CCGT,COA))
+                                            var: (lambda_high(fringe,CCGT,COA,w)
+
+INITIAL JACOBIAN NORM STATISTICS
+Maximum Row Norm. . . . . . . .  8.7620e+003 eqn: (Eq8_3(fringe,CCGT,COA))
+Minimum Row Norm. . . . . . . .  1.0000e+000 eqn: (Eq8_6(fringe,CCGT,COA))
+Maximum Column Norm . . . . . .  9.7700e+002 var: (lambda_high(fringe,CCGT,COA,w)
+Minimum Column Norm . . . . . .  1.0000e+000 var: (eta_high(fringe,CCGT,COA))
+
+Crash Log
+major  func  diff  size  residual    step       prox   (label)
+    0     0             6.8225e+002             0.0e+000 (Eq9_1(COA,WOA,summer,l7)
+pn_search terminated: no progress.
+
+Major Iteration Log
+major minor  func  grad  residual    step  type prox    inorm  (label)
+    0     0    13     1 6.8225e+002           I 6.8e+000 2.9e+002 (Eq9_1(COA,WOA,s)
+    1   357    26     2 9.7987e+002  4.4e-005 RB 2.7e+000 3.3e+002 (Eq8_3(g4,Nuclea)
+    2    87    27     3 9.7987e+002  1.0e+000 CO 1.1e+000 3.3e+002 (Eq8_3(g4,Nuclea)
+
+Minor Iteration Log
+minor      t          z     w     v   art ckpts  enter    leave
+  500  5.6884e-001  7218  1757     0     0     9 z[ 7983] w[ 8732]
+
+Major Iteration Log
+major minor  func  grad  residual    step  type prox    inorm  (label)
+    3   522    28     4 6.6813e+003  1.0e+000 SD 1.0e+001 2.9e+003 (Eq8_3(g4,Nuclea)
+    4    68    29     5 6.6798e+003  1.0e+000 CD 4.0e+000 2.9e+003 (Eq8_3(g4,Nuclea)
+    5   207    30     6 6.6797e+003  1.0e+000 CD 1.6e+000 2.9e+003 (Eq8_3(g4,Nuclea)
+    6    91    31     7 6.6797e+003  1.0e+000 CD 6.4e-001 2.9e+003 (Eq8_3(g4,Nuclea)
+    7   147    32     8 6.6797e+003  1.0e+000 CD 2.6e-001 2.9e+003 (Eq8_3(g4,Nuclea)
+    8    42    33     9 6.6797e+003  1.0e+000 CD 1.0e-001 2.9e+003 (Eq8_3(g4,Nuclea)
+    9     4    42    10 6.1564e+002  2.8e-002 RG 2.7e+000 1.9e+002 (Eq9_1(COA,WOA,s)
+
+Minor Iteration Log
+minor      t          z     w     v   art ckpts  enter    leave
+  500  3.6458e-012  8035   940     0     0     9 w[ 8291] w[ 7955]
+   10    33    43    11 6.1564e+002  1.0e+000 CO 1.0e+001 1.9e+002 (Eq9_1(COA,WOA,s)
+   11    51    44    12 6.1564e+002  1.0e+000 TO 1.0e+001 1.9e+002 (Eq9_1(COA,WOA,s)
+
+Minor Iteration Log
+minor      t          z     w     v   art ckpts  enter    leave
+  500  6.7340e-001  7348  1627     0     0     9 w[ 7247] z[ 7439]
+
+Major Iteration Log
+major minor  func  grad  residual    step  type prox    inorm  (label)
+   12   523    54    13 1.3859e+003  9.2e-003 SB 1.0e+001 8.4e+002 (Eq8_2(g4,Nuclea)
+   13   265    64    14 2.6140e+003  9.2e-003 SB 1.0e+001 1.7e+003 (Eq8_2(g4,Nuclea)
+   14   334    65    15 2.6140e+003  1.0e+000 CO 4.0e+000 1.7e+003 (Eq8_2(g4,Nuclea)
+   15   404    66    16 2.6140e+003  1.0e+000 CO 1.6e+000 1.7e+003 (Eq8_2(g4,Nuclea)
+   16    54    67    17 2.6140e+003  1.0e+000 CO 6.4e-001 1.7e+003 (Eq8_2(g4,Nuclea)
+   17    30    68    18 2.6140e+003  1.0e+000 CO 2.6e-001 1.7e+003 (Eq8_2(g4,Nuclea)
+   18   128    69    19 2.6140e+003  1.0e+000 CO 1.0e-001 1.7e+003 (Eq8_2(g4,Nuclea)
+   19     4    81    20 6.1463e+002  3.2e-004 RG 1.0e+001 1.9e+002 (Eq9_1(COA,WOA,s)
+   20    22    82    21 6.1463e+002  1.0e+000 CO 4.0e+000 1.9e+002 (Eq9_1(COA,WOA,s)
+   21   171    83    22 6.1463e+002  1.0e+000 CO 1.6e+000 1.9e+002 (Eq9_1(COA,WOA,s)
+   22    77    84    23 6.1463e+002  1.0e+000 CO 6.4e-001 1.9e+002 (Eq9_1(COA,WOA,s)
+   23    56    85    24 6.1463e+002  1.0e+000 CO 2.6e-001 1.9e+002 (Eq9_1(COA,WOA,s)
+   24     2   114    25 6.1412e+002  4.3e-008 RG 1.0e+001 1.9e+002 (Eq9_1(COA,WOA,s)
+   25    51   129    26 6.1388e+002  4.3e-008 TG 1.0e+001 1.9e+002 (Eq9_1(COA,WOA,s)
+   26    69   130    27 6.1388e+002  1.0e+000 CO 1.0e+001 1.9e+002 (Eq9_1(COA,WOA,s)
+   27   100   131    28 6.1388e+002  1.0e+000 CO 1.0e+001 1.9e+002 (Eq9_1(COA,WOA,s)
+   28    97   132    29 6.1388e+002  1.0e+000 CO 1.0e+001 1.9e+002 (Eq9_1(COA,WOA,s)
+
+Minor Iteration Log
+minor      t          z     w     v   art ckpts  enter    leave
+  500 -3.3468e+005  4006  4969     0     0     9 w[ 8798] z[ 4894]
+
+Major Iteration Log
+major minor  func  grad  residual    step  type prox    inorm  (label)
+   29   598   147    30 6.1388e+002  3.5e-008 RB 4.0e+000 1.9e+002 (Eq9_1(COA,WOA,s)
+   30    54   148    31 6.1388e+002  1.0e+000 CO 1.6e+000 1.9e+002 (Eq9_1(COA,WOA,s)
+   31    91   163    32 6.1375e+002  4.3e-008 CG 1.0e+001 1.9e+002 (Eq9_1(COA,WOA,s)
+   32    62   164    33 6.1375e+002  1.0e+000 CO 1.0e+001 1.9e+002 (Eq9_1(COA,WOA,s)
+   33    93   165    34 6.1375e+002  1.0e+000 CO 4.0e+000 1.9e+002 (Eq9_1(COA,WOA,s)
+   34   174   179    35 6.1377e+002  1.2e-006 RB 1.6e+000 1.9e+002 (Eq9_1(COA,WOA,s)
+   35   114   180    36 6.1377e+002  1.0e+000 CO 6.4e-001 1.9e+002 (Eq9_1(COA,WOA,s)
+   36   123   181    37 6.1377e+002  1.0e+000 CO 2.6e-001 1.9e+002 (Eq9_1(COA,WOA,s)
+
+Restart Log
+proximal_perturbation 0
+crash_method none
+crash_perturb yes
+nms_initial_reference_factor 2
+lemke_search_type slack
+proximal_perturbation 1.0000e-001
+
+Major Iteration Log
+major minor  func  grad  residual    step  type prox    inorm  (label)
+   36     0   197    38 6.8225e+002           R 1.0e-001 2.9e+002 (Eq9_1(COA,WOA,s)
+   37   105   198    39 6.8225e+002  1.0e+000 CO 4.0e-002 2.9e+002 (Eq9_1(COA,WOA,s)
+
+Minor Iteration Log
+minor      t          z     w     v   art ckpts  enter    leave
+  500  2.0821e-003  7274  1701     0     0     9 w[ 7083] z[ 7082]
+
+Major Iteration Log
+major minor  func  grad  residual    step  type prox    inorm  (label)
+   38   592   206    40 7.6920e+002  5.5e-002 SB 1.0e+001 2.9e+002 (Eq9_1(COA,WOA,s)
+   39   341   207    41 7.6920e+002  1.0e+000 CO 4.0e+000 2.9e+002 (Eq9_1(COA,WOA,s)
+   40    66   208    42 7.6920e+002  1.0e+000 CO 1.6e+000 2.9e+002 (Eq9_1(COA,WOA,s)
+   41    44   209    43 7.6920e+002  1.0e+000 CO 6.4e-001 2.9e+002 (Eq9_1(COA,WOA,s)
+   42    25   210    44 7.6920e+002  1.0e+000 CO 2.6e-001 2.9e+002 (Eq9_1(COA,WOA,s)
+   43   144   211    45 7.6920e+002  1.0e+000 CO 1.0e-001 2.9e+002 (Eq9_1(COA,WOA,s)
+   44     4   220    46 6.1564e+002  2.8e-002 RG 4.0e-002 1.9e+002 (Eq9_1(COA,WOA,s)
+
+Minor Iteration Log
+minor      t          z     w     v   art ckpts  enter    leave
+  500  1.0275e-009  7990   985     0     0     9 w[ 7576] z[ 8329]
+   45    33   221    47 6.1564e+002  1.0e+000 CO 1.0e+001 1.9e+002 (Eq9_1(COA,WOA,s)
+   46    48   222    48 6.1564e+002  1.0e+000 CO 4.0e+000 1.9e+002 (Eq9_1(COA,WOA,s)
+   47   459   223    49 6.1564e+002  1.0e+000 TO 1.0e+001 1.9e+002 (Eq9_1(COA,WOA,s)
+
+Minor Iteration Log
+minor      t          z     w     v   art ckpts  enter    leave
+  500  1.4483e-001  7407  1568     0     0     9 w[ 5857] z[ 7902]
+
+Major Iteration Log
+major minor  func  grad  residual    step  type prox    inorm  (label)
+   48   582   234    50 6.4975e+002  1.5e-003 SB 1.0e+001 1.9e+002 (Eq9_1(COA,WOA,s)
+   49    47   235    51 6.4975e+002  1.0e+000 CO 4.0e+000 1.9e+002 (Eq9_1(COA,WOA,s)
+   50    69   236    52 6.4975e+002  1.0e+000 CO 1.6e+000 1.9e+002 (Eq9_1(COA,WOA,s)
+   51   245   237    53 6.4975e+002  1.0e+000 CO 6.4e-001 1.9e+002 (Eq9_1(COA,WOA,s)
+   52    25   238    54 6.4975e+002  1.0e+000 CO 2.6e-001 1.9e+002 (Eq9_1(COA,WOA,s)
+   53    76   239    55 6.4975e+002  1.0e+000 CO 1.0e-001 1.9e+002 (Eq9_1(COA,WOA,s)
+   54     4   251    56 6.1457e+002  3.2e-004 RG 4.0e-002 1.9e+002 (Eq9_1(COA,WOA,s)
+
+Minor Iteration Log
+minor      t          z     w     v   art ckpts  enter    leave
+  500  5.7378e-007  7822  1153     0     0     9 w[ 8295] w[ 8552]
+ 1000  9.7347e-006  7517  1458     0     0    19 w[ 8856] z[ 3048]
+ 1500  9.4995e-006  7546  1429     0     0    29 z[ 4630] w[ 6092]
+
+Major Iteration Log
+major minor  func  grad  residual    step  type prox    inorm  (label)
+   55  1799   252    57 6.1458e+002  1.0e+000 CM 1.6e-002 1.9e+002 (Eq9_1(COA,WOA,s)
+
+Minor Iteration Log
+minor      t          z     w     v   art ckpts  enter    leave
+  500 -2.7639e-007  7492  1483     0     0     9 z[ 8105] z[ 4606]
+ 1000 -1.4270e-005  7502  1473     0     0    19 z[ 8551] z[ 8134]
+ 1500 -1.3216e-005  7488  1487     0     0    29 w[ 4800] z[ 7022]
+ 2000 -2.0089e-005  7508  1467     0     0    39 w[ 8671] z[ 8545]
+
+Major Iteration Log
+major minor  func  grad  residual    step  type prox    inorm  (label)
+   56  2237   253    58 6.1456e+002  1.0e+000 CM 6.4e-003 1.9e+002 (Eq9_1(COA,WOA,s)
+
+Minor Iteration Log
+minor      t          z     w     v   art ckpts  enter    leave
+  500  4.5855e-005  7419  1556     0     0     9 z[ 4604] w[ 4601]
+ 1000  3.6045e-005  7421  1554     0     0    19 z[ 8112] w[ 8657]
+
+Major Iteration Log
+major minor  func  grad  residual    step  type prox    inorm  (label)
+   57  1228   254    59 6.1452e+002  1.0e+000 CM 2.6e-003 1.9e+002 (Eq9_1(COA,WOA,s)
+
+Minor Iteration Log
+minor      t          z     w     v   art ckpts  enter    leave
+  500  3.9221e-002  7290  1685     0     0     9 w[ 4246] z[ 7724]
+ 1000  4.2075e-001  7260  1715     0     0    19 z[ 3929] z[ 5850]
+   58    19   255    60 6.1452e+002  1.0e+000 CO 1.0e+001 1.9e+002 (Eq9_1(COA,WOA,s)
+
+Minor Iteration Log
+minor      t          z     w     v   art ckpts  enter    leave
+  500 -3.3468e+005  4006  4969     0     0     9 w[ 8798] z[ 4894]
+
+Major Iteration Log
+major minor  func  grad  residual    step  type prox    inorm  (label)
+   59   598   269    61 6.2129e+002  1.2e-006 RB 4.0e+000 1.9e+002 (Eq9_1(COA,WOA,s)
+   60   264   284    62 6.1405e+002  4.3e-008 CG 2.6e-003 1.9e+002 (Eq9_1(COA,WOA,s)
+
+Minor Iteration Log
+minor      t          z     w     v   art ckpts  enter    leave
+  500  9.4052e-007  7683  1292     0     0     9 w[ 2995] z[ 2994]
+ 1000  1.0795e-002  7473  1502     0     0    19 w[ 4539] z[ 8664]
+ 1500  4.1183e-001  7359  1616     0     0    29 w[ 4008] z[ 7181]
+
+Major Iteration Log
+major minor  func  grad  residual    step  type prox    inorm  (label)
+   61  1954   285    63 5.5762e+001  1.0e+000 SM 1.0e-003 2.2e+001 (Eq_inv(fringe,S)
+   62   366   286    64 3.6830e+000  1.0e+000 SM 4.1e-004 1.9e+000 (Eq_inv(fringe,S)
+   63   115   287    65 9.7145e-002  1.0e+000 SM 1.6e-004 6.5e-002 (Eq_inv(fringe,S)
+   64     4   288    66 1.2927e-003  1.0e+000 SO 6.6e-005 8.7e-004 (Eq_inv(fringe,S)
+   65     1   289    67 7.2180e-006  1.0e+000 SO 2.6e-005 4.9e-006 (Eq_inv(fringe,S)
+
+FINAL STATISTICS
+Inf-Norm of Complementarity . .  3.7770e-001 eqn: (Eq_ret(fringe,ST,SOA))
+Inf-Norm of Normal Map. . . . .  4.9011e-006 eqn: (Eq_inv(fringe,ST,SOA))
+Inf-Norm of Minimum Map . . . .  4.9011e-006 eqn: (Eq_inv(fringe,ST,SOA))
+Inf-Norm of Fischer Function. .  4.9011e-006 eqn: (Eq_inv(fringe,ST,SOA))
+Inf-Norm of Grad Fischer Fcn. .  1.4402e-005 eqn: (Eq8_5(g2,GT,COA,spring-fall,l)
+Two-Norm of Grad Fischer Fcn. .  1.8259e-004
+
+FINAL POINT STATISTICS
+Maximum of X. . . . . . . . . .  4.6655e+005 var: (eta_high(g1,Nuclear,COA))
+Maximum of F. . . . . . . . . .  1.1507e+004 eqn: (Eq8_6(g1,GT,COA))
+Maximum of Grad F . . . . . . .  4.8800e+002 eqn: (Eq8_2(fringe,CCGT,COA))
+                                            var: (lambda_high(fringe,CCGT,COA,w)
+
+ ** EXIT - solution found.
+
+Major Iterations. . . . 65
+Minor Iterations. . . . 20742
+Restarts. . . . . . . . 1
+Crash Iterations. . . . 0
+Gradient Steps. . . . . 9
+Function Evaluations. . 289
+Gradient Evaluations. . 67
+Total Time. . . . . . . 98.599000
+Residual. . . . . . . . 7.218016e-006
+
+--- Restarting execution
+--- run_model.gms(659) 7 Mb
+--- Reading solution for model CMO
+--- GDX Point D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\CMO_p.gdx
+--- Executing after solve: elapsed 0:01:39.244
+--- run_model.gms(688) 8 Mb
+--- GDX File D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\test.gdx
+*** Status: Normal completion
+--- Job run_model.gms Stop 09/19/16 13:25:28 elapsed 0:01:39.264

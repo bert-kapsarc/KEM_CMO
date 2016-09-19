@@ -1,9 +1,0 @@
-**/*.~gm
-**/*.lst
-**/*.lxi
-**/*.accdb
-/ValidationData
-**/*.log
-**/225*/
-**/*.par
-**/*.twb

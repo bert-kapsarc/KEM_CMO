@@ -5,7 +5,7 @@ set r_trans(r,rr);
 r_trans(r,rr)$(kind_trans0(r,rr)>0)=yes;
 
 
-*         trade.fx(i,r,rr,e,l,s)=0;
+         trade.fx(i,r,rr,e,l,s)=0;
 *         arbitrage.fx(r,rr,l,s)=0;
 
 *        Fix capacity price

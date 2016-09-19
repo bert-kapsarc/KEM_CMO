@@ -28,12 +28,12 @@ table duration(seasons,l) duration of segemt l in region r and season e
 * these are the hour blocks used to average the actual hourly demand patterns
 * must sum to 24
 *$ontext
-                                 l1  l2  l3  l4  l5  l6  l7  l8
-(winter,spring-fall,summer)       4   4   4   2   3   2   2   3
+*                                 l1  l2  l3  l4  l5  l6  l7  l8
+*(winter,spring-fall,summer)       4   4   4   2   3   2   2   3
 *$offtext
 
-*                                 l1  l2  l3  l4
-*\(winter,spring-fall,summer)      6   6   6   6
+                                 l1  l2  l3  l4
+(winter,spring-fall,summer)      6   6   6   6
  ;
 
  parameter block_start(seasons,l) start hour for hour in load block l

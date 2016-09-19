@@ -21,7 +21,6 @@ Execute_Loadpoint 'CMO_p.gdx';
 
 trade.l(i,r,rr,e,l,s)$(not r_trans(r,rr))=0;
 arbitrage.l(r,rr,e,l,s)$(not r_trans(r,rr))=0;
-trans.l(r,rr,e,l,s)$(not r_trans(r,rr))=0;  
 solve CMO using mcp;
 
 

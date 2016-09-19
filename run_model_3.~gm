@@ -10,22 +10,20 @@ $INCLUDE Macros.gms
 $INCLUDE SetsAndVariables.gms
 $INCLUDE Demand.gms
 $include parameters.gms
-$INCLUDE equations.gms
+$INCLUDE equations_2.gms
 $include demand_calib.gms
 
 
-Option Savepoint=1;
+Option Savepoint=2;
 CMO.optfile = 1 ;
 
-Execute_Loadpoint 'CMO_p.gdx';
+Execute_Loadpoint 'CMO_p1.gdx';
+
+
+solve CMO using mcp;
 
 trade.l(i,r,rr,e,l,s)$(not r_trans(r,rr))=0;
 arbitrage.l(r,rr,e,l,s)$(not r_trans(r,rr))=0;
-trans.l(r,rr,e,l,s)$(not r_trans(r,rr))=0;  
-solve CMO using mcp;
-
-
-
 
 
 
@@ -47,7 +45,7 @@ Parameters
          error_demand(r,e,l) =
          -sum(s,prob(s)*
            (EL_demand(r,e,l,s)-
-                 (sum((j),sales.l(j,r,e,l,s))-sum(rr,arbitrage.l(r,rr,e,l,s))+sum(rr,arbitrage.l(rr,r,e,l,s)) )
+                 (sum((j,h),q.l(j,h,r,e,l,s))-sum(rr,arbitrage.l(r,rr,e,l,s))+sum(rr,arbitrage.l(rr,r,e,l,s)) )
            )
          )/sum(s,EL_demand(r,e,l,s));
 

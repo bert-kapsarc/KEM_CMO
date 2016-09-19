@@ -53,7 +53,6 @@ variables
 positive variables lambda_high, lambda_low,  alpha,
                    eta_high,eta_low,
                    tau,shadows_trans_low,
-                   zeta,shadows_arb,shadows_trans_balance
-*                   ,trans,arbitrage
+                   zeta,shadows_arb,shadows_trans_balance,trans,arbitrage
 *                   Q,inv,ret,trade,arbitrage,trans
                    ;
