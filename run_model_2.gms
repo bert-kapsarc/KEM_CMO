@@ -1,4 +1,3 @@
-
 $title Dynamic Programming Investment
 $ontext
 
@@ -6,6 +5,11 @@ $offtext
 
 *$INCLUDE ACCESS_HLC.gms
 $INCLUDE Macros.gms
+
+$FuncLibIn stolib stodclib
+function cdfnorm     /stolib.cdfnormal/;
+
+
 
 $INCLUDE SetsAndVariables.gms
 $INCLUDE Demand.gms
@@ -17,14 +21,12 @@ $include demand_calib.gms
 Option Savepoint=1;
 CMO.optfile = 1 ;
 
-*Execute_Loadpoint 'CMO_p.gdx'
+Execute_Loadpoint 'test2.gdx';
 
-*solve CMO using MCP;
-
-
-
-
-
+*trade.l(i,n,r,rr,e,l,s)$(not r_trans(n,r,rr))=0;
+*arbitrage.l(n,r,rr,e,l,s)$(not r_trans(n,r,rr))=0;
+*trans.lo(n,e,l,s)=0;
+solve CMO using mcp;
 
 
 *$ontext
@@ -37,17 +39,26 @@ Parameters
 
 
          error_demand(r,e,l)
+         reserve_capacity(r)
          ;
 
-$ontext
+*$ontext
          error_demand(r,e,l) =
          -sum(s,prob(s)*
            (EL_demand(r,e,l,s)-
-                 (sum(j,sales.l(j,r,e,l,s))-sum(rr,arbitrage.l(r,rr,e,l,s))+sum(rr,arbitrage.l(rr,r,e,l,s)) )
+                 (sum((j),sales.l(j,r,e,l,s))-sum((n,rr)$r_trade(n,r,rr),arbitrage.l(n,r,rr,e,l,s))+sum((n,rr)$r_trade(n,rr,r),arbitrage.l(n,rr,r,e,l,s)) )
            )
-         )/sum(s,EL_demand(r,e,l,s))
+         )/sum(s,EL_demand(r,e,l,s));
+
+         reserve_capacity(r) = sum((i,h),Cap_avail.l(i,h,r))/smax((e,l),sum(s,EL_demand(r,e,l,s)*prob(s)))-1;
 ;
-*$ontext
+
+
+
+
+
+
+$ontext
 profit(i)=sum((h,r,l,s),prob(s)*(price.l(r,l,s)-mc(h,r,s))*q.l(i,h,r,l,s)*d(l,s))-sum((h,r),ici(h)*Cap_avail.l(i,h,r))-sum((h,r),icr(h)*ret.l(i,h,r))+sum((r,m,h,s),capacity_price.l(r,m)*beta(h,r,m)*Cap_avail.l(i,h,r)*prob(s)*d(m,s));
 
 

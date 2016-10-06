@@ -4,7 +4,7 @@
 *represent average DNI levels for each segment over the seasonal period for each
 *region. The data from the year 2002 are used.
 *KWT = 'east' until data can be obtained
-Table ELsolcurve(l,e,r) regional and seasonal solar DNI profiles in W per sq. m
+Table ELsolcurve(l,seasons,r) regional and seasonal solar DNI profiles in W per sq. m
                  WOA         SOA        COA         EOA
 L1.summer        0.00        0.00       0.00        0.00
 L2.summer        110.09      259.83     308.17      301.34
@@ -40,7 +40,7 @@ L8.spring-fall    0.00        0.00       0.00        0.00
 *proportional to the DNI. From this, we set the solar plant electricity output equal to its
 *peak nominal output (i.e. the plant's output capacity) multiplied by the solar irradiance
 *normalized by the maximum irradiance value throughout the year.
-Parameter ELsolcurvenorm(l,e,r) normalized DNI profiles from ELsolcurve;
+Parameter ELsolcurvenorm(l,seasons,r) normalized DNI profiles from ELsolcurve;
 Elsolcurvenorm(l,e,r)=ELsolcurve(l,e,r)/smax((ll,ee),ELsolcurve(ll,ee,r));
 
 
@@ -55,17 +55,21 @@ WOA      1000
 ;
 scalar random, mean, stddev;
 mean = 1;
-stddev =0.01;
-loop((r,e,l,s),
+stddev =0.3;
+set sumi /1*100/;
+scalar CDF_lo, CDF_hi, CDF_alpha,CDF_beta,Z_cdf,X_cdf;
 
-         random = normal(1,0.01);
-         if( random > mean,
-                 random = 2*mean-random;
-         );
-         if( random < 0,
-                 random = 0;
-         );
-         display random;
-         EL_Demand(r,e,l,s)= EL_Demand(r,e,l,s) - solar_cap(r)*Elsolcurvenorm(l,e,r)*random;
-*uniform(0.1,1);
+parameter CDF_x(s) cumulative distribution functions for each scenario s;
+CDF_alpha = cdfnorm(0,mean,stddev);
+CDF_beta =  cdfnorm(1,mean,stddev);
+Z_cdf=CDF_beta-CDF_alpha;
+prob(s)=0;
+CDF_x(s)=0;
+loop(s,
+
+         X_cdf=ord(s)/card(s);
+         CDF_x(s)= (cdfnorm(X_cdf,mean,stddev)-CDF_alpha)/Z_cdf;
+         prob(s) = CDF_x(s) - CDF_x(s-1);
+         EL_Demand(r,e,l,s)= EL_Demand(r,e,l,s)-solar_cap(r)*Elsolcurvenorm(l,e,r)*X_cdf;
 );
+

@@ -9,7 +9,7 @@ Parameters
            K0(h,r) existent capacity of technology h in region r before liberalization
            kind0(i,h,r) initial capacity by technology and firm in each region in GW
            K(r,l) minimum installed capacity available to sell in region r and market segment l
-           EL_demand(r,seasons,l,s) Electricity Demand (GW)
+           EL_demand(r,e,l,s) Electricity Demand (GW)
            prob(s) probability /s1 0.5/
 
 *Design operating life for steam, GT, and CC from KFUPM generation report.
@@ -44,7 +44,7 @@ icr(h) = ic(h)*0.1;
 
 
 
-parameter    d(seasons,l) duration of segemt l in region r (deterministic);
+parameter    d(e,l) duration of segemt l in region r (deterministic);
 d(e,l) = duration(e,l)
 
 
@@ -139,23 +139,30 @@ fringe.GT        1116            3708.5          0               600.56
 fringe.ST        706             6496.8          1020            7129.36
 ;
 
-table kind_trans0(r,rr) transmission capacity in MW
-               WOA   SOA   COA   EOA
-         WOA   0     1.5   1.2   0.0
-         SOA   1.5   0     0.0   0.0
-         COA   1.2   0.0   0     5.22
-         EOA   0.0   0.0   5.22  0
+parameter kind_trans0(n) transmission capacity in MW
+ /
+         East    5.22
+         South   1.5
+         West    1.2
+ /
       ;
 *WOA   0     1.16
-kind_trans0(r,rr)=kind_trans0(r,rr)*1000;
+kind_trans0(n)=kind_trans0(n)*1000;
 
 *Data for 2014 inter-regional transmission capacities were obtained from ECRA correspondence.
-         table phi(r,rr)  oper. and maint. cost of transmission in USD per MWH
+         parameter phi(n)  oper. and maint. cost of transmission in USD per MWH
+         /
+          West   3.71
+          South  3.73
+          East   3.78
+         /
+$ontext
                 WOA   SOA     COA     EOA
          WOA   3.49   3.73    3.71    4.33
          SOA   3.73   3.49    4.10    4.50
          COA   3.71   4.1     3.49    3.78
          EOA   4.33   4.5     3.78    3.49
+$offtext
 ;
 
 Parameter capfactor(h) capacity factors for dispatchable plants

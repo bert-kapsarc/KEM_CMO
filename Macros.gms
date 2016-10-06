@@ -21,7 +21,6 @@ $MACRO   discounting(Time,i,n,t,tt)    intdiscfact(i,t,tt)/sumdiscfact(Time,i,n)
 
 $MACRO   earthpos(Dayofyear)            ((Dayofyear-1)*360/365)
 
-
 $MACRO   EOT(Dayofyear)                  (229.2*(0.000075+0.001868*COS(earthpos(Dayofyear)*pi/180)-0.032077*SIN(earthpos(Dayofyear)*pi/180)-0.014615*COS(2*(earthpos(Dayofyear)*pi/180))-0.04089*SIN(2*(earthpos(Dayofyear)*pi/180))))
 
 $MACRO   solhr(hr,Dayofyear,long,tzone)       (((1$(frac(hr/24)=0)+frac(hr/24))*24*60-(long-tzone)*4+EOT(Dayofyear)))/60

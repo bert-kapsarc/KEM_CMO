@@ -9,7 +9,7 @@ Sets i generators       /fringe, g1*g4/
      summer(seasons) /summer/
      fall(seasons) /spring-fall/
 
-     m(l) capacity market /l5,l6,l7/
+     m(l) capacity market /l5,l6/
      s scenarios        /s1/
      r regions          /COA,EOA,SOA,WOA/
      n power_lines      /East,South,west/

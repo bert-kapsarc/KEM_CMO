@@ -32,8 +32,8 @@ table duration(seasons,l) duration of segemt l in region r and season e
 (winter,spring-fall,summer)       4   4   4   2   3   2   2   3
 *$offtext
 
-*                                 l1  l2  l3  l4
-*\(winter,spring-fall,summer)      6   6   6   6
+*                                 l1  l2
+*(winter,spring-fall,summer)      12  12
  ;
 
  parameter block_start(seasons,l) start hour for hour in load block l

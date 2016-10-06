@@ -24,7 +24,7 @@ LRMC(r,e,l,s) =
 smin(h,mc(h,r,s)+(ic(h)+om(h))/sum((ll)$(EL_Demand(r,e,ll,s)>=EL_Demand(r,e,l,s)),d(e,ll)) )
 ;
 
-elasticity(r) = 0.5;
+elasticity(r) = 0.3;
 
 * Energy Price calibration                                                     *
             a(r,e,l,s) = LRMC(r,e,l,s)*(1+1/elasticity(r));
