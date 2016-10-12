@@ -1,13 +1,12 @@
 **/*.~gm
-/*.gdx
 **/*.lst
 **/*.lxi
 **/*.accdb
 db/*.xlsx
 **/*.xlsx
-*.gdx
 **/*.log
 **/225*/
 **/GDX/*
 **/*.par
 **/*.twb
+*.put

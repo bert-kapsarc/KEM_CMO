@@ -9,19 +9,19 @@ $INCLUDE Macros.gms
 $FuncLibIn stolib stodclib
 function cdfnorm     /stolib.cdfnormal/;
 
-
+scalar trading set to 1 to allow trading between regions by firms /1/;
 
 $INCLUDE SetsAndVariables.gms
 $INCLUDE Demand.gms
-$include parameters.gms
+$include parameters_2.gms
 $INCLUDE equations.gms
 $include demand_calib.gms
 
 
-Option Savepoint=2;
+*Option Savepoint=1;
 CMO.optfile = 1 ;
 
-*Execute_Loadpoint 'CMO_p1.gdx';
+Execute_Loadpoint 'CMO_no_trade_5.gdx';
 
 *trade.l(i,n,r,rr,e,l,s)$(not r_trans(n,r,rr))=0;
 *arbitrage.l(n,r,rr,e,l,s)$(not r_trans(n,r,rr))=0;
@@ -42,7 +42,7 @@ Parameters
          reserve_capacity(r)
          ;
 
-$ontext
+*$ontext
          error_demand(r,e,l) =
          -sum(s,prob(s)*
            (EL_demand(r,e,l,s)-
@@ -55,7 +55,7 @@ $ontext
 
 
 
-profit(i)=sum((h,r,l,s),prob(s)*(price.l(r,l,s)-mc(h,r,s))*q.l(i,h,r,l,s)*d(l,s))-sum((h,r),ici(h)*Cap_avail.l(i,h,r))-sum((h,r),icr(h)*ret.l(i,h,r))+sum((r,m,h,s),capacity_price.l(r,m)*beta(h,r,m)*Cap_avail.l(i,h,r)*prob(s)*d(m,s));
+profit(i)=sum((h,r,e,l,s),prob(s)*(price.l(r,e,l,s)-mc(h,r,s))*q.l(i,h,r,e,l,s)*d(e,l))-sum((h,r),ici(h)*Cap_avail.l(i,h,r))-sum((h,r),icr(h)*ret.l(i,h,r))+sum((r,e,m,h),delta.l(r,e,m)*beta(h,r,m)*Cap_avail.l(i,h,r));
 
 
 
@@ -66,26 +66,23 @@ profit(i)=sum((h,r,l,s),prob(s)*(price.l(r,l,s)-mc(h,r,s))*q.l(i,h,r,l,s)*d(l,s)
 roi(i)=profit(i)/(sum((h,r),Cap_avail.l(i,h,r)*ici(h)));
 
 ****capacity usage
-cus(i)=sum((r,l,h,s),prob(s)*d(l,s)*q.l(i,h,r,l,s))/sum((l,h,r,s),prob(s)*d(l,s)*Cap_avail.l(i,h,r));
+cus(i)=sum((r,e,l,h,s),prob(s)*d(e,l)*q.l(i,h,r,e,l,s))/sum((l,h,r,e,s),prob(s)*d(e,l)*Cap_avail.l(i,h,r));
 
 ****return on production
-rop(i)=profit(i)/sum((r,l,h,s),prob(s)*d(l,s)*q.l(i,h,r,l,s));
+rop(i)=profit(i)/sum((r,e,l,h,s),prob(s)*d(e,l)*q.l(i,h,r,e,l,s));
 
 ****return on capacity
-roc(i)=profit(i)/(sum((r,l,h,s),prob(s)*d(l,s)*Cap_avail.l(i,h,r)));
+roc(i)=profit(i)/(sum((r,e,l,h),d(e,l)*Cap_avail.l(i,h,r)));
 
 
-display q.l, price.l, capacity_price.l,inv.l, Cap_avail.l, ret.l,kind0,profit;
+display q.l, price.l, delta.l,inv.l, Cap_avail.l, ret.l,kind0,profit;
 
 
 display roi,cus,rop,roc;
 
-display shadows_high.l,shadows_retirment_high.l;
-*shadows_low.l,shadows_retirment_low.l,shadows_inv.l
+display lambda_high.l,eta_high.l;
 
-$offtext
 
-$ontext
 
 file results /C:Users\c-olivef\AXEL Investment Gams\RESULTS.txt/;
 
@@ -93,26 +90,26 @@ put results;
 put 'Investment model: the value of perfect rationality'//
     'Marginal Costs per generator'//;
 
-loop((k,r,s),put k.tl,@12,s.tl,@24,mc(k,r,s):6:1//);
+loop((h,r,s),put h.tl,@12,s.tl,@24,mc(h,r,s):6:1//);
 
 put 'Investment Costs per generator'//;
 
-loop(k,put k.tl,@12,ic(k):6:1//);
+loop(h,put h.tl,@12,ic(h):6:1//);
 
 
 put 'Investment per generator'//;
 
-loop((i,k,r),put i.tl,@12,k.tl,@24,inv.l(i,k,r):6:1//);
+loop((i,h,r),put i.tl,@12,h.tl,@24,inv.l(i,h,r):6:1//);
 
 
 put 'Generation per generator'//;
 
-loop((i,k,r,l,s),put i.tl,@12,k.tl,@24,l.tl,@32,s.tl,@44,q.l(i,k,r,l,s):6:1//);
+loop((i,h,r,e,l,s),put i.tl,@12,h.tl,@24,l.tl,@32,s.tl,@44,q.l(i,h,r,e,l,s):6:1//);
 
 
 put 'Equilibrium Prices '//;
 
-loop((r,s,l),put s.tl,@12,l.tl,@24,price(r,l,s)//);
+loop((r,e,l,s),put s.tl,@12,l.tl,@24,price(r,e,l,s)//);
 
 put 'Total Profit per generator'//;
 
@@ -123,4 +120,4 @@ put 'Generator, Return on Investment, Capacity usage, Return on production, Retu
 loop(i,put i.tl,@12,roi(i),@30,cus(i),@50,rop(i),@70,roc(i):10:2//);
 
 
-$offtext
+*$offtext

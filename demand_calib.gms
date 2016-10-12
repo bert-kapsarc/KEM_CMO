@@ -9,7 +9,12 @@ COA      1.217
 ;
 
 *        apply growth equally to all demand segments
-         EL_Demand(r,e,l,s) = ELlcgw(r,e,l)*EL_demgro(r)
+*        Rescale demand to GW
+*        Rescale duration such taht energy is in units of TWH
+*        Marginal costs should be in units of MMUSD/TWH
+
+         EL_Demand(r,e,l,s) = ELlcgw(r,e,l)*EL_demgro(r)*1e-3;
+         d(e,l) = duration(e,l)*1e-3;
          ;
 
 $INCLUDE solar.gms

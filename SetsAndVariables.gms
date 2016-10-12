@@ -10,14 +10,13 @@ Sets i generators       /fringe, g1*g4/
      fall(seasons) /spring-fall/
 
      m(l) capacity market /l5,l6,l7/
-     s scenarios        /s1/
+     s scenarios        /s1*s5/
      r regions          /COA,EOA,SOA,WOA/
      n power_lines      /East,South,west/
                                          ;
 
 *     m(l) = no;
 
-*     e(seasons)=yes;
 
 Alias (h,hh), (i,j), (m,mm), (r,rr);
 
@@ -46,8 +45,6 @@ variables
          trans(n,seasons,l,s) electricity trans by on line n
 
          tau(n,seasons,l,s) shadow prices for the high capacity constraint in USD per MW
-         psi(n,seasons,l,s),
-         shadows_trans_low(n,seasons,l,s) shadow prices for the no-negative transmission constriant in USD per MW
          zeta(i,n,r,rr,seasons,l,s) shadow prices for the outgoing no-negative trade constraint in USD per MW
          shadows_arbitrage(n,r,rr,seasons,l,s) shadow prices for no-negative incoming arbitrage constriant in USD per MW
          shadows_trans(n,seasons,l,s) shadow prices for the positive transmission constriant in USD per MW
@@ -56,7 +53,4 @@ variables
 positive variables lambda_high, lambda_low,  alpha,
                    eta_high,eta_low, psi
                    tau,zeta,shadows_arbitrage,shadows_trans
-*                   ,trans,arbitrage
-*                   Q,inv,ret,trade,arbitrage,trans
-*                 trans_pos,trans_neg
                    ;

@@ -44,12 +44,12 @@ Parameter ELsolcurvenorm(l,seasons,r) normalized DNI profiles from ELsolcurve;
 Elsolcurvenorm(l,e,r)=ELsolcurve(l,e,r)/smax((ll,ee),ELsolcurve(ll,ee,r));
 
 
-parameter solar_cap(r) regional solar capcitity installation in MW
+parameter solar_cap(r) regional solar capcitity installation in GW
 /
-COA      3000
-EOA      2000
-SOA      500
-WOA      1000
+COA      3
+EOA      2
+SOA      5
+WOA      1
 /
 
 ;

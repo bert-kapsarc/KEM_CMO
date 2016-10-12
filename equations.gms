@@ -17,8 +17,7 @@ r_trade(n,r,rr)$(r_trans(n,r,rr))=yes;
 r_trade(n,rr,r)$(r_trans(n,r,rr))=yes;
 
 
-*         psi.l(n,e,l,s)=1e-3;
-*         trade.fx(i,n,r,rr,e,l,s)=0;
+         trade.fx(i,n,r,rr,e,l,s)$(trading<>1)=0;
 *         arbitrage.fx(r,rr,l,s)=0;
 
 *        Fix capacity price
@@ -71,7 +70,7 @@ Eq9_3(i,h,r)..      -sum((e,m),d(e,m)*delta(r,e,m)*beta(h,r,m))
                      +eta_low(i,h,r) =e= icr(h)-om(h);
 *
 
-Eq9_4(i,n,r,rr,e,l,s)$r_trade(n,r,rr)..
+Eq9_4(i,n,r,rr,e,l,s)$(trading=1 and r_trade(n,r,rr))..
          price(rr,e,l,s)-price(r,e,l,s)+zeta(i,n,r,rr,e,l,s)
          -price_trans(n,e,l,s)
         +b(r,e,l,s)*sales(i,r,e,l,s)*(1+x(i,r,rr))
@@ -85,8 +84,8 @@ Eq9_7(i,h,r)..         Cap_avail(i,h,r) =e= kind0(i,h,r)+inv(i,h,r)-ret(i,h,r);
 
 Eq9_8(i,r,e,l,s)..     sales(i,r,e,l,s)=e=
                          sum(h,Q(i,h,r,e,l,s))
-                                 -sum((n,rr)$(r_trade(n,r,rr)),trade(i,n,r,rr,e,l,s))
-                                 +sum((n,rr)$(r_trade(n,rr,r)),trade(i,n,rr,r,e,l,s));
+                       -sum((n,rr)$(r_trade(n,r,rr)),trade(i,n,r,rr,e,l,s))$(trading=1)
+                       +sum((n,rr)$(r_trade(n,rr,r)),trade(i,n,rr,r,e,l,s))$(trading=1) ;
 
 Eq10_1(n,r,rr,e,l,s)$r_trade(n,r,rr)..
          price(rr,e,l,s)-price(r,e,l,s)
@@ -105,10 +104,11 @@ Eq11_3(n,e,l,s)..
          trans(n,e,l,s)=g=
                     abs(
                  sum((i,r,rr)$(trans_node(n,r) and r_trade(n,r,rr)),trade(i,n,r,rr,e,l,s))
-                 -sum((i,r,rr)$(trans_node(n,rr) and r_trade(n,rr,r)),trade(i,n,rr,r,e,l,s))
+                 -sum((i,r,rr)$(trans_node(n,r) and r_trade(n,rr,r)),trade(i,n,rr,r,e,l,s))
                  +sum((r,rr)$(trans_node(n,r) and r_trade(n,r,rr)),arbitrage(n,r,rr,e,l,s))
-                 -sum((r,rr)$(trans_node(n,rr) and r_trade(n,rr,r)),arbitrage(n,rr,r,e,l,s))
-           )
+                 -sum((r,rr)$(trans_node(n,r) and r_trade(n,rr,r)),arbitrage(n,rr,r,e,l,s))
+           )$(trading=1)
+           +sum((r,rr)$(r_trade(n,r,rr)),arbitrage(n,r,rr,e,l,s))$(trading<>1)
          ;
 
 Eq_q(i,h,r,e,l,s)        .. Q(i,h,r,e,l,s) =g= 0;
@@ -116,7 +116,8 @@ Eq_inv(i,h,r)            .. inv(i,h,r) =g= 0;
 Eq_ret(i,h,r)            .. ret(i,h,r)=g=0;
 
 
-Eq_trade(i,n,r,rr,e,l,s)$r_trade(n,r,rr)   .. trade(i,n,r,rr,e,l,s)=g=0;
+Eq_trade(i,n,r,rr,e,l,s)$(trading=1 and r_trade(n,r,rr))..
+         trade(i,n,r,rr,e,l,s)=g=0;
 
 Eq_arb(n,r,rr,e,l,s)$r_trade(n,r,rr)   .. arbitrage(n,r,rr,e,l,s)=g=0;
 
@@ -145,4 +146,4 @@ model CMO   /
 /;
          option MCP=path;
         CMO.scaleopt =1;
-        tau.scale(n,e,l,s)=1e4;
+*        tau.scale(n,e,l,s)=1e4;
