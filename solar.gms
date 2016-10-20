@@ -53,23 +53,27 @@ WOA      1
 /
 
 ;
-scalar random, mean, stddev;
-mean = 1;
-stddev =0.3;
-set sumi /1*100/;
-scalar CDF_lo, CDF_hi, CDF_alpha,CDF_beta,Z_cdf,X_cdf;
+scalar random, mean, stddev, CDF_lo , CDF_hi , diff, CDF_alpha,CDF_beta,Z_cdf,X_cdf;
+parameter CDF_x(ss) cumulative distribution functions for each scenario s;
 
-parameter CDF_x(s) cumulative distribution functions for each scenario s;
+         mean = 0.9;
+         stddev =0.3;
+         CDF_lo = 0;
+         CDF_hi = 1;
+         diff = CDF_hi -CDF_lo;
+
 CDF_alpha = cdfnorm(0,mean,stddev);
 CDF_beta =  cdfnorm(1,mean,stddev);
 Z_cdf=CDF_beta-CDF_alpha;
-prob(s)=0;
-CDF_x(s)=0;
-loop(s,
+loop(ss,
 
-         X_cdf=ord(s)/card(s);
+         X_cdf=CDF_lo+ord(ss)*diff/card(ss);
          CDF_x(s)= (cdfnorm(X_cdf,mean,stddev)-CDF_alpha)/Z_cdf;
-         prob(s) = CDF_x(s) - CDF_x(s-1);
-         EL_Demand(r,e,l,s)= EL_Demand(r,e,l,s)-solar_cap(r)*Elsolcurvenorm(l,e,r)*X_cdf;
+         prob(s,ss) = (prob(s,ss)+(CDF_x(ss) - CDF_x(ss-1)))/2;
+         X_cdf=X_cdf-(diff/(2*card(ss)))$(card(ss)>1);
+         EL_Demand(r,e,l,s,ss)= EL_Demand(r,e,l,s,ss)-solar_cap(r)*Elsolcurvenorm(l,e,r)*X_cdf;
+         display x_cdf;
 );
+
+display prob,EL_Demand,CDF_x,Elsolcurvenorm,solar_cap ;
 

@@ -618,9 +618,9 @@ RowDim=1
 Squeeze=1
 Order=5,1,2,4,3
 Decim=7
-PlaneRownr=4
+PlaneRownr=1
 PlaneFilter1=Level
-PlaneFilter2=EOA
+PlaneFilter2=COA
 PlaneFilter3=summer
 
 [GDXDISP: shadows_high Var 5]
@@ -726,7 +726,7 @@ RowDim=1
 Squeeze=1
 Order=1,2,3
 Decim=7
-PlaneRownr=3
+PlaneRownr=-1
 PlaneFilter1=WOA
 
 [GDXDISP: trans Var 5]
@@ -1831,9 +1831,6 @@ PlaneRownr=-1
 [RP:EQUATIONS_2]
 1=
 
-[RP:POWERSUBMODEL]
-1=
-
 [GDXDISP: trans Var 4]
 PlaneDim=1
 RowDim=3
@@ -1861,12 +1858,6 @@ PlaneRownr=-1
 [RP:EQUATIONS_3]
 1=
 
-[RP:PARAMETERS_2]
-1=
-
-[RP:PARAMETERS]
-1=
-
 [RP:201606030_MODELRESERVEFO]
 1=
 
@@ -1879,12 +1870,15 @@ Decim=7
 PlaneRownr=-1
 
 [GDXDISP: price_trans Var 4]
-PlaneDim=0
-RowDim=4
+PlaneDim=3
+RowDim=1
 Squeeze=1
-Order=1,2,3,4,5
+Order=5,1,2,4,3
 Decim=7
-PlaneRownr=-1
+PlaneRownr=7
+PlaneFilter1=Level
+PlaneFilter2=west
+PlaneFilter3=summer
 
 [GDXDISP: EL_demand Par 4]
 PlaneDim=2
@@ -1896,37 +1890,10 @@ PlaneRownr=4
 PlaneFilter1=COA
 PlaneFilter2=s5
 
-[RP:SOLAR]
-1=
-
-[RP:DEMAND]
-1=
-
-[RP:SETSANDVARIABLES]
-1=
-
 [RP:RUN_MODEL_2]
 1=idir=db;load; gdx=test2
 2=idir=db;load; gdx=test
 3=
-
-[RP:DEMAND_CALIB]
-1=
-
-[RP:RUNKEMCHINA]
-1=idir =model_files;db;integration_files;report_writer; gdx=test2
-2=idir =model_files;db;integration_files;report_writer; gdx=test
-3=
-
-[OPENWINDOW_1]
-MAXIM=0
-TOP=26
-LEFT=26
-HEIGHT=832
-WIDTH=1785
-
-[RP:EQUATIONS]
-1=
 
 [GDXDISP: trade Var 7]
 PlaneDim=1
@@ -1944,21 +1911,74 @@ Order=1,2,3,4,5,6,7
 Decim=7
 PlaneRownr=-1
 
-[RP:RUN_MODEL]
-1=idir=db;load; gdx=test
-2=idir=db;load; gdx=test3
-3=idir=db;load; gdx=test2
-4=idir=db;load; gdx=test;
-5=idir=db;load;
+[RP:POWERSUBMODEL]
+1=
+2=idir=../submodels;../db;../integration_files;../Report_Writer; GDX=Power
+3=idir=../submodels;../db;../integration_files;../Report_Writer gdx=ChinaPower
+
+[RP:RUNKEMCHINA]
+1=idir =model_files;db;integration_files;report_writer; gdx=test2
+2=idir =model_files;db;integration_files;report_writer; gdx=test
+3=idir =model_files;db;integration_files;report_writer; test2
+4=idir =model_files;db;integration_files;report_writer; gdx=test1
+5=idir =model_files;db;integration_files;report_writer; gdx=MCP
 6=
 
+[RP:EQUATIONS]
+1=
+
+[RP:DEMAND_CALIB]
+1=
+
+[RP:DEMAND]
+1=
+
+[RP:PARAMETERS_2]
+1=
+
+[RP:RUN_MODEL]
+1=idir=db;load; gdx=test
+2=idir=db;load; gdx=test2
+3=idir=db;load; gdx=CMO_5
+4=idir=db;load; gdx=test3
+5=idir=db;load; gdx=test;
+6=idir=db;load;
+7=
+
+[RP:SOLAR]
+1=
+
+[RP:PARAMETERS]
+1=
+
+[RP:SETSANDVARIABLES]
+1=
+
 [MRUFILES]
-1=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_model.gms
-2=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\equations.gms
-3=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\CMO_no_trade_5.gdx
-4=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\CMO_5.gdx
+1=D:\Dropbox (KAPSARC)\KEM-China-dev\KEM-China\RunKEMChina.lst
+2=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_model.lst
+3=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\powersubmodel.gms
+4=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\gams13.put
 5=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\CMO_no_trade.gdx
 6=D:\Dropbox (KAPSARC)\KEM-China-dev\KEM-China\RunKEMChina.gms
 7=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\RunKEMChina.lst
 8=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\test2.gdx
-9=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\test.gdx
+
+[OPENWINDOW_1]
+FILE0=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\CMO_5.gdx
+FILE1=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\CMO_no_trade_5.gdx
+FILE2=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\demand.gms
+FILE3=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\demand_calib.gms
+FILE4=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\equations.gms
+FILE5=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\parameters.gms
+FILE6=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\parameters_2.gms
+FILE7=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\PATH.opt
+FILE8=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_model.gms
+FILE9=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\SetsAndVariables.gms
+FILE10=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\solar.gms
+FILE11=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\equations.gms
+MAXIM=1
+TOP=4
+LEFT=90
+HEIGHT=759
+WIDTH=1696

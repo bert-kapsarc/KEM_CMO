@@ -8,32 +8,23 @@ COA      1.217
 /
 ;
 
-*        apply growth equally to all demand segments
-*        Rescale demand to GW
-*        Rescale duration such taht energy is in units of TWH
-*        Marginal costs should be in units of MMUSD/TWH
-
-         EL_Demand(r,e,l,s) = ELlcgw(r,e,l)*EL_demgro(r)*1e-3;
-         d(e,l) = duration(e,l)*1e-3;
-         ;
-
 $INCLUDE solar.gms
 
 parameter elasticity(r) demand elasticity for eletricity ???;
 
-parameter  LRMC(r,e,l,s) long run marginal cost in each load segment USD per MWH;
+parameter  LRMC(r,e,l,s,ss) long run marginal cost in each load segment USD per MWH;
 
 * long run maringal cost. rescale capacity payment to USD/MW
-LRMC(r,e,l,s) =
+LRMC(r,e,l,s,ss) =
 
-smin(h,mc(h,r,s)+(ic(h)+om(h))/sum((ll)$(EL_Demand(r,e,ll,s)>=EL_Demand(r,e,l,s)),d(e,ll)) )
+smin(h,mc(h,r,s,ss)+(ic(h)+om(h))/sum((ll)$(EL_Demand(r,e,ll,s,ss)>=EL_Demand(r,e,l,s,ss)),d(e,ll)) )
 ;
 
 elasticity(r) = 0.3;
 
 * Energy Price calibration                                                     *
-            a(r,e,l,s) = LRMC(r,e,l,s)*(1+1/elasticity(r));
-            b(r,e,l,s) = LRMC(r,e,l,s)/EL_demand(r,e,l,s)/elasticity(r) ;
+            a(r,e,l,s,ss) = LRMC(r,e,l,s,ss)*(1+1/elasticity(r));
+            b(r,e,l,s,ss) = LRMC(r,e,l,s,ss)/EL_demand(r,e,l,s,ss)/elasticity(r) ;
 
 
 * Capacity Price calibration                                                   *
@@ -45,21 +36,21 @@ elasticity(r) = 0.3;
 
 theta(r,e,m) =  0
                  +smax(h,(ic(h)+om(h)))/sum((ee,l),d(ee,l))
-*                 sum((s),prob(s)*d(e,m))    ;
-*                 sum((s,ll)$(EL_Demand(r,e,ll,s)>=EL_Demand(r,e,m,s)),prob(s)*d(e,ll));
+*                 sum((s),prob(s,ss)*d(e,m))    ;
+*                 sum((s,ll)$(EL_Demand(r,e,ll,s,ss)>=EL_Demand(r,e,m,s,ss)),prob(s,ss)*d(e,ll));
 ;
                  xi(r,e,m) =0;
 
 
 
 $ontext
-         a(r,'l1',s) = 1200 +uniform(0,100);
-         a(r,'l2',s) = 600 +uniform(0,50);
-         a(r,'l3',s) = 300 +uniform(0,10);
+         a(r,'l1',s,ss) = 1200 +uniform(0,100);
+         a(r,'l2',s,ss) = 600 +uniform(0,50);
+         a(r,'l3',s,ss) = 300 +uniform(0,10);
 
-         b(r,'l1',s) = 0.005 +uniform(0,0.0005);
-         b(r,'l2',s) = 0.01 +uniform(0,0.0005);
-         b(r,'l3',s) = 0.01 +uniform(0,0.0005);
+         b(r,'l1',s,ss) = 0.005 +uniform(0,0.0005);
+         b(r,'l2',s,ss) = 0.01 +uniform(0,0.0005);
+         b(r,'l3',s,ss) = 0.01 +uniform(0,0.0005);
 
 
 theta(r,e,'l1') = 5000 +uniform(0,200);

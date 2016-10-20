@@ -1,16 +1,17 @@
 Parameters
-           v(i)   CONJECTURAL VARIANTION for production by player /g1 0, g2 0, g3 0, g4 0, fringe 0/
-           z(i)   CONJECTURAL VARIANTION for capacity by player /g1 0, g2 0, g3 0, g4 0, fringe 0/
+           v(i)   CONJECTURAL VARIANTION for production by player /g1 0, g2 0, g3 0, g4 0, fringe -1/
+           z(i)   CONJECTURAL VARIANTION for capacity by player /g1 0, g2 0, g3 0, g4 0, fringe -1/
 
 
-           capital_cost(h) Capital cost in USD per MW /CCGT 1740000, GT 1485000, ST 2120000, Nuclear 4896000/
-           ic(h)  investment cost USD per MW
-           om(h) Fixed O&M cost USD per MW  /GT 11200, CCGT 12400, ST 11200, Nuclear 68800/
+           capital_cost(h) Capital cost in USD per GW /CCGT 1740, GT 1485, ST 2120, Nuclear 4896/
+           ic(h)  investment cost USD per GW
+           om(h) Fixed O&M cost USD per GW  /GT 11.2, CCGT 12.4, ST 11.2, Nuclear 68.8/
            K0(h,r) existent capacity of technology h in region r before liberalization
            kind0(i,h,r) initial capacity by technology and firm in each region in GW
            K(r,l) minimum installed capacity available to sell in region r and market segment l
-           EL_demand(r,e,l,s) Electricity Demand (GW)
-           prob(s) probability /s1 0.5/
+*           EL_demand(r,e,l,s,ss) Electricity Demand GW
+*           d(e,l) duration of segemt l in region r (deterministic)
+*           prob(s,ss) probability off each scenario
 
 *Design operating life for steam, GT, and CC from KFUPM generation report.
            lifetime(h) plant lifetime /CCGT 30, GT 25, ST 35, Nuclear 60/
@@ -20,7 +21,6 @@ Parameters
 
 ;
 
-         prob(s) = 1/card(s);
          parameter discoef;
          set t dummy time set /2020/
          set index /1*1000/
@@ -43,27 +43,21 @@ icr(h) = ic(h)*0.1;
 
 
 
+parameter mc(h,r,s,ss) marginal cost in USD per MWh  ;
 
-parameter    d(e,l) duration of segemt l in region r (deterministic);
-d(e,l) = duration(e,l)
-
-
-
-parameter mc(h,r,s) marginal cost in USD per MWh  ;
-
-mc('CCGT',r,s)  = 1.2449 ;
-mc('CCGT','EOA',s)  = 1.1833 ;
-mc('GT',r,s) =  1.6840;
-mc('ST',r,s) =  1.2261;
-mc('Nuclear',r,s) = 6.9;
-*mc('ULtrsc',r,s)  = 1.2449
+mc('CCGT',r,s,ss)  = 1.2449 ;
+mc('CCGT','EOA',s,ss)  = 1.1833 ;
+mc('GT',r,s,ss) =  1.6840;
+mc('ST',r,s,ss) =  1.2261;
+mc('Nuclear',r,s,ss) = 6.9;
+*mc('ULtrsc',r,s,ss)  = 1.2449
 
 
 * Uranium-235 use is in g/GWh
 parameter heat_rate(h) fueal burn rate in mmbtu and KG per MWH
 /
 CCGT               6.09286
-GT                 12.818
+GT                 10.000
 ST                 8.949
 Nuclear            0.120
 *Ultrsc              1.217
@@ -82,7 +76,7 @@ Nuclear            113
 ;
 
 loop(s,
-mc(h,r,s) = mc(h,r,s)+heat_rate(h)*fuel_price(h)*1;
+mc(h,r,s,ss) = mc(h,r,s,ss)+heat_rate(h)*fuel_price(h)*1;
 *uniform(1,1)
 );
 ;
@@ -92,8 +86,8 @@ parameter  beta(h,r,l) available capacity in market l
 ;
 beta(h,r,l)=1;
 
-Parameters  a(r,e,l,s) intercept of energy demand curve,
-            b(r,e,l,s) slope of energy demand curve
+Parameters  a(r,e,l,s,ss) intercept of energy demand curve,
+            b(r,e,l,s,ss) slope of energy demand curve
             theta(r,e,l) intercept of capacity demand curve,
             xi(r,e,l) slope of capacity demand curve;
 
@@ -114,32 +108,32 @@ ST    0     0     0     0
 $offtext
 
 
-table kind0(i,h,r) firms existing generation capacity in MW
+table kind0(i,h,r) firms existing generation capacity in GW
 
                  COA             EOA             SOA             WOA
 
-g1.CCGT          1360.6          0               0               0
-g1.GT            13069.3         0               0               0
+g1.CCGT          1.3606          0               0               0
+g1.GT            13.0693         0               0               0
 g1.ST            0               0               0               0
 
-g2.CCGT          0               3929            0               0
-g2.GT            0               5831.5          0               0
-g2.ST            0               6756            0               0
+g2.CCGT          0               3.929           0               0
+g2.GT            0               5.8315          0               0
+g2.ST            0               6.756           0               0
 
 g3.CCGT          0               0               0               0
-g3.GT            0               0               4113.14         0
+g3.GT            0               0               4.11314         0
 g3.ST            0               0               0               0
 
-g4.CCGT          0               0               0               1288
-g4.GT            0               0               0               8549.7
-g4.ST            0               0               0               9888.4
+g4.CCGT          0               0               0               1.288
+g4.GT            0               0               0               8.5497
+g4.ST            0               0               0               9.8884
 
-fringe.CCGT      0               2567.37         0               0
-fringe.GT        1116            3708.5          0               600.56
-fringe.ST        706             6496.8          1020            7129.36
+fringe.CCGT      0               2.56737         0               0
+fringe.GT        1.116           3.7085          0               6.0056
+fringe.ST        0.706           6.4968          1.020           7.12936
 ;
 
-parameter kind_trans0(n) transmission capacity in MW
+parameter kind_trans0(n) transmission capacity in GW
  /
          East    5.22
          South   1.5
@@ -147,7 +141,6 @@ parameter kind_trans0(n) transmission capacity in MW
  /
       ;
 *WOA   0     1.16
-kind_trans0(n)=kind_trans0(n)*1000;
 
 *Data for 2014 inter-regional transmission capacities were obtained from ECRA correspondence.
          parameter phi(n)  oper. and maint. cost of transmission in USD per MWH
