@@ -46,15 +46,15 @@ Elsolcurvenorm(l,e,r)=ELsolcurve(l,e,r)/smax((ll,ee),ELsolcurve(ll,ee,r));
 
 parameter solar_cap(r) regional solar capcitity installation in GW
 /
-COA      3
-EOA      2
-SOA      5
-WOA      1
+COA      1.5
+EOA      1.5
+SOA      1
+WOA      2
 /
 
 ;
 scalar random, mean, stddev, CDF_lo , CDF_hi , diff, CDF_alpha,CDF_beta,Z_cdf,X_cdf;
-parameter CDF_x(ss) cumulative distribution functions for each scenario s;
+parameter CDF_x(s) cumulative distribution functions for each scenario s;
 
          mean = 0.9;
          stddev =0.3;
@@ -69,7 +69,9 @@ loop(ss,
 
          X_cdf=CDF_lo+ord(ss)*diff/card(ss);
          CDF_x(s)= (cdfnorm(X_cdf,mean,stddev)-CDF_alpha)/Z_cdf;
-         prob(s,ss) = (prob(s,ss)+(CDF_x(ss) - CDF_x(ss-1)))/2;
+         if( card(ss)>1,
+                 prob(s,ss) = (prob(s,ss)+(CDF_x(ss) - CDF_x(ss-1)))/2;
+         );
          X_cdf=X_cdf-(diff/(2*card(ss)))$(card(ss)>1);
          EL_Demand(r,e,l,s,ss)= EL_Demand(r,e,l,s,ss)-solar_cap(r)*Elsolcurvenorm(l,e,r)*X_cdf;
          display x_cdf;

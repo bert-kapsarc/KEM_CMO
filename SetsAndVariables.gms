@@ -10,7 +10,8 @@ Sets i generators       /fringe, g1*g4/
      fall(seasons) /spring-fall/
 
      m(l) capacity market /l5,l6,l7/
-     s scenarios        /s1*s3/
+     s scenarios        /s1*s4/
+     ss(s)                  /s1*s2/
      r regions          /COA,EOA,SOA,WOA/
      n power_lines      /East,South,west/
                                          ;
@@ -20,7 +21,9 @@ Sets i generators       /fringe, g1*g4/
 
 Alias (h,hh), (i,j), (m,mm), (r,rr);
 
-alias (l,ll), (i,ii), (s,ss), (h,hh), (r,rr,rrr), (e,ee);
+alias (l,ll), (i,ii), (h,hh), (r,rr,rrr), (e,ee)
+*(s,ss)
+;
 
 variables
          inv(i,h,r)  investment by player i in technology h
@@ -34,8 +37,8 @@ variables
          delta(r,seasons,l)   shadow prices for the capacity market in USD per  MW per hour
          price(r,seasons,l,s,ss) energy price in USD per MWh
          price_trans(n,seasons,l,s,ss) tranmission price in USD per MWh
-         price_trans_pos(n,r,seasons,l,s,ss) tranmission price in USD per MWh
-         price_trans_neg(n,r,seasons,l,s,ss) tranmission price in USD per MWh
+         price_trans_pos(n,seasons,l,s,ss) tranmission price in USD per MWh
+         price_trans_neg(n,seasons,l,s,ss) tranmission price in USD per MWh
          alpha(i,h,r) shadow prices for the non-negative investment constraints in USD per  MW
          eta_high(i,h,r) shadow prices for the capacity retirment constraint in USD per  MW
          eta_low(i,h,r)

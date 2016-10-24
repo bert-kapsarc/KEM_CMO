@@ -8,7 +8,7 @@ COA      1.217
 /
 ;
 
-$INCLUDE solar.gms
+*$INCLUDE solar.gms
 
 parameter elasticity(r) demand elasticity for eletricity ???;
 

@@ -1,58 +1,44 @@
 B 2 C o m p i l a t i o n
-B 934 Include File Summary
-B 954 E x e c u t i o n
-I 957 X_cdf
-I 959 X_cdf
-I 961 X_cdf
-I 962 prob
-I 971 EL_demand
-I 1322 CDF_x
-I 1328 X_cdf
-I 1330 X_cdf
-I 1332 X_cdf
-I 1333 prob
-I 1342 EL_demand
-I 1693 CDF_x
-I 1698 ELsolcurvenorm
-I 1719 solar_cap
-B 1726 Equation Listing    SOLVE CMO Using MCP From line 728
-D 1727 Eq1
-D 1754 Eq2
-D 1765 Eq9_1
-D 1782 Eq9_2
-D 2426 Eq9_3
-D 3073 Eq9_4
-D 3090 Eq9_5
-D 3101 Eq9_6
-D 3112 Eq9_7
-D 3123 Eq9_8
-D 3146 Eq10_1
-D 3163 Eq11_1
-D 3174 Eq11_2
-D 3185 Eq11_3
-D 3214 Eq_q
-D 3225 Eq_trade
-D 3236 Eq_inv
-D 3247 Eq_ret
-D 3258 Eq_arb
-B 3271 Column Listing      SOLVE CMO Using MCP From line 728
-E 3272 inv
-E 3292 ret
-E 3314 Cap_avail
-E 3978 Q
-E 4000 sales
-E 4019 lambda_high
-E 4041 lambda_low
-E 4057 delta
-E 4193 price
-E 4341 price_trans
-E 4393 alpha
-E 4409 eta_high
-E 4425 eta_low
-E 4441 arbitrage
-E 4466 trade
-E 4491 trans
-E 4510 tau
-E 4526 zeta
-E 4542 shadows_arbitrage
-B 4560 Model Statistics    SOLVE CMO Using MCP From line 728
+B 902 Include File Summary
+B 921 Equation Listing    SOLVE CMO Using MCP From line 696
+D 922 Eq1
+D 949 Eq2
+D 960 Eq9_1
+D 977 Eq9_2
+D 1534 Eq9_3
+D 2093 Eq9_4
+D 2098 Eq9_5
+D 2109 Eq9_6
+D 2120 Eq9_7
+D 2131 Eq9_8
+D 2148 Eq10_1
+D 2165 Eq11_1
+D 2176 Eq11_2
+D 2187 Eq11_3
+D 2192 Eq11_4
+D 2203 Eq11_5
+D 2214 Eq_q
+D 2225 Eq_trade
+D 2230 Eq_inv
+D 2241 Eq_ret
+D 2252 Eq_arb
+B 2265 Column Listing      SOLVE CMO Using MCP From line 696
+E 2266 inv
+E 2286 ret
+E 2308 Cap_avail
+E 2900 Q
+E 2922 sales
+E 2941 lambda_high
+E 2963 lambda_low
+E 2979 delta
+E 3115 price
+E 3203 price_trans
+E 3225 price_trans_pos
+E 3244 alpha
+E 3260 eta_high
+E 3276 eta_low
+E 3292 arbitrage
+E 3317 trans
+E 3336 tau
+E 3352 shadows_arbitrage
+B 3370 Model Statistics    SOLVE CMO Using MCP From line 696

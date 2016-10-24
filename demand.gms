@@ -3,10 +3,11 @@ $oninline
 
 set hrs            hours in the load curve data set /1*8760/
 parameter HLC(r,hrs) hourly load curves for represenative day in each month in MW
-parameter ELlcgw(r,seasons,l) power demand load blocks in MW
+parameter ELlcgw(r,seasons,l) average power demand load blocks in MW
+          ELlcgw_stddev(r,seasons,l) variance power demand load blocks in MW
           EL_demand(r,e,l,s,ss) Stochastic Electricity Demand for scenarios s in GW
           d(e,l) duration of segemt l in region r (deterministic)
-          prob(s,ss) probability off each scenario
+          prob(r,e,l,s,ss) probability off each scenario
 ;
 $gdxin db\load.gdx
 $load HLC
@@ -93,6 +94,23 @@ sum(hrs$(
          ), HLC(r,hrs))/(duration(e,l))
 ;
 
+ELlcgw_stddev(r,e,l) =
+sum(hrs$(
+                (        (day(hrs)>=start_day(e) and
+                          day(hrs)<=end_day(e) and (spring(e) or summer(e)) ) or
+
+                         (day(hrs)>=start_day_fall and
+                          day(hrs)<=end_day_fall and fall(e)) or
+
+                         ((day(hrs)>=start_day(e) or day(hrs)<=end_day(e)) and
+                                 winter(e))
+
+                )and
+                hour(hrs)>=block_start(e,l) and
+                hour(hrs)<block_end(e,l)
+         ), (HLC(r,hrs)-ELlcgw(r,e,l))*(HLC(r,hrs)-ELlcgw(r,e,l)) )/(duration(e,l))
+;
+ELlcgw_stddev(r,e,l) = sqrt(ELlcgw_stddev(r,e,l));
 
 if(card(e)=1 ,
 duration(e,l)$(card(e)=1)=duration(e,l)*365/number_of_days(e);
@@ -104,11 +122,11 @@ scalar random, mean, stddev;
 mean = 1;
 stddev =0.2;
 
-scalar CDF_lo /0.5/, CDF_hi /1.5/, diff, CDF_alpha,CDF_beta,Z_cdf,X_cdf;
-parameter CDF_x(s) cumulative distribution functions for each scenario s;
+parameter CDF_lo(r,e,l), CDF_hi(r,e,l), diff(r,e,l), CDF_alpha(r,e,l), CDF_beta(r,e,l), Z_cdf(r,e,l), X_cdf(r,e,l,s);
+parameter CDF_x(r,e,l,s) cumulative distribution functions for each scenario s;
 
 
-          diff = CDF_hi -CDF_lo;
+
 
 *        apply growth equally to all demand segments
 *        Rescale demand to GW
@@ -119,23 +137,27 @@ parameter CDF_x(s) cumulative distribution functions for each scenario s;
          d(e,l) = duration(e,l)*1e-3;
          ;
 
-         CDF_alpha = cdfnorm(CDF_lo,mean,stddev);
-         CDF_beta =  cdfnorm(CDF_hi,mean,stddev);
-         Z_cdf=CDF_beta-CDF_alpha;
-         prob(s,ss)=0;
-         CDF_x(s)=0;
+         CDF_lo(r,e,l)=ELlcgw(r,e,l)-ELlcgw_stddev(r,e,l)*2;
+         CDF_hi(r,e,l)=ELlcgw(r,e,l)+ELlcgw_stddev(r,e,l)*2;
+
+         diff(r,e,l) = CDF_hi(r,e,l) -CDF_lo(r,e,l);
+
+         CDF_alpha(r,e,l) = cdfnorm(CDF_lo(r,e,l),ELlcgw(r,e,l),ELlcgw_stddev(r,e,l));
+         CDF_beta(r,e,l) =  cdfnorm(CDF_hi(r,e,l),ELlcgw(r,e,l),ELlcgw_stddev(r,e,l));
+         Z_cdf(r,e,l)=CDF_beta(r,e,l)-CDF_alpha(r,e,l);
+         prob(r,e,l,s,ss)=0;
+         CDF_x(r,e,l,s)=0;
 
 loop(s$(ord(s)<=card(s)),
 
-         X_cdf=CDF_lo+ord(s)*diff/card(s);
-         CDF_x(s)= (cdfnorm(X_cdf,mean,stddev)-CDF_alpha)/Z_cdf;
-         prob(s,ss) = CDF_x(s) - CDF_x(s-1);
-         X_cdf=X_cdf-(diff/(2*card(s)))$(card(s)>1);
-         EL_Demand(r,e,l,s,ss)= EL_Demand(r,e,l,s,ss)*X_cdf;
-         display x_cdf;
+         X_cdf(r,e,l,s)=CDF_lo(r,e,l)+ord(s)*diff(r,e,l)/card(s);
+         CDF_x(r,e,l,s)= (cdfnorm(X_cdf(r,e,l,s),ELlcgw(r,e,l),ELlcgw_stddev(r,e,l))-CDF_alpha(r,e,l))/Z_cdf(r,e,l);
+         prob(r,e,l,s,ss) = CDF_x(r,e,l,s) - CDF_x(r,e,l,s-1);
+         X_cdf(r,e,l,s)=X_cdf(r,e,l,s)-(diff(r,e,l)/(2*card(s)))$(card(s)>1);
+         EL_Demand(r,e,l,s,ss)= X_cdf(r,e,l,s);
 );
 
-display prob,EL_Demand,CDF_x
+*abort prob,EL_Demand,CDF_x,x_cdf
 
 
 

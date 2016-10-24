@@ -40,6 +40,8 @@ Equations
          Eq11_1(n,e,l,s,ss)
          Eq11_2(n,e,l,s,ss)
          Eq11_3(n,e,l,s,ss)
+         Eq11_4(n,e,l,s,ss)
+         Eq11_5(n,e,l,s,ss)
 
          Eq_q(i,h,r,e,l,s,ss)
          Eq_inv(i,h,r)
@@ -61,12 +63,12 @@ Eq9_1(i,h,r,e,l,s,ss) ..  price(r,e,l,s,ss)-mc(h,r,s,ss)-b(r,e,l,s,ss)*(1+v(i))*
 *
 Eq9_2(i,h,r)..       sum((e,m),d(e,m)*delta(r,e,m)*beta(h,r,m))
                     -sum((e,m),d(e,m)*xi(r,e,m)*(beta(h,r,m)+z(i))*sum(hh,beta(hh,r,m)*Cap_avail(i,hh,r)))
-                     +sum((e,l,s,ss),prob(s,ss)*d(e,l)*lambda_high(i,h,r,e,l,s,ss)) +alpha(i,h,r) =e=ici(h)+om(h);
+                     +sum((e,l,s,ss),prob(r,e,l,s,ss)*d(e,l)*lambda_high(i,h,r,e,l,s,ss)) +alpha(i,h,r) =e=ici(h)+om(h);
 *
 
 Eq9_3(i,h,r)..      -sum((e,m),d(e,m)*delta(r,e,m)*beta(h,r,m))
                     +sum((e,m),d(e,m)*xi(r,e,m)*(beta(h,r,m)+z(i))*sum(hh,beta(hh,r,m)*Cap_avail(i,hh,r)))
-                    -sum((e,l,s,ss),prob(s,ss)*d(e,l)*lambda_high(i,h,r,e,l,s,ss))-eta_high(i,h,r)
+                    -sum((e,l,s,ss),prob(r,e,l,s,ss)*d(e,l)*lambda_high(i,h,r,e,l,s,ss))-eta_high(i,h,r)
                      +eta_low(i,h,r) =e= icr(h)-om(h);
 *
 
@@ -93,16 +95,14 @@ Eq10_1(n,r,rr,e,l,s,ss)$r_trade(n,r,rr)..
          +shadows_arbitrage(n,r,rr,e,l,s,ss)
                                  =e=0        ;
 
-Eq11_1(n,e,l,s,ss).. price_trans(n,e,l,s,ss)
+Eq11_1(n,e,l,s,ss).. price_trans_pos(n,e,l,s,ss)+price_trans_neg(n,e,l,s,ss)$(trading=1)
                          -phi(n)-tau(n,e,l,s,ss)/d(e,l)
                          =e= 0;
 
-Eq11_2(n,e,l,s,ss)..   kind_trans0(n)-trans(n,e,l,s,ss)=g=0;
-
-Eq11_3(n,e,l,s,ss)..
+Eq11_2(n,e,l,s,ss)..
 
          trans(n,e,l,s,ss)=g=
-                    abs(
+         (
                  sum((i,r,rr)$(trans_node(n,r) and r_trade(n,r,rr)),trade(i,n,r,rr,e,l,s,ss))
                  -sum((i,r,rr)$(trans_node(n,r) and r_trade(n,rr,r)),trade(i,n,rr,r,e,l,s,ss))
                  +sum((r,rr)$(trans_node(n,r) and r_trade(n,r,rr)),arbitrage(n,r,rr,e,l,s,ss))
@@ -110,6 +110,26 @@ Eq11_3(n,e,l,s,ss)..
            )$(trading=1)
            +sum((r,rr)$(r_trade(n,r,rr)),arbitrage(n,r,rr,e,l,s,ss))$(trading<>1)
          ;
+
+
+Eq11_3(n,e,l,s,ss)$(trading=1)..
+
+         trans(n,e,l,s,ss)=g=
+         -(
+                 sum((i,r,rr)$(trans_node(n,r) and r_trade(n,r,rr)),trade(i,n,r,rr,e,l,s,ss))
+                 -sum((i,r,rr)$(trans_node(n,r) and r_trade(n,rr,r)),trade(i,n,rr,r,e,l,s,ss))
+                 +sum((r,rr)$(trans_node(n,r) and r_trade(n,r,rr)),arbitrage(n,r,rr,e,l,s,ss))
+                 -sum((r,rr)$(trans_node(n,r) and r_trade(n,rr,r)),arbitrage(n,rr,r,e,l,s,ss))
+           )
+         ;
+
+Eq11_4(n,e,l,s,ss)..   kind_trans0(n)-trans(n,e,l,s,ss)=g=0;
+
+
+Eq11_5(n,e,l,s,ss)..   price_trans(n,e,l,s,ss)=e=
+                         price_trans_pos(n,e,l,s,ss)+price_trans_neg(n,e,l,s,ss)$(trading=1);
+
+
 
 Eq_q(i,h,r,e,l,s,ss)        .. Q(i,h,r,e,l,s,ss) =g= 0;
 Eq_inv(i,h,r)            .. inv(i,h,r) =g= 0;
@@ -135,8 +155,10 @@ model CMO   /
 
             Eq10_1,
             Eq11_1,
-            Eq11_2.tau,
-            Eq11_3.price_trans
+            Eq11_2.price_trans_pos
+            Eq11_3.price_trans_neg,
+            Eq11_4.tau,
+            EQ11_5,
 
             Eq_q.lambda_low,
             Eq_trade.zeta,
