@@ -10,3 +10,5 @@ db/*.xlsx
 **/*.par
 **/*.twb
 *.put
+runs/*
+gdx/*

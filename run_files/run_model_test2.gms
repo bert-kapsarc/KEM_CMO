@@ -10,7 +10,7 @@ $FuncLibIn stolib stodclib
 function cdfnorm     /stolib.cdfnormal/;
 
 scalar trading set to 1 to allow regional trade by firms /0/;
-scalar no_fringe set to 1 to exclude fringe from simulation /0/;
+scalar no_fringe set to 1 to allow regional trade by firms /0/;
 
 $INCLUDE SetsAndVariables.gms
 
@@ -22,6 +22,8 @@ $include demand_calib.gms
 
      m(r,e,l) = no;
 
+     v('fringe')=-1;
+
 
 *$ontext
 $gdxin energy.gdx
@@ -29,12 +31,10 @@ $gdxin energy.gdx
 $LOAD price
          loop(l,
           m(r,e,l)$(     sum((s,ss),prob(r,e,l,s,ss)*price.l(r,e,l,s,ss))>
-                         2*smin(ll,sum((s,ss),prob(r,e,ll,s,ss)*price.l(r,e,ll,s,ss)))
+                         2*smin(ll,sum((s,ss),prob(r,e,l,s,ss)*price.l(r,e,ll,s,ss)))
                  )=yes
          );
 *$offtext
-
-price.l(r,e,l,s,ss)=0;
 
 *Option Savepoint=1;
 

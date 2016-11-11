@@ -53,29 +53,28 @@ WOA      2
 /
 
 ;
-scalar random, mean, stddev, CDF_lo , CDF_hi , diff, CDF_alpha,CDF_beta,Z_cdf,X_cdf;
-parameter CDF_x(s) cumulative distribution functions for each scenario s;
+scalar random, mean, stddev;
 
          mean = 0.9;
          stddev =0.3;
-         CDF_lo = 0;
-         CDF_hi = 1;
-         diff = CDF_hi -CDF_lo;
+         CDF_lo(r,e,l) = 0;
+         CDF_hi(r,e,l) = 1;
+         diff(r,e,l) = CDF_hi(r,e,l) -CDF_lo(r,e,l);
 
-CDF_alpha = cdfnorm(0,mean,stddev);
-CDF_beta =  cdfnorm(1,mean,stddev);
-Z_cdf=CDF_beta-CDF_alpha;
+CDF_alpha(r,e,l) = cdfnorm(0,mean,stddev);
+CDF_beta(r,e,l) =  cdfnorm(1,mean,stddev);
+Z_cdf(r,e,l)=CDF_beta(r,e,l)-CDF_alpha(r,e,l);
 loop(ss,
-
-         X_cdf=CDF_lo+ord(ss)*diff/card(ss);
-         CDF_x(s)= (cdfnorm(X_cdf,mean,stddev)-CDF_alpha)/Z_cdf;
+         X_cdf(r,e,l,ss)=CDF_lo(r,e,l)+ord(ss)*diff(r,e,l)/card(ss);
+         CDF_x(r,e,l,ss)= (cdfnorm(X_cdf(r,e,l,ss),mean,stddev)-CDF_alpha(r,e,l))/Z_cdf(r,e,l);
          if( card(ss)>1,
-                 prob(s,ss) = (prob(s,ss)+(CDF_x(ss) - CDF_x(ss-1)))/2;
+                 prob(r,e,l,s,ss) = (prob(r,e,l,s,ss)+(CDF_x(r,e,l,ss) - CDF_x(r,e,l,ss-1))/card(s))/(2);
          );
-         X_cdf=X_cdf-(diff/(2*card(ss)))$(card(ss)>1);
-         EL_Demand(r,e,l,s,ss)= EL_Demand(r,e,l,s,ss)-solar_cap(r)*Elsolcurvenorm(l,e,r)*X_cdf;
-         display x_cdf;
+         X_cdf(r,e,l,ss)=X_cdf(r,e,l,ss)-(diff(r,e,l)/(2*card(ss)))$(card(ss)>1);
+         EL_Demand(r,e,l,s,ss)= EL_Demand(r,e,l,s,ss)-solar_cap(r)*Elsolcurvenorm(l,e,r)*X_cdf(r,e,l,ss);
 );
 
-display prob,EL_Demand,CDF_x,Elsolcurvenorm,solar_cap ;
+display prob,EL_Demand,CDF_x,Elsolcurvenorm,solar_cap,x_cdf ;
+
+
 

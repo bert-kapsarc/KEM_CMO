@@ -8,15 +8,31 @@ COA      1.217
 /
 ;
 
-*$INCLUDE solar.gms
+EL_demand(r,e,l,s,ss)= EL_demand(r,e,l,s,ss)*EL_demgro(r);
+$INCLUDE solar.gms
+
+if(no_fringe=1,
+         i('fringe')=no ;
+         Q.l('fringe',h,r,e,l,s,ss)    =0;
+         Q.l('fringe','GT',r,seasons,'l5',s,ss)=kind0('fringe','GT',r)*0.5$(summer(seasons));
+         Q.l('fringe','GT',r,seasons,'l6',s,ss)=kind0('fringe','GT',r)*0.5$(summer(seasons));
+         Q.l('fringe','GT',r,seasons,'l7',s,ss)=kind0('fringe','GT',r)*0.5$(summer(seasons));
+
+         Q.l('fringe','ST',r,e,l,s,ss)=kind0('fringe','ST',r)*0.8;
+         Q.l('fringe','CCGT',r,e,l,s,ss)=kind0('fringe','CCGT',r)*0.8;
+
+         EL_Demand(r,e,l,s,ss) = (EL_Demand(r,e,l,s,ss) -sum(h,Q.l('fringe',h,r,e,l,s,ss)))$(EL_Demand(r,e,l,s,ss)-sum(h,Q.l('fringe',h,r,e,l,s,ss))>smin(ll,EL_Demand(r,e,ll,s,ss)))
+                                 +smin(ll,EL_Demand(r,e,ll,s,ss))$(EL_Demand(r,e,l,s,ss)-sum(h,Q.l('fringe',h,r,e,l,s,ss))<=smin(ll,EL_Demand(r,e,ll,s,ss)))
+                                 ;
+
+);
 
 parameter elasticity(r) demand elasticity for eletricity ???;
 
 parameter  LRMC(r,e,l,s,ss) long run marginal cost in each load segment USD per MWH;
 
-* long run maringal cost. rescale capacity payment to USD/MW
+* long run marginal cost. rescale capacity payment to USD/MW
 LRMC(r,e,l,s,ss) =
-
 smin(h,mc(h,r,s,ss)+(ic(h)+om(h))/sum((ll)$(EL_Demand(r,e,ll,s,ss)>=EL_Demand(r,e,l,s,ss)),d(e,ll)) )
 ;
 
@@ -34,12 +50,12 @@ elasticity(r) = 0.3;
 * price is set to the maximum fixed cost of all generators operating in the market
 * soread of the total number of demand hours
 
-theta(r,e,m) =  0
-                 +smax(h,(ic(h)+om(h)))/sum((ee,l),d(ee,l))
+         theta(r,e,l)$m(r,e,l) =  0
+                 +smax(h,(ic(h)+om(h)))/sum((ee,ll),d(ee,ll))
 *                 sum((s),prob(s,ss)*d(e,m))    ;
 *                 sum((s,ll)$(EL_Demand(r,e,ll,s,ss)>=EL_Demand(r,e,m,s,ss)),prob(s,ss)*d(e,ll));
 ;
-                 xi(r,e,m) =0;
+         xi(r,e,l)$m(r,e,l) =0;
 
 
 

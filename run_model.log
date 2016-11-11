@@ -1,0 +1,80 @@
+
+--- Job run_model.gms Start 11/11/16 15:55:28 24.1.3 r41464 WEX-WEI x86_64/MS Windows
+GAMS 24.1.3   Copyright (C) 1987-2013 GAMS Development. All rights reserved
+Licensee: Information Technology, 10 user license        G131120:0812CN-WIN
+          King Abdullah Petroleum Studies & Research Center         DC10216
+--- Starting compilation
+--- run_model.gms(7) 2 Mb
+--- .Macros.gms(36) 2 Mb
+--- run_model.gms(15) 2 Mb
+--- .SetsAndVariables.gms(71) 3 Mb
+--- run_model.gms(17) 3 Mb
+--- .Demand.gms(12) 4 Mb
+--- GDXin=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\db\load.gdx
+--- .Demand.gms(156) 5 Mb
+--- run_model.gms(18) 5 Mb
+--- .parameters.gms(280) 5 Mb
+--- run_model.gms(20) 5 Mb
+--- .equations.gms(177) 5 Mb
+--- run_model.gms(21) 5 Mb
+--- .demand_calib.gms(12) 5 Mb
+--- ..solar.gms(80) 5 Mb
+--- .demand_calib.gms(80) 5 Mb
+--- run_model.gms(27) 5 Mb
+--- GDXin=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\energy.gdx
+--- run_model.gms(50) 5 Mb
+--- .report.gms(112) 5 Mb
+--- run_model.gms(50) 5 Mb
+--- Starting execution: elapsed 0:00:00.039
+--- run_model.gms(923) 11 Mb
+--- GDXin=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\energy.gdx
+--- run_model.gms(923) 22 Mb
+--- Generating MCP model CMO
+--- run_model.gms(928) 51 Mb
+---   69,687 rows  69,687 columns  226,262 non-zeroes
+---   0 nl-code  0 nl-non-zeroes
+--- run_model.gms(928) 49 Mb
+--- Executing PATH: elapsed 0:00:01.738
+Reading dictionary...
+Reading row data...
+Evaluating functions...
+Checking model...
+Calculating Jacobian...
+
+PATH             24.1.3 r41464 Released Jul 26, 2013 WEI x86_64/MS Windows    
+
+69687 row/cols, 226262 non-zeros, 0.00% dense.
+
+Reading parameter(s) from "D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\path.opt"
+>>  major_iteration_limit 1500;
+>>  time_limit 1e6;
+>>  crash_searchtype arc;
+>>  convergence_tolerance 1e-5;
+>> 
+>> 
+Finished reading from "D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\path.opt"
+ > crash_searchtype arc
+Path 4.7.02 (Fri Jul 26 11:52:49 2013)
+Written by Todd Munson, Steven Dirkse, and Michael Ferris
+
+
+INITIAL POINT STATISTICS
+Maximum of X. . . . . . . . . .  3.7796e+004 var: (lambda_low(g2,Nuclear,EOA,win)
+Maximum of F. . . . . . . . . .  4.0479e+001 eqn: (Eq2(COA,summer,l5))
+Maximum of Grad F . . . . . . .  2.0770e+002 eqn: (Eq1(SOA,winter,l7,s1,s1))
+                                            var: (sales(fringe,SOA,winter,l7,s1)
+
+INITIAL JACOBIAN NORM STATISTICS
+Maximum Row Norm. . . . . . . .  1.4549e+003 eqn: (Eq1(SOA,winter,l7,s1,s1))
+Minimum Row Norm. . . . . . . .  1.0000e+000 eqn: (Eq2(COA,summer,l5))
+Maximum Column Norm . . . . . .  1.0395e+003 var: (sales(g1,SOA,winter,l7,s1,s1))
+Minimum Column Norm . . . . . .  1.0000e+000 var: (shadows_gttocc(fringe,GTtoCC,)
+
+Crash Log
+major  func  diff  size  residual    step       prox   (label)
+    0     0             1.8106e+002             0.0e+000 (Eq2(COA,summer,l5))
+    1    10   104 46729 1.8079e+002  1.9e-003    0.0e+000 (Eq2(COA,summer,l5))
+Sending CtrlBreakp signal
+Terminate batch job (Y/N)? 
+^CERROR: Solver "PATH" returned with nonzero exitcode -1073741510 
+Exit code = -1073741510

@@ -1,31 +1,40 @@
 Parameters
-           v(i)   CONJECTURAL VARIANTION for production by player /g1 0, g2 0, g3 0, g4 0, fringe -1/
-           z(i)   CONJECTURAL VARIANTION for capacity by player /g1 0, g2 0, g3 0, g4 0, fringe -1/
+           v(company)   CONJECTURAL VARIANTION for production by player /g1 0, g2 0, g3 0, g4 0, fringe -1/
+           z(company)   CONJECTURAL VARIANTION for capacity by player /g1 0, g2 0, g3 0, g4 0, fringe -1/
+           x(company,r,rr)   CONJECTURAL VARIANTION for electricity by player between region r and rr
 
-
-           capital_cost(h) Capital cost in USD per GW /CCGT 1740, GT 1485, ST 2120, Nuclear 4896/
+           capital_cost(h) Capital cost in USD per GW /CCGT 1740, GT 1485, ST 2120, Nuclear 4896, GTtoCC 600/
            ic(h)  investment cost USD per GW
-           om(h) Fixed O&M cost USD per GW  /GT 11.2, CCGT 12.4, ST 11.2, Nuclear 68.8/
+           om(h) Fixed O&M cost USD per GW  /GT 11.2, GTtoCC 12.4, CCGT 12.4, ST 11.2, Nuclear 68.8/
            K0(h,r) existent capacity of technology h in region r before liberalization
-           kind0(i,h,r) initial capacity by technology and firm in each region in GW
+           kind0(company,h,r) initial capacity by technology and firm in each region in GW
            K(r,l) minimum installed capacity available to sell in region r and market segment l
 *           EL_demand(r,e,l,s,ss) Electricity Demand GW
 *           d(e,l) duration of segemt l in region r (deterministic)
 *           prob(s,ss) probability off each scenario
 
-*Design operating life for steam, GT, and CC from KFUPM generation report.
-           lifetime(h) plant lifetime /CCGT 30, GT 25, ST 35, Nuclear 60/
+*Design operating life for ST, GT, and CCGT from KFUPM generation report.
+           lifetime(h) plant lifetime /CCGT 30, GT 25, ST 35, Nuclear 60, GTtoCC 20/
            discrate discount rate used for power plant investments /0.06/
 
 
+;
+           x(i,r,rr)  = v(i) ;
+
+           Table capadd(hh,h) a factor for adding capacity (only applicable to dispatchable tech)
+                  GT      CCGT
+         GTtoCC   -1      1.5
+         ;
+
+             capadd(h,h)$(not gttocc(h)) = 1 ;
+
 
 ;
-
-         parameter discoef;
-         set t dummy time set /2020/
-         set index /1*1000/
-             tt(t) /2020/
-         ;
+sets     time /2015*2040/
+         t dummy time set /2020/
+         tt(t) /2020/
+         index /1*1000/
+parameter discoef         ;
 
 *        Discounting plant capital costs over lifetime
          discoef(h,t) = discounting(lifetime(h),discrate,index,t,tt);
@@ -108,7 +117,7 @@ ST    0     0     0     0
 $offtext
 
 
-table kind0(i,h,r) firms existing generation capacity in GW
+table kind0(company,h,r) firms existing generation capacity in GW
 
                  COA             EOA             SOA             WOA
 
@@ -167,6 +176,105 @@ Parameter capfactor(h) capacity factors for dispatchable plants
 
 
 
-parameter  x(i,r,rr)   CONJECTURAL VARIANTION for electricity by player between region r and rr
-;
-x(i,r,rr)=v(i);
+
+
+
+parameter  ELretirement(company,h,time,r), ELaddition(company,h,time,r);
+
+*updated capacity additions/retirements as of June 13 2016
+
+*Known capacity additions:
+*Capacity of units already under construction (sources: compiled news sources, see printouts):
+*Rabigh 2 IPP (2017)
+         ELaddition('fringe','CCGT','2017','WOA')=2.06;
+*Jeddah South (2017)
+         ELaddition('fringe','ST','2017','WOA')=2.65;
+*Shuqaiq (2017)
+*Stscrb
+         ELaddition('fringe','ST','2017','SOA')=2.64;
+*Qurayyah IPPs (2017)
+         ELaddition('fringe','CCGT','2017','EOA')=3.927;
+
+
+*Source: KFUPM Generation Report (2010)
+         ELretirement('g4','GT','2016','WOA')=0.207;
+         ELretirement('g4','GT','2017','WOA')=0.217;
+         ELretirement('g4','GT','2018','WOA')=0.214;
+         ELretirement('g4','GT','2019','WOA')=0.271;
+         ELretirement('g4','GT','2020','WOA')=0.240;
+         ELretirement('g4','GT','2021','WOA')=0.229;
+         ELretirement('g4','GT','2022','WOA')=0.321;
+         ELretirement('g4','GT','2023','WOA')=0.244;
+         ELretirement('g4','GT','2024','WOA')=0.236;
+         ELretirement('g4','GT','2025','WOA')=0.246;
+         ELretirement('g4','GT','2026','WOA')=0.212;
+         ELretirement('g4','GT','2027','WOA')=0.208;
+         ELretirement('g4','ST','2027','WOA')=0.260;
+         ELretirement('g4','ST','2028','WOA')=0.260;
+         ELretirement('g4','ST','2029','WOA')=0.260;
+         ELretirement('g4','GT','2030','WOA')=0.240;
+         ELretirement('g4','GT','2031','WOA')=0.240;
+         ELretirement('g4','ST','2032','WOA')=0.260;
+
+         ELretirement('g3','GT','2015','SOA')=0.015;
+         ELretirement('g3','GT','2016','SOA')=0.089;
+         ELretirement('g3','GT','2017','SOA')=0.085;
+         ELretirement('g3','GT','2018','SOA')=0.091;
+         ELretirement('g3','GT','2019','SOA')=0.089;
+         ELretirement('g3','GT','2020','SOA')=0.094;
+         ELretirement('g3','GT','2021','SOA')=0.106;
+         ELretirement('g3','GT','2022','SOA')=0.094;
+         ELretirement('g3','GT','2023','SOA')=0.100;
+         ELretirement('g3','GT','2024','SOA')=0.109;
+         ELretirement('g3','GT','2025','SOA')=0.070;
+         ELretirement('g3','GT','2026','SOA')=0.106;
+         ELretirement('g3','GT','2027','SOA')=0.132;
+         ELretirement('g3','GT','2028','SOA')=0.112;
+         ELretirement('g3','GT','2029','SOA')=0.132;
+         ELretirement('g3','GT','2030','SOA')=0.132;
+         ELretirement('g3','GT','2031','SOA')=0.121;
+         ELretirement('g3','GT','2032','SOA')=0.120;
+
+         ELretirement('g1','GT','2015','COA')=0.126;
+         ELretirement('g1','GT','2016','COA')=0.210;
+         ELretirement('g1','GT','2017','COA')=0.228;
+         ELretirement('g1','GT','2018','COA')=0.240;
+         ELretirement('g1','GT','2019','COA')=0.254;
+         ELretirement('g1','GT','2020','COA')=0.266;
+         ELretirement('g1','GT','2021','COA')=0.250;
+         ELretirement('g1','GT','2022','COA')=0.264;
+         ELretirement('g1','GT','2023','COA')=0.270;
+         ELretirement('g1','GT','2024','COA')=0.251;
+         ELretirement('g1','GT','2025','COA')=0.270;
+         ELretirement('g1','GT','2026','COA')=0.269;
+         ELretirement('g1','GT','2027','COA')=0.291;
+         ELretirement('g1','GT','2028','COA')=0.285;
+         ELretirement('g1','GT','2029','COA')=0.341;
+         ELretirement('g1','GT','2030','COA')=0.355;
+         ELretirement('g1','GT','2031','COA')=0.343;
+         ELretirement('g1','GT','2032','COA')=0.361;
+
+         ELretirement('g2','GT','2015','EOA')=0.100;
+         ELretirement('g2','GT','2016','EOA')=0.287;
+         ELretirement('g2','GT','2017','EOA')=0.232;
+         ELretirement('g2','GT','2018','EOA')=0.232;
+         ELretirement('g2','GT','2019','EOA')=0.232;
+         ELretirement('g2','GT','2020','EOA')=0.255;
+         ELretirement('g2','GT','2021','EOA')=0.236;
+         ELretirement('g2','GT','2022','EOA')=0.239;
+         ELretirement('g2','GT','2023','EOA')=0.240;
+         ELretirement('g2','GT','2024','EOA')=0.098;
+         ELretirement('g2','ST','2026','EOA')=0.430;
+         ELretirement('g2','ST','2027','EOA')=0.430;
+         ELretirement('g2','ST','2028','EOA')=0.430;
+         ELretirement('g2','ST','2029','EOA')=0.430;
+         ELretirement('g2','ST','2030','EOA')=0.625;
+         ELretirement('g2','ST','2031','EOA')=0.625;
+         ELretirement('g2','ST','2032','EOA')=0.625;
+
+         kind0(company,h,r) =kind0(company,h,r)+ sum(time$(ord(time)<=6),ELaddition(company,h,time,r))
+                         - sum(time$(ord(time)<=6),ELretirement(company,h,time,r));
+
+*                         abort kind0;
+
+
