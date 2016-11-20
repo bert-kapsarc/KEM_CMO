@@ -5,6 +5,7 @@ Sets
      tech       /CCGT, GT, GTtoCC, ST, Nuclear, all/
      h(tech) technology       /CCGT, GT, GTtoCC, ST, Nuclear/
      gttocc(h) /GTtoCC/
+     gt(h) /GT/
      l market segment   /l1*l8/
      seasons  /winter,summer,spring-fall/
 *     e(seasons) seasons for running the model /summer/
@@ -17,8 +18,8 @@ Sets
 
      m(r,e,l) capacity markets
      scen /s1*s10/
-     s(scen)         /s1*s5/
-     ss(scen)                  /s1*s2/
+     s(scen)         /s1*s1/
+     ss(scen)                  /s1*s1/
 
      n power_lines      /East,South,west/
 
@@ -61,7 +62,7 @@ variables
          shadows_arbitrage(n,r,rr,seasons,l,s,ss) shadow prices for no-negative incoming arbitrage constriant in USD per MW
          shadows_trans(n,seasons,l,s,ss) shadow prices for the positive transmission constriant in USD per MW
 
-         shadows_gttocc(company,h,r) shadows on upper bound of GT conversion USD per MW
+         shadows_gttocc(company,r) shadows on upper bound of GT conversion USD per MW
          shadows_fringe(company,r) shadows on upper bound on fring investments in USD per MW
           ;
 

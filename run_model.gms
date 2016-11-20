@@ -9,7 +9,7 @@ $INCLUDE Macros.gms
 $FuncLibIn stolib stodclib
 function cdfnorm     /stolib.cdfnormal/;
 
-scalar trading set to 1 to allow regional trade by firms /0/;
+scalar trading set to 1 to allow regional trade by firms /1/;
 scalar no_fringe set to 1 to exclude fringe from simulation /0/;
 
 $INCLUDE SetsAndVariables.gms
@@ -20,27 +20,27 @@ $include parameters.gms
 $INCLUDE equations.gms
 $include demand_calib.gms
 
-     m(r,e,l) = no;
+*     m(r,e,l) = no;
 
 
-*$ontext
-$gdxin energy.gdx
+$ontext
+*$gdxin energy.gdx
 
-$LOAD price
+*$LOAD price
          loop(l,
           m(r,e,l)$(     sum((s,ss),prob(r,e,l,s,ss)*price.l(r,e,l,s,ss))>
                          2*smin(ll,sum((s,ss),prob(r,e,ll,s,ss)*price.l(r,e,ll,s,ss)))
                  )=yes
          );
-*$offtext
+$offtext
 
-price.l(r,e,l,s,ss)=0;
+*price.l(r,e,l,s,ss)=0;
 
 *Option Savepoint=1;
 
 CMO.optfile = 1 ;
 
-Execute_Loadpoint 'energy.gdx';
+Execute_Loadpoint 'test.gdx';
 
 *trade.l(i,n,r,rr,e,l,s,ss)$(not r_trans(n,r,rr))=0;
 *arbitrage.l(n,r,rr,e,l,s,ss)$(not r_trans(n,r,rr))=0;
