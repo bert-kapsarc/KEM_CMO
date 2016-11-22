@@ -1,38 +1,36 @@
 
---- Job run_model.gms Start 11/20/16 13:17:15 24.1.3 r41464 WEX-WEI x86_64/MS Windows
+--- Job run_model.gms Start 11/22/16 15:41:34 24.1.3 r41464 WEX-WEI x86_64/MS Windows
 GAMS 24.1.3   Copyright (C) 1987-2013 GAMS Development. All rights reserved
 Licensee: Information Technology, 10 user license        G131120:0812CN-WIN
           King Abdullah Petroleum Studies & Research Center         DC10216
 --- Starting compilation
 --- run_model.gms(7) 2 Mb
 --- .Macros.gms(36) 2 Mb
---- run_model.gms(15) 2 Mb
+--- run_model.gms(14) 2 Mb
 --- .SetsAndVariables.gms(72) 3 Mb
---- run_model.gms(17) 3 Mb
+--- run_model.gms(16) 3 Mb
 --- .Demand.gms(12) 4 Mb
 --- GDXin=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\db\load.gdx
 --- .Demand.gms(156) 5 Mb
---- run_model.gms(18) 5 Mb
+--- run_model.gms(17) 5 Mb
 --- .parameters.gms(280) 5 Mb
+--- run_model.gms(19) 5 Mb
+--- .equations.gms(185) 5 Mb
 --- run_model.gms(20) 5 Mb
---- .equations.gms(182) 5 Mb
---- run_model.gms(21) 5 Mb
 --- .demand_calib.gms(12) 5 Mb
 --- ..solar.gms(80) 5 Mb
 --- .demand_calib.gms(80) 5 Mb
 --- run_model.gms(50) 5 Mb
 --- .report.gms(112) 5 Mb
 --- run_model.gms(50) 5 Mb
---- Starting execution: elapsed 0:00:00.028
---- run_model.gms(929) 6 Mb
---- GDXin=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\test.gdx
---- run_model.gms(929) 8 Mb
+--- Starting execution: elapsed 0:00:00.027
+--- run_model.gms(930) 7 Mb
 --- Generating MCP model CMO
---- run_model.gms(934) 14 Mb
----   9,028 rows  9,028 columns  32,144 non-zeroes
----   1,152 nl-code  864 nl-non-zeroes
---- run_model.gms(934) 12 Mb
---- Executing PATH: elapsed 0:00:00.919
+--- run_model.gms(937) 12 Mb
+---   7,552 rows  7,552 columns  23,576 non-zeroes
+---   0 nl-code  0 nl-non-zeroes
+--- run_model.gms(937) 10 Mb
+--- Executing PATH: elapsed 0:00:00.894
 Reading dictionary...
 Reading row data...
 Evaluating functions...
@@ -41,160 +39,347 @@ Calculating Jacobian...
 
 PATH             24.1.3 r41464 Released Jul 26, 2013 WEI x86_64/MS Windows    
 
-9028 row/cols, 32144 non-zeros, 0.04% dense.
+7552 row/cols, 23576 non-zeros, 0.04% dense.
 
-*** Error Cannot open parameter file "D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\path.opt"
-*** Error Error code = 2; No such file or directory
+Reading parameter(s) from "D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\path.opt"
+>>  major_iteration_limit 1500;
+>>  time_limit 1e5;
+>>  #crash_searchtype arc;
+>>  convergence_tolerance 1e-5;
+>>  lemke rank deficiency iterations 20;
+*** Error line 5: Unknown option "lemke"
+>> 
+>> 
+Finished reading from "D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\path.opt"
 Path 4.7.02 (Fri Jul 26 11:52:49 2013)
 Written by Todd Munson, Steven Dirkse, and Michael Ferris
 
 
 INITIAL POINT STATISTICS
-Maximum of X. . . . . . . . . .  1.5828e+002 var: (Q(fringe,CCGT,EOA,spring-fall)
-Maximum of F. . . . . . . . . .  1.1140e+003 eqn: (Eq1(WOA,summer,l7,s1,s1))
-Maximum of Grad F . . . . . . .  1.5705e+002 eqn: (Eq1(SOA,winter,l7,s1,s1))
+Maximum of X. . . . . . . . . .  0.0000e+000 var: (inv(fringe,CCGT,COA))
+Maximum of F. . . . . . . . . .  2.3815e+003 eqn: (Eq1(COA,summer,l6,s1,s1))
+Maximum of Grad F . . . . . . .  3.9262e+002 eqn: (Eq1(SOA,winter,l7,s1,s1))
                                             var: (sales(fringe,SOA,winter,l7,s1)
 
 INITIAL JACOBIAN NORM STATISTICS
-Maximum Row Norm. . . . . . . .  1.1003e+003 eqn: (Eq1(SOA,winter,l7,s1,s1))
-Minimum Row Norm. . . . . . . .  1.0000e+000 eqn: (Eq2(COA,winter,l5))
-Maximum Column Norm . . . . . .  1.1003e+003 var: (sales(g1,SOA,winter,l7,s1,s1))
+Maximum Row Norm. . . . . . . .  2.7493e+003 eqn: (Eq1(SOA,winter,l7,s1,s1))
+Minimum Row Norm. . . . . . . .  1.0000e+000 eqn: (Eq9_10(fringe,CCGT,COA))
+Maximum Column Norm . . . . . .  1.9641e+003 var: (sales(g1,SOA,winter,l7,s1,s1))
 Minimum Column Norm . . . . . .  1.0000e+000 var: (kind(fringe,GTtoCC,COA))
 
 Crash Log
 major  func  diff  size  residual    step       prox   (label)
-    0     0             4.3316e+003             0.0e+000 (Eq1(WOA,summer,l7,s1,s1)
-    1     4   208  6289 4.2714e+003  4.1e-001    1.0e+001 (Eq1(EOA,summer,l7,s1,s1)
+    0     0             9.4248e+003             0.0e+000 (Eq1(COA,summer,l6,s1,s1)
 pn_search terminated: no progress.
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-    0     0    17     2 4.2714e+003           I 9.0e+000 1.5e+003 (Eq1(EOA,summer,)
+    0     0    13     1 9.4248e+003           I 1.0e+001 2.4e+003 (Eq1(COA,summer,)
+    1    23    14     2 1.4750e+005  1.0e+000 RL 4.0e+000 3.8e+004 (Eq1(WOA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500  2.2005e-006  5815  3212     0     0     9 w[ 6211] z[ 7238]
- 1000  6.4763e-006  5317  3710     0     0    19 w[ 7417] z[ 6241]
- 1500  2.2499e-003  5013  4014     0     0    29 z[ 8087] z[ 7710]
- 2000  3.1324e-002  5060  3967     0     0    39 w[ 7539] w[ 8227]
- 2500  2.9729e-001  5323  3704     0     0    49 z[ 8444] z[ 7860]
+  500  6.1307e-013  3264  4287     0     0     9 w[ 7313] w[ 7229]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-    1  2878    24     3 1.4053e+004  1.3e-001 SB 3.6e+000 5.9e+003 (Eq1(SOA,summer,)
+    2   865    15     3 1.4750e+005  1.0e+000 CD 1.6e+000 3.8e+004 (Eq1(WOA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500  1.5000e-009  6998  2029     0     0     9 w[ 7737] z[ 7713]
+  500  1.3908e-012  3603  3948     0     0     9 z[ 6665] w[ 6137]
+ 1000  1.7157e-010  3938  3613     0     0    19 z[ 2548] z[ 6793]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-    2   630    25     4 1.4053e+004  1.0e+000 CO 1.4e+000 5.9e+003 (Eq1(SOA,summer,)
-    3   183    26     5 1.4053e+004  1.0e+000 CO 5.8e-001 5.9e+003 (Eq1(SOA,summer,)
+    3  1246    16     4 1.4750e+005  1.0e+000 CD 6.4e-001 3.8e+004 (Eq1(WOA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500  1.4339e-005  6458  2569     0     0     9 w[ 6830] z[ 7177]
- 1000  3.2098e-005  5958  3069     0     0    19 w[ 6374] z[ 7118]
- 1500  3.2096e-001  5462  3565     0     0    29 w[ 7815] z[ 6188]
+  500  3.8505e-012  4347  3204     0     0     9 z[ 2773] w[ 7185]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-    4  1762    27     6 2.2097e+004  1.0e+000 SD 1.0e+001 9.7e+003 (Eq1(SOA,winter,)
+    4   740    17     5 1.4750e+005  1.0e+000 CD 2.6e-001 3.8e+004 (Eq1(WOA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500  4.7575e-001  5618  3409     0     0     9 z[ 3685] w[ 4782]
+  500  4.3033e-001  5099  2452     0     0     9 z[ 2559] w[ 4012]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-    5   754    31     7 1.8125e+004  5.1e-001 SW 5.8e-001 7.7e+003 (Eq1(SOA,winter,)
+    5   562    18     6 2.7481e+005  1.0e+000 SD 1.0e+001 7.5e+004 (Eq1(WOA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500  5.9347e-006  6479  2548     0     0     9 w[ 6853] z[ 6073]
- 1000  1.3339e-005  5979  3048     0     0    19 w[ 7641] z[ 7394]
- 1500  1.6419e-001  5479  3548     0     0    29 w[ 8355] z[ 4769]
+  500  2.4165e-002  5001  2550     0     0     9 z[ 6821] z[ 3449]
+ 1000  5.6750e-002  4968  2583     0     0    19 z[ 4112] w[ 2781]
+ 1500  4.6964e-002  4965  2586     0     0    29 z[ 3582] z[ 3083]
+ 2000  7.8182e-003  5054  2497     0     0    39 z[ 6433] w[ 3413]
+ 2500 -1.7039e-002  4963  2588     0     0    49 z[ 6537] z[ 3447]
+ 3000  1.0634e-002  4993  2558     0     0    58 z[ 3555] z[ 3614]
+ 3500  5.8337e-002  4965  2586     0     0    68 w[ 6338] z[ 2604]
+ 4000  5.6826e-002  4935  2616     0     0    78 w[ 2230] z[ 3734]
+ 4500  2.5829e-002  4944  2607     0     0    88 z[ 6650] w[ 3392]
+ 5000 -9.7631e-003  5048  2503     0     0    98 z[ 2280] w[ 2279]
+ 5500 -2.9332e-003  5011  2540     0     0   107 z[ 3134] z[ 5956]
+ 6000 -1.0988e-003  5130  2421     0     0   117 z[ 2510] w[ 3901]
+ 6500  2.1481e-002  5017  2534     0     0   127 w[ 3625] z[ 6780]
+ 7000  5.4252e-002  4961  2590     0     0   137 w[ 4071] z[ 5681]
+ 7500  5.1245e-002  4965  2586     0     0   147 w[ 5506] z[ 6694]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-    6  1800    32     8 2.9373e+004  1.0e+000 SD 1.0e+001 1.3e+004 (Eq1(SOA,summer,)
+    6  7763    19     7 2.3196e+005  1.0e+000 CD 4.0e+000 6.4e+004 (Eq1(WOA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500  3.0628e-001  5567  3460     0     0     9 z[ 4823] w[ 4826]
+  500  2.0524e-004  5068  2483     0     0     9 w[ 4143] z[ 5992]
+ 1000  4.6245e-003  5031  2520     0     0    19 w[ 5366] w[ 6792]
+ 1500  1.2763e-003  5027  2524     0     0    29 z[ 3271] w[ 7300]
+ 2000  5.8675e-005  5079  2472     0     0    39 w[ 6814] w[ 3930]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-    7   905    40     9 1.8728e+004  5.5e-002 SW 5.8e-001 8.0e+003 (Eq1(SOA,winter,)
+    7  2023    20     8 2.3064e+005  1.0e+000 CD 1.6e+000 6.4e+004 (Eq1(WOA,summer,)
+    8   161    21     9 2.3064e+005  1.0e+000 CD 6.4e-001 6.4e+004 (Eq1(WOA,summer,)
+    9    27    22    10 2.3064e+005  1.0e+000 CD 2.6e-001 6.4e+004 (Eq1(WOA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500  5.5384e-006  6491  2536     0     0     9 w[ 7879] z[ 6837]
- 1000  1.2693e-005  5991  3036     0     0    19 w[ 6321] z[ 6344]
- 1500  1.5594e-001  5491  3536     0     0    29 w[ 4385] z[ 7134]
+  500  7.5205e-002  5189  2362     0     0     9 z[ 5659] w[ 3511]
+ 1000  5.4766e-001  5329  2222     0     0    19 z[ 2729] w[ 2259]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-    8  1794    41    10 3.0593e+004  1.0e+000 SD 1.0e+001 1.4e+004 (Eq1(SOA,summer,)
+   10  1122    28    11 3.1233e+004  2.1e-001 SW 4.0e+000 8.1e+003 (Eq1(WOA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500  2.9368e-001  5561  3466     0     0     9 z[ 3367] w[ 4792]
+  500  1.4272e-012  4336  3215     0     0     9 z[ 7232] w[ 7313]
+ 1000  3.2129e-011  4332  3219     0     0    19 w[ 7232] w[ 7249]
+ 1500  2.1642e-011  4335  3216     0     0    29 w[ 7229] z[ 4761]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-    9   916    50    11 1.8989e+004  2.3e-002 SW 5.8e-001 8.1e+003 (Eq1(SOA,summer,)
+   11  1589    29    12 3.1233e+004  1.0e+000 CO 1.6e+000 8.1e+003 (Eq1(WOA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500  5.2505e-006  6493  2534     0     0     9 w[ 6465] z[ 7406]
- 1000  1.2053e-005  5993  3034     0     0    19 w[ 6593] z[ 6605]
- 1500  1.5231e-001  5493  3534     0     0    29 w[ 6122] z[ 7754]
+  500  1.0627e-010  4613  2938     0     0     9 z[ 6746] w[ 3296]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-   10  1792    51    12 3.1148e+004  1.0e+000 SD 1.0e+001 1.4e+004 (Eq1(SOA,summer,)
+   12   737    30    13 3.1233e+004  1.0e+000 CO 6.4e-001 8.1e+003 (Eq1(WOA,summer,)
+   13   115    31    14 3.1233e+004  1.0e+000 CO 2.6e-001 8.1e+003 (Eq1(WOA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500  2.8513e-001  5560  3467     0     0     9 z[ 4000] z[ 7846]
+  500  1.1217e-007  4742  2809     0     0     9 w[ 7136] z[ 6636]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-   11   926    61    13 1.9098e+004  9.2e-003 SW 5.8e-001 8.2e+003 (Eq1(SOA,summer,)
+   14   978    32    15 6.8397e+004  1.0e+000 SD 1.0e+001 2.2e+004 (Eq1(SOA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500  5.2062e-006  6495  2532     0     0     9 w[ 6083] z[ 7569]
- 1000  1.1914e-005  5995  3032     0     0    19 w[ 6593] z[ 6605]
- 1500  1.5170e-001  5495  3532     0     0    29 w[ 6606] z[ 3676]
+  500  1.9145e-002  4943  2608     0     0     9 z[ 6116] z[ 3068]
+ 1000  1.4996e-002  5000  2551     0     0    19 w[ 3666] w[ 2258]
+ 1500 -1.8530e-002  5043  2508     0     0    29 w[ 2904] z[ 7444]
+ 2000 -4.0611e-002  5010  2541     0     0    39 z[ 5889] w[ 6272]
+ 2500 -5.2280e-003  5076  2475     0     0    49 w[ 6954] w[ 3356]
+ 3000  3.6510e-002  5010  2541     0     0    58 z[ 6978] w[ 6961]
+ 3500  8.1266e-002  5057  2494     0     0    68 w[ 3854] z[ 5695]
+ 4000  6.2950e-002  5049  2502     0     0    78 w[ 6084] z[ 6261]
+ 4500 -4.2612e-003  5030  2521     0     0    88 z[ 2442] w[ 3384]
+ 5000 -1.0402e-002  5023  2528     0     0    98 w[ 3983] z[ 6763]
+ 5500  3.5813e-002  4978  2573     0     0   107 w[ 2786] w[ 3490]
+ 6000  3.1616e-003  4988  2563     0     0   117 w[ 5645] w[ 2945]
+ 6500 -8.9291e-003  4900  2651     0     0   127 w[ 6838] w[ 4070]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-   12  1793    62    14 3.1387e+004  1.0e+000 SD 1.0e+001 1.4e+004 (Eq1(SOA,summer,)
+   15  6912    33    16 6.3541e+004  1.0e+000 CD 4.0e+000 1.6e+004 (Eq1(SOA,summer,)
+   16    46    34    17 6.3541e+004  1.0e+000 CD 1.6e+000 1.6e+004 (Eq1(SOA,summer,)
+   17   117    35    18 6.3541e+004  1.0e+000 CD 6.4e-001 1.6e+004 (Eq1(SOA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500  2.7877e-001  5554  3473     0     0     9 z[ 4468] w[ 3583]
+  500  6.9788e-002  5191  2360     0     0     9 w[ 5903] w[ 3351]
+ 1000  7.9819e-001  5269  2282     0     0    19 w[ 2307] w[ 6731]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-   13   933    74    15 1.9101e+004  2.6e-004 SW 5.8e-001 8.2e+003 (Eq1(SOA,summer,)
+   18  1032    40    19 4.0079e+004  3.3e-001 SW 2.6e-001 1.0e+004 (Eq1(SOA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500  5.2043e-006  6496  2531     0     0     9 w[ 6083] z[ 7569]
- 1000  1.1910e-005  5996  3031     0     0    19 w[ 6593] z[ 6605]
- 1500  1.5177e-001  5496  3531     0     0    29 w[ 6606] z[ 3676]
+  500  7.6548e-002  5042  2509     0     0     9 z[ 6824] w[ 7411]
+ 1000  6.5071e-001  5123  2428     0     0    19 z[ 2831] z[ 6222]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-   14  1791    75    16 3.1394e+004  1.0e+000 SD 1.0e+001 1.4e+004 (Eq1(SOA,summer,)
+   19  1088    41    20 3.1277e+005  1.0e+000 SD 1.0e+001 1.3e+005 (Eq1(WOA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500  2.7928e-001  5555  3472     0     0     9 z[ 3583] w[ 3559]
+  500  1.9950e-003  5041  2510     0     0     9 w[ 5565] w[ 6529]
+ 1000  4.2259e-002  4959  2592     0     0    19 w[ 3383] w[ 6104]
+ 1500  1.4510e-002  5008  2543     0     0    29 z[ 3592] z[ 6901]
+ 2000  1.2361e-002  5021  2530     0     0    39 w[ 6345] w[ 3524]
+ 2500  6.5673e-002  4981  2570     0     0    49 z[ 2224] w[ 3734]
+ 3000  7.1456e-002  4989  2562     0     0    58 z[ 6048] w[ 2991]
+ 3500 -1.7262e-002  4987  2564     0     0    68 z[ 5373] w[ 2704]
+ 4000  3.9650e-002  4977  2574     0     0    78 w[ 2605] w[ 7426]
+ 4500  6.0140e-003  5001  2550     0     0    88 w[ 6381] w[ 3101]
+ 5000  2.7923e-002  5016  2535     0     0    98 z[ 5319] z[ 3967]
+ 5500 -5.9622e-003  5061  2490     0     0   107 z[ 4094] w[ 4071]
+
+Major Iteration Log
+major minor  func  grad  residual    step  type prox    inorm  (label)
+   20  5650    42    21 2.5970e+005  1.0e+000 CD 4.0e+000 1.1e+005 (Eq1(WOA,summer,)
+
+Minor Iteration Log
+minor      t          z     w     v   art ckpts  enter    leave
+  500  3.1908e-003  5041  2510     0     0     9 w[ 7019] w[ 7050]
+ 1000  2.4769e-002  5021  2530     0     0    19 z[ 7103] w[ 3628]
+ 1500  1.9401e-002  5009  2542     0     0    29 z[ 6140] w[ 7337]
+ 2000 -3.1664e-003  5001  2550     0     0    39 z[ 2360] w[ 2585]
+ 2500 -5.5637e-003  4983  2568     0     0    49 z[ 3814] w[ 3805]
+
+Major Iteration Log
+major minor  func  grad  residual    step  type prox    inorm  (label)
+   21  2503    43    22 2.4994e+005  1.0e+000 CD 1.6e+000 1.0e+005 (Eq1(WOA,summer,)
+   22    62    44    23 2.4994e+005  1.0e+000 CD 6.4e-001 1.0e+005 (Eq1(WOA,summer,)
+   23    78    45    24 2.4994e+005  1.0e+000 CD 2.6e-001 1.0e+005 (Eq1(WOA,summer,)
+   24    39    46    25 2.4994e+005  1.0e+000 CD 1.0e-001 1.0e+005 (Eq1(WOA,summer,)
+
+Minor Iteration Log
+minor      t          z     w     v   art ckpts  enter    leave
+  500 -8.4321e+002  3715  3836     0     0     9 z[ 5624] w[ 2392]
+ 1000 -2.7904e+002  4215  3336     0     0    19 z[ 3076] w[ 5909]
+ 1500 -1.1344e+002  4715  2836     0     0    29 z[ 4086] w[ 3755]
+ 2000 -1.8480e+001  5215  2336     0     0    39 z[ 6541] w[ 2222]
+
+Major Iteration Log
+major minor  func  grad  residual    step  type prox    inorm  (label)
+   25  2236    54    26 3.9819e+004  5.5e-002 SW 2.6e-001 9.7e+003 (Eq1(WOA,summer,)
+   26    92    55    27 3.9819e+004  1.0e+000 CO 1.0e-001 9.7e+003 (Eq1(WOA,summer,)
+
+Minor Iteration Log
+minor      t          z     w     v   art ckpts  enter    leave
+  500  2.0526e-001  5236  2315     0     0     9 z[ 5639] z[ 3583]
+
+Major Iteration Log
+major minor  func  grad  residual    step  type prox    inorm  (label)
+   27   727    56    28 1.1886e+005  1.0e+000 SD 1.0e+001 3.9e+004 (Eq1(WOA,spring-)
+
+Minor Iteration Log
+minor      t          z     w     v   art ckpts  enter    leave
+  500 -3.8058e-004  5052  2499     0     0     9 z[ 6433] z[ 4116]
+ 1000  4.4055e-002  4994  2557     0     0    19 z[ 2962] z[ 2846]
+ 1500  1.6085e-002  5033  2518     0     0    29 z[ 5468] w[ 4172]
+ 2000  9.1061e-003  5037  2514     0     0    39 w[ 2273] w[ 7420]
+ 2500  6.7277e-002  5012  2539     0     0    49 w[ 4190] z[ 7016]
+ 3000  6.9059e-002  5013  2538     0     0    58 w[ 2363] w[ 3303]
+ 3500 -2.1226e-002  5010  2541     0     0    68 w[ 5928] z[ 6177]
+ 4000  5.0420e-002  5007  2544     0     0    78 w[ 7210] w[ 2509]
+ 4500 -4.4805e-003  5012  2539     0     0    88 z[ 3595] z[ 6081]
+ 5000  8.0792e-004  5076  2475     0     0    98 w[ 2517] z[ 3037]
+ 5500  7.2998e-003  5078  2473     0     0   107 z[ 5506] z[ 7414]
+
+Major Iteration Log
+major minor  func  grad  residual    step  type prox    inorm  (label)
+   28  5715    57    29 1.0094e+005  1.0e+000 CD 4.0e+000 3.1e+004 (Eq1(WOA,spring-)
+   29    33    58    30 1.0094e+005  1.0e+000 CD 1.6e+000 3.1e+004 (Eq1(WOA,spring-)
+   30   133    59    31 1.0094e+005  1.0e+000 CD 6.4e-001 3.1e+004 (Eq1(WOA,spring-)
+
+Minor Iteration Log
+minor      t          z     w     v   art ckpts  enter    leave
+  500  3.0089e-001  5210  2341     0     0     9 w[ 6323] w[ 6750]
+
+Major Iteration Log
+major minor  func  grad  residual    step  type prox    inorm  (label)
+   31   790    67    32 4.1957e+004  5.5e-002 SW 1.0e-001 1.0e+004 (Eq1(WOA,summer,)
+   32    64    68    33 4.1957e+004  1.0e+000 CO 4.1e-002 1.0e+004 (Eq1(WOA,summer,)
+
+Minor Iteration Log
+minor      t          z     w     v   art ckpts  enter    leave
+  500  1.9206e-001  5259  2292     0     0     9 w[ 3330] z[ 4087]
+
+Major Iteration Log
+major minor  func  grad  residual    step  type prox    inorm  (label)
+   33   737    69    34 1.6285e+005  1.0e+000 SD 1.0e+001 6.7e+004 (Eq1(WOA,spring-)
+
+Minor Iteration Log
+minor      t          z     w     v   art ckpts  enter    leave
+  500 -2.2773e-003  5063  2488     0     0     9 w[ 5565] z[ 5661]
+ 1000  5.1278e-002  5014  2537     0     0    19 w[ 2556] w[ 2637]
+ 1500  1.9942e-002  5046  2505     0     0    29 w[ 3935] w[ 6268]
+ 2000  1.3213e-002  5060  2491     0     0    39 z[ 3348] w[ 5324]
+ 2500  8.8043e-002  5004  2547     0     0    49 z[ 6682] w[ 5958]
+ 3000  3.7484e-002  4993  2558     0     0    58 z[ 6152] z[ 3920]
+ 3500  1.8406e-003  5020  2531     0     0    68 w[ 2257] w[ 3238]
+ 4000  5.1233e-002  4991  2560     0     0    78 z[ 5415] z[ 4036]
+ 4500  2.6850e-002  5020  2531     0     0    88 z[ 3834] w[ 6350]
+
+Major Iteration Log
+major minor  func  grad  residual    step  type prox    inorm  (label)
+   34  4747    70    35 1.3606e+005  1.0e+000 CD 4.0e+000 5.5e+004 (Eq1(WOA,spring-)
+
+Minor Iteration Log
+minor      t          z     w     v   art ckpts  enter    leave
+  500 -7.8931e-005  5064  2487     0     0     9 z[ 2409] z[ 7447]
+
+Major Iteration Log
+major minor  func  grad  residual    step  type prox    inorm  (label)
+   35   610    71    36 1.3606e+005  1.0e+000 CD 1.6e+000 5.5e+004 (Eq1(WOA,spring-)
+   36    33    72    37 1.3606e+005  1.0e+000 CD 6.4e-001 5.5e+004 (Eq1(WOA,spring-)
+   37    34    73    38 1.3606e+005  1.0e+000 CD 2.6e-001 5.5e+004 (Eq1(WOA,spring-)
+
+Minor Iteration Log
+minor      t          z     w     v   art ckpts  enter    leave
+  500  3.6242e-001  5237  2314     0     0     9 w[ 2758] w[ 6507]
+
+Major Iteration Log
+major minor  func  grad  residual    step  type prox    inorm  (label)
+   38   682    84    39 4.2054e+004  1.5e-003 SW 4.1e-002 1.0e+004 (Eq1(WOA,summer,)
+
+Minor Iteration Log
+minor      t          z     w     v   art ckpts  enter    leave
+  500  1.8179e-001  5345  2206     0     0     9 w[ 3155] z[ 3347]
+
+Major Iteration Log
+major minor  func  grad  residual    step  type prox    inorm  (label)
+   39   680    85    40 1.6532e+005  1.0e+000 SD 1.0e+001 6.9e+004 (Eq1(WOA,spring-)
+
+Minor Iteration Log
+minor      t          z     w     v   art ckpts  enter    leave
+  500 -2.3714e-003  5060  2491     0     0     9 w[ 6388] z[ 7479]
+ 1000  5.2227e-002  5013  2538     0     0    19 w[ 2556] w[ 6886]
+ 1500  1.9631e-002  5049  2502     0     0    29 w[ 7217] w[ 2326]
+ 2000  1.3835e-002  5057  2494     0     0    39 w[ 5384] w[ 5501]
+ 2500  8.9273e-002  5003  2548     0     0    49 z[ 3430] w[ 2228]
+ 3000  3.0624e-002  5001  2550     0     0    58 w[ 7157] w[ 7412]
+ 3500  5.4953e-003  5024  2527     0     0    68 z[ 3551] z[ 4180]
+ 4000  5.7738e-002  5009  2542     0     0    78 w[ 7119] w[ 5998]
+
+Major Iteration Log
+major minor  func  grad  residual    step  type prox    inorm  (label)
+   40  4230    86    41 1.3855e+005  1.0e+000 CD 4.0e+000 5.6e+004 (Eq1(WOA,spring-)
+
+Minor Iteration Log
+minor      t          z     w     v   art ckpts  enter    leave
+  500 -1.5188e-012  5060  2491     0     0     9 w[ 3610] z[ 7050]
+
+Major Iteration Log
+major minor  func  grad  residual    step  type prox    inorm  (label)
+   41   513    87    42 1.3855e+005  1.0e+000 CD 1.6e+000 5.6e+004 (Eq1(WOA,spring-)
+   42   112    88    43 1.3855e+005  1.0e+000 CD 6.4e-001 5.6e+004 (Eq1(WOA,spring-)
+
+Minor Iteration Log
+minor      t          z     w     v   art ckpts  enter    leave
+  500  3.0792e-001  5235  2316     0     0     9 w[ 5958] w[ 6362]
 
 Restart Log
 proximal_perturbation 0
@@ -206,321 +391,268 @@ proximal_perturbation 1.0000e-001
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-   14     0    77    17 4.3316e+003           R 4.3e+001 1.1e+003 (Eq1(WOA,summer,)
+   42     0    90    44 9.4248e+003           R 9.4e+001 2.4e+003 (Eq1(COA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500  7.4751e-005  5819  3208     0     0     9 w[ 7592] z[ 6824]
- 1000  1.6312e-004  5339  3688     0     0    19 w[ 6274] z[ 7418]
- 1500  1.9866e-004  4841  4186     0     0    29 w[ 7333] z[ 6950]
- 2000  6.1539e-003  4444  4583     0     0    39 z[ 7351] w[ 7447]
+  500  8.3355e-007  6980   571     0     0     9 w[ 6562] z[ 6938]
+ 1000  2.5809e-006  6480  1071     0     0    19 w[ 5969] z[ 6352]
+ 1500  4.9365e-006  5980  1571     0     0    29 w[ 5644] z[ 6479]
+ 2000  8.1108e-006  5480  2071     0     0    39 w[ 7328] z[ 7387]
+ 2500  1.7467e-005  4980  2571     0     0    49 w[ 3554] z[ 3516]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-   15  2324    86    18 4.8118e+003  2.3e-002 SB 1.7e+001 1.2e+003 (Eq1(EOA,winter,)
+   43  2662    91    45 9.2413e+003  1.0e+000 SO 3.8e+001 2.4e+003 (Eq1(WOA,summer,)
+   44   366    92    46 7.7333e+003  1.0e+000 SO 1.5e+001 2.1e+003 (Eq1(COA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500  2.3565e-005  6078  2949     0     0     9 w[ 7569] z[ 7617]
- 1000  4.2748e-005  5578  3449     0     0    19 w[ 6538] z[ 6550]
- 1500  6.5563e-005  5086  3941     0     0    29 w[ 6316] z[ 7449]
- 2000  1.7746e-002  4624  4403     0     0    39 w[ 6851] z[ 6168]
+  500 -7.4050e-004  4965  2586     0     0     9 w[ 2303] w[ 2574]
+ 1000  1.3675e-003  4830  2721     0     0    19 w[ 4045] z[ 2590]
+ 1500  7.4350e-003  4798  2753     0     0    29 w[ 3403] z[ 3271]
+ 2000  2.3699e-002  4905  2646     0     0    39 z[ 5832] w[ 5767]
+ 2500  6.6138e-002  5107  2444     0     0    49 z[ 6982] w[ 4005]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-   16  2392    87    19 7.1473e+003  1.0e+000 SD 6.9e+000 3.9e+003 (Eq1(EOA,summer,)
-   17   297    88    20 7.1426e+003  1.0e+000 CD 2.8e+000 3.9e+003 (Eq1(EOA,summer,)
-   18    35    89    21 7.1426e+003  1.0e+000 CD 1.1e+000 3.9e+003 (Eq1(EOA,summer,)
-   19    60    90    22 7.1426e+003  1.0e+000 CD 4.4e-001 3.9e+003 (Eq1(EOA,summer,)
-   20   282    91    23 1.4526e+004  1.0e+000 SD 1.0e+001 8.8e+003 (Eq1(EOA,summer,)
+   45  2750   103    47 7.9603e+003  1.5e-003 SB 6.0e+000 2.1e+003 (Eq1(EOA,winter,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500  9.6323e-002  4799  4228     0     0     9 z[ 7042] w[ 6984]
- 1000  1.9137e-001  5202  3825     0     0    19 z[ 8048] z[ 8147]
- 1500  3.9536e-001  5509  3518     0     0    29 z[ 6718] w[ 3687]
+  500 -1.7989e-005  6171  1380     0     0     9 z[ 6513] w[ 3987]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-   21  1924    94    24 5.6181e+003  6.4e-001 SW 1.7e+001 2.9e+003 (Eq1(EOA,summer,)
+   46   826   104    48 7.9599e+003  1.0e+000 CO 2.4e+000 2.1e+003 (Eq1(EOA,winter,)
+   47    81   105    49 7.9599e+003  1.0e+000 CO 9.7e-001 2.1e+003 (Eq1(EOA,winter,)
+   48    84   106    50 7.9599e+003  1.0e+000 CO 3.9e-001 2.1e+003 (Eq1(EOA,winter,)
+   49   182   107    51 7.9599e+003  1.0e+000 CO 1.5e-001 2.1e+003 (Eq1(EOA,winter,)
+   50   143   108    52 7.9599e+003  1.0e+000 CO 6.2e-002 2.1e+003 (Eq1(EOA,winter,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500  5.3445e-006  6210  2817     0     0     9 w[ 7790] z[ 7616]
- 1000  1.0687e-005  5710  3317     0     0    19 w[ 7342] z[ 7013]
- 1500  7.3939e-005  5210  3817     0     0    29 w[ 6362] z[ 6289]
- 2000  2.8323e-001  4876  4151     0     0    39 z[ 3109] z[ 7308]
+  500 -1.1122e+002  3715  3836     0     0     9 z[ 3628] w[ 6023]
+ 1000 -4.1869e+001  4215  3336     0     0    19 z[ 3841] w[ 2893]
+ 1500 -1.2960e+001  4715  2836     0     0    29 z[ 3315] w[ 3274]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-   22  2177    95    25 2.8950e+004  1.0e+000 SD 6.9e+000 1.2e+004 (Eq1(SOA,summer,)
-   23   353    96    26 2.8951e+004  1.0e+000 CD 2.8e+000 1.2e+004 (Eq1(SOA,summer,)
-   24   263    97    27 2.8941e+004  1.0e+000 CD 1.1e+000 1.2e+004 (Eq1(SOA,summer,)
-   25    25    98    28 2.8941e+004  1.0e+000 CD 4.4e-001 1.2e+004 (Eq1(SOA,summer,)
-   26   386   107    29 5.8790e+003  2.3e-002 SW 1.7e+001 2.9e+003 (Eq1(EOA,summer,)
+   51  1989   117    53 9.7541e+003  2.3e-002 SB 1.0e+001 2.9e+003 (Eq1(WOA,spring-)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500  5.1592e-006  6435  2592     0     0     9 w[ 7253] z[ 7785]
- 1000  1.0419e-005  5935  3092     0     0    19 w[ 7641] z[ 6112]
- 1500  8.7388e-005  5435  3592     0     0    29 w[ 8271] z[ 8944]
+  500  2.5333e-003  5947  1604     0     0     9 w[ 3494] z[ 5664]
+ 1000  6.9026e-003  5628  1923     0     0    19 w[ 7358] w[ 2324]
+ 1500  1.2350e-002  5466  2085     0     0    29 w[ 2689] w[ 4072]
+ 2000  3.4992e-002  5324  2227     0     0    39 w[ 3918] w[ 2280]
+ 2500  1.1975e-001  5220  2331     0     0    49 z[ 4000] w[ 3787]
+ 3000  1.7738e-001  5188  2363     0     0    58 w[ 6791] w[ 2799]
+ 3500  4.1635e-002  5272  2279     0     0    68 z[ 3948] w[ 3613]
+ 4000  1.3739e-002  5407  2144     0     0    78 z[ 6832] z[ 6230]
+ 4500  7.1813e-003  5591  1960     0     0    88 z[ 3448] z[ 5782]
+ 5000  3.1552e-003  5872  1679     0     0    98 z[ 2953] w[ 6461]
+ 5500  2.2700e-004  6276  1275     0     0   107 z[ 6412] w[ 7221]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-   27  1948   108    30 3.0582e+004  1.0e+000 SD 6.9e+000 1.4e+004 (Eq1(SOA,summer,)
-   28   233   109    31 3.0572e+004  1.0e+000 CD 2.8e+000 1.4e+004 (Eq1(SOA,summer,)
-   29   419   110    32 3.0574e+004  1.0e+000 CD 1.1e+000 1.4e+004 (Eq1(SOA,summer,)
-   30    34   111    33 3.0575e+004  1.0e+000 CD 4.4e-001 1.4e+004 (Eq1(SOA,summer,)
-   31    19   112    34 3.0879e+004  1.0e+000 CD 1.8e-001 1.4e+004 (Eq1(SOA,summer,)
-   32   329   122    35 6.0137e+003  9.2e-003 SW 1.7e+001 2.9e+003 (Eq1(EOA,summer,)
+   52  5980   126    54 1.1313e+004  2.3e-002 CB 4.0e+000 3.6e+003 (Eq1(SOA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500  5.0295e-006  6464  2563     0     0     9 w[ 7426] z[ 7785]
- 1000  1.0043e-005  5964  3063     0     0    19 w[ 7416] z[ 7020]
- 1500  1.2274e-004  5464  3563     0     0    29 w[ 6470] z[ 8731]
+  500  1.1910e-004  6714   837     0     0     9 w[ 6040] z[ 6292]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-   33  1924   123    36 3.1540e+004  1.0e+000 SD 6.9e+000 1.5e+004 (Eq1(SOA,summer,)
-   34   138   124    37 3.1542e+004  1.0e+000 CD 2.8e+000 1.5e+004 (Eq1(SOA,summer,)
-   35   406   125    38 3.1542e+004  1.0e+000 CD 1.1e+000 1.5e+004 (Eq1(SOA,summer,)
-   36   144   126    39 3.1542e+004  1.0e+000 CD 4.4e-001 1.5e+004 (Eq1(SOA,summer,)
-   37   312   137    40 6.0381e+003  1.5e-003 SW 1.7e+001 2.9e+003 (Eq1(EOA,summer,)
+   53   597   127    55 1.1311e+004  1.0e+000 CO 1.6e+000 3.6e+003 (Eq1(SOA,summer,)
+   54    21   128    56 1.1311e+004  1.0e+000 CO 6.4e-001 3.6e+003 (Eq1(SOA,summer,)
+   55    55   129    57 1.1311e+004  1.0e+000 CO 2.6e-001 3.6e+003 (Eq1(SOA,summer,)
+   56    27   130    58 1.1311e+004  1.0e+000 CO 1.0e-001 3.6e+003 (Eq1(SOA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500  5.0079e-006  6474  2553     0     0     9 w[ 7253] z[ 7785]
- 1000  1.0040e-005  5974  3053     0     0    19 w[ 7636] z[ 6176]
- 1500  1.2896e-004  5474  3553     0     0    29 w[ 8731] z[ 8830]
+  500 -1.1660e+002  3715  3836     0     0     9 z[ 2617] w[ 4762]
+ 1000 -4.5768e+001  4215  3336     0     0    19 z[ 2984] w[ 3617]
+ 1500 -1.6826e+001  4715  2836     0     0    29 z[ 6807] w[ 3784]
+ 2000 -5.7346e-001  5215  2336     0     0    39 z[ 7450] w[ 3504]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-   38  1909   138    41 3.1719e+004  1.0e+000 SD 6.9e+000 1.5e+004 (Eq1(SOA,summer,)
-   39   127   139    42 3.1719e+004  1.0e+000 CD 2.8e+000 1.5e+004 (Eq1(SOA,summer,)
-   40   131   140    43 3.1720e+004  1.0e+000 CD 1.1e+000 1.5e+004 (Eq1(SOA,summer,)
-   41   145   141    44 3.1720e+004  1.0e+000 CD 4.4e-001 1.5e+004 (Eq1(SOA,summer,)
-   42   309   152    45 6.0629e+003  1.5e-003 SW 1.7e+001 2.9e+003 (Eq1(EOA,summer,)
+   57  2067   158    59 7.2952e+003  1.5e-006 SG 1.5e+001 1.9e+003 (Eq1(COA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500  4.9864e-006  6477  2550     0     0     9 w[ 7269] z[ 7253]
- 1000  1.0117e-005  5977  3050     0     0    19 w[ 6496] z[ 6174]
- 1500  1.3171e-004  5477  3550     0     0    29 w[ 8830] z[ 6289]
+  500  2.9747e-006  6808   743     0     0     9 w[ 7071] z[ 5580]
+ 1000  2.8728e-005  6310  1241     0     0    19 w[ 7356] z[ 4112]
+ 1500  6.8967e-004  6035  1516     0     0    29 w[ 2594] w[ 5454]
+ 2000  5.3577e-004  5964  1587     0     0    39 w[ 6634] z[ 6826]
+ 2500  1.5867e-005  6005  1546     0     0    49 z[ 6235] w[ 7486]
+ 3000 -1.0173e-003  5969  1582     0     0    58 w[ 2418] w[ 7388]
+ 3500 -1.5477e-003  5680  1871     0     0    68 w[ 2921] z[ 3573]
+ 4000  4.2040e-003  5376  2175     0     0    78 w[ 2832] z[ 7305]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-   43  1909   153    46 3.1900e+004  1.0e+000 SD 6.9e+000 1.5e+004 (Eq1(SOA,summer,)
+   58  4410   186    60 7.0302e+003  1.5e-006 SG 6.0e+000 1.7e+003 (Eq1(COA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500  8.0244e-003  5042  3985     0     0     9 w[ 4232] w[ 4216]
+  500 -1.7704e-007  7039   512     0     0     9 w[ 6286] z[ 5570]
+ 1000 -2.8265e-007  7196   355     0     0    19 z[ 7461] w[ 7270]
+ 1500  3.3081e-007  7074   477     0     0    29 w[ 5316] w[ 5675]
+ 2000  2.7242e-007  7084   467     0     0    39 z[ 7427] w[ 7512]
+ 2500  6.3550e-007  7137   414     0     0    49 z[ 5602] z[ 6465]
+ 3000  8.3884e-007  7022   529     0     0    58 w[ 5830] w[ 7248]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-   44   982   154    47 3.1708e+004  1.0e+000 CD 2.8e+000 1.5e+004 (Eq1(SOA,summer,)
-   45   401   155    48 3.1702e+004  1.0e+000 CD 1.1e+000 1.5e+004 (Eq1(SOA,summer,)
-   46    75   156    49 3.1702e+004  1.0e+000 CD 4.4e-001 1.5e+004 (Eq1(SOA,summer,)
-
-Restart Log
-proximal_perturbation 0
-crash_method none
-crash_perturb no
-nms_initial_reference_factor 10
-nms_memory_size 2
-nms_mstep_frequency 1
-lemke_search_type slack
-
-Major Iteration Log
-major minor  func  grad  residual    step  type prox    inorm  (label)
-   46     0   158    50 4.3316e+003           R 0.0e+000 1.1e+003 (Eq1(WOA,summer,)
-   47   311   159    51 4.3316e+003  1.0e+000 RM 0.0e+000 1.1e+003 (Eq1(WOA,summer,)
-   48   281   160    52 4.3307e+003  1.0e+000 RM 0.0e+000 1.1e+003 (Eq1(WOA,summer,)
-   49    63   161    53 4.3307e+003  1.0e+000 RM 0.0e+000 1.1e+003 (Eq1(WOA,summer,)
-   50    47   162    54 4.3307e+003  1.0e+000 RM 0.0e+000 1.1e+003 (Eq1(WOA,summer,)
-   51   156   166    55 4.3307e+003  5.1e-001 RB 0.0e+000 1.1e+003 (Eq1(WOA,summer,)
+   59  3082   187    61 7.0302e+003  1.0e+000 CO 2.4e+000 1.7e+003 (Eq1(COA,summer,)
+   60    75   188    62 7.0302e+003  1.0e+000 CO 9.7e-001 1.7e+003 (Eq1(COA,summer,)
+   61   107   189    63 7.0302e+003  1.0e+000 CO 3.9e-001 1.7e+003 (Eq1(COA,summer,)
+   62   302   190    64 7.0302e+003  1.0e+000 CO 1.5e-001 1.7e+003 (Eq1(COA,summer,)
+   63   343   191    65 7.0302e+003  1.0e+000 CO 6.2e-002 1.7e+003 (Eq1(COA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500 -3.8591e-013  1985  4807     0  2235     9 z[  309] w[ 3345]
- 1000 -6.5059e-013  2473  4561     0  1993    19 z[  172] w[ 4892]
- 1500 -7.3475e-013  2961  4316     0  1750    29 z[ 1996] w[ 4780]
- 2000 -8.4599e-013  3437  4077     0  1513    39 z[ 3050] a[ 2258]
- 2500 -8.4577e-013  3876  3858     0  1293    49 z[ 7048] z[ 3912]
- 3000 -1.0036e-012  4273  3659     0  1095    58 z[ 8931] a[ 5751]
- 3500 -4.9405e-013  4659  3465     0   903    68 z[ 1219] w[ 4747]
+  500 -1.0282e+002  3715  3836     0     0     9 z[ 3108] w[ 2700]
+ 1000 -4.1743e+001  4215  3336     0     0    19 z[ 2621] w[ 2841]
+ 1500 -1.3053e+001  4715  2836     0     0    29 z[ 3481] w[ 3166]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-   52  3792   180    56 4.2640e+003  1.5e-006 RG 0.0e+000 1.1e+003 (Eq1(WOA,summer,)
-   53     7   181    57 4.2640e+003  1.0e+000 RM 0.0e+000 1.1e+003 (Eq1(WOA,summer,)
-   54     7   182    58 4.2640e+003  1.0e+000 RM 0.0e+000 1.1e+003 (Eq1(WOA,summer,)
-   55   224   210    59 4.2130e+003  1.5e-006 RG 0.0e+000 1.1e+003 (Eq1(WOA,summer,)
-   56   199   238    60 4.1702e+003  1.5e-006 RG 0.0e+000 1.1e+003 (Eq1(WOA,summer,)
+   64  1982   206    66 7.0302e+003  3.5e-008 SB 1.0e+001 1.7e+003 (Eq1(COA,summer,)
+   65   474   207    67 7.0302e+003  1.0e+000 CD 4.0e+000 1.7e+003 (Eq1(COA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500 -2.9066e-013  1983  4808     0  2236     9 z[ 3738] a[ 1110]
- 1000 -1.1635e-013  2467  4566     0  1994    19 z[ 3935] a[ 1115]
+  500  1.3177e-007  6682   869     0     0     9 w[ 7001] z[ 5415]
+ 1000  5.9610e-007  6489  1062     0     0    19 w[ 6170] w[ 5496]
+ 1500 -2.6597e-008  6503  1048     0     0    29 z[ 5760] w[ 6372]
+ 2000  4.9132e-007  6515  1036     0     0    39 w[ 5597] w[ 7454]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-   57  1069   265    61 4.1175e+003  5.4e-005 RG 0.0e+000 1.2e+003 (Eq1(SOA,summer,)
-   58   129   279    62 3.8576e+003  1.5e-006 RG 0.0e+000 8.0e+002 (Eq1(SOA,summer,)
-   59   227   280    63 3.8576e+003  1.0e+000 RM 0.0e+000 8.0e+002 (Eq1(SOA,summer,)
-
-Restart Log
-proximal_perturbation 0
-crash_method pnewton
-crash_nbchange_limit 10
-nms_initial_reference_factor 2
-crash_searchtype arc
-nms_searchtype arc
-gradient_searchtype arc
-lemke_search_type slack
-
-Crash Log
-major  func  diff  size  residual    step       prox   (label)
-    0     0             4.3316e+003             0.0e+000 (Eq1(WOA,summer,l7,s1,s1)
-    1     4  2237  6289 4.2714e+003  4.1e-001    1.0e+001 (Eq1(EOA,summer,l7,s1,s1)
-pn_search terminated: no progress.
-
-Major Iteration Log
-major minor  func  grad  residual    step  type prox    inorm  (label)
-   59     0   325    65 4.2714e+003           R 9.0e+000 1.5e+003 (Eq1(EOA,summer,)
+   66  2306   208    68 7.0302e+003  1.0e+000 CO 1.6e+000 1.7e+003 (Eq1(COA,summer,)
+   67   197   209    69 7.0302e+003  1.0e+000 CO 6.4e-001 1.7e+003 (Eq1(COA,summer,)
+   68    25   210    70 7.0302e+003  1.0e+000 CD 2.6e-001 1.7e+003 (Eq1(COA,summer,)
+   69   171   211    71 7.0302e+003  1.0e+000 CD 1.0e-001 1.7e+003 (Eq1(COA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500  5.3617e-002  4471  4556     0     0     9 z[ 6303] w[ 8640]
- 1000  1.4640e-001  4886  4141     0     0    19 z[ 4491] z[ 7792]
- 1500  4.7200e-001  5355  3672     0     0    29 z[ 3781] w[ 6402]
+  500 -1.0282e+002  3715  3836     0     0     9 z[ 3108] w[ 2700]
+ 1000 -4.1738e+001  4215  3336     0     0    19 z[ 2621] w[ 2841]
+ 1500 -1.3057e+001  4715  2836     0     0    29 z[ 3481] w[ 3166]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-   60  1779   334    66 4.7828e+003  2.3e-002 SB 3.6e+000 1.7e+003 (Eq1(EOA,summer,)
-   61    41   335    67 4.7828e+003  1.0e+000 CM 1.4e+000 1.7e+003 (Eq1(EOA,summer,)
-   62   101   336    68 4.7828e+003  1.0e+000 CM 5.8e-001 1.7e+003 (Eq1(EOA,summer,)
-   63   178   364    69 4.2228e+003  1.5e-006 SG 3.6e+000 1.5e+003 (Eq1(EOA,summer,)
-   64   256   365    70 4.2228e+003  1.0e+000 CM 1.4e+000 1.5e+003 (Eq1(EOA,summer,)
-   65    42   366    71 4.2228e+003  1.0e+000 CM 5.8e-001 1.5e+003 (Eq1(EOA,summer,)
-   66   178   367    72 4.2228e+003  1.0e+000 CM 2.3e-001 1.5e+003 (Eq1(EOA,summer,)
-   67    61   368    73 4.2228e+003  1.0e+000 CM 9.2e-002 1.5e+003 (Eq1(EOA,summer,)
+   70  1982   220    72 7.0302e+003  2.3e-002 SW 6.4e-001 1.7e+003 (Eq1(COA,summer,)
+   71    92   221    73 7.0302e+003  1.0e+000 CD 2.6e-001 1.7e+003 (Eq1(COA,summer,)
+   72   178   222    74 7.0302e+003  1.0e+000 CO 1.0e-001 1.7e+003 (Eq1(COA,summer,)
+   73   309   223    75 7.0302e+003  1.0e+000 CD 4.1e-002 1.7e+003 (Eq1(COA,summer,)
+   74   252   224    76 7.0302e+003  1.0e+000 CD 1.6e-002 1.7e+003 (Eq1(COA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500  7.1817e-006  7824  1203     0     0     9 w[ 3199] z[ 3212]
- 1000  2.0975e-005  7324  1703     0     0    19 w[ 8506] z[ 3727]
- 1500  3.6135e-005  6824  2203     0     0    29 w[ 6789] z[ 7149]
- 2000  5.3798e-005  6324  2703     0     0    39 w[ 7262] z[ 7282]
- 2500  6.8196e-005  5824  3203     0     0    49 w[ 6569] z[ 6648]
- 3000  8.9753e-005  5324  3703     0     0    58 w[ 7631] z[ 7436]
- 3500  1.4576e-004  4824  4203     0     0    68 w[ 6079] z[ 4077]
+  500  1.0726e-011  6352  1199     0     0     9 z[ 6666] w[ 6499]
+ 1000  6.3510e-010  6406  1145     0     0    19 w[ 5354] w[ 5311]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-   68  3956   396    74 4.1831e+003  1.5e-006 SG 1.0e+001 1.5e+003 (Eq1(EOA,summer,)
+   75  1354   225    77 7.0302e+003  1.0e+000 CD 6.6e-003 1.7e+003 (Eq1(COA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500  2.5273e-006  7945  1082     0     0     9 w[ 3614] z[ 3612]
- 1000  7.2214e-006  7445  1582     0     0    19 w[ 4760] z[ 3208]
- 1500  1.4963e-005  6945  2082     0     0    29 w[ 4414] z[ 3229]
- 2000  2.6873e-005  6445  2582     0     0    39 w[ 6477] z[ 3634]
- 2500  5.0082e-005  5953  3074     0     0    49 w[ 3680] z[ 6439]
- 3000  1.8757e-004  5457  3570     0     0    58 w[ 4173] z[ 6615]
- 3500  1.4366e-002  5356  3671     0     0    68 z[ 8551] w[ 8494]
+  500 -1.0282e+002  3715  3836     0     0     9 z[ 3108] w[ 2700]
+ 1000 -4.1739e+001  4215  3336     0     0    19 z[ 2621] w[ 2841]
+ 1500 -1.3058e+001  4715  2836     0     0    29 z[ 3481] w[ 3166]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-   69  3851   424    75 4.1489e+003  1.5e-006 SG 4.0e+000 1.5e+003 (Eq1(EOA,summer,)
-   70   357   451    76 3.9971e+003  5.4e-005 CG 1.6e+000 1.2e+003 (Eq1(SOA,summer,)
+   76  1982   253    78 6.8699e+003  1.5e-006 SG 6.2e-002 1.6e+003 (Eq1(EOA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500  7.7948e-011  8409   618     0     0     9 z[ 8068] w[ 8525]
+  500  4.0043e-005  6993   558     0     0     9 z[ 5583] z[ 4015]
+ 1000  6.0059e-004  6796   755     0     0    19 z[ 6903] w[ 6522]
+ 1500  2.9976e-006  7121   430     0     0    29 w[ 7539] z[ 4120]
+ 2000  6.0877e-004  6785   766     0     0    39 w[ 6479] z[ 5571]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-   71   550   452    77 3.9971e+003  1.0e+000 CM 6.4e-001 1.2e+003 (Eq1(SOA,summer,)
-   72    27   453    78 3.9971e+003  1.0e+000 CM 2.6e-001 1.2e+003 (Eq1(SOA,summer,)
-   73    76   454    79 3.9971e+003  1.0e+000 CM 1.0e-001 1.2e+003 (Eq1(SOA,summer,)
-   74    32   468    80 3.9971e+003  1.2e-006 CB 4.1e-002 1.2e+003 (Eq1(SOA,summer,)
+   77  2406   254    79 6.8354e+003  1.0e+000 CO 2.5e-002 1.6e+003 (Eq1(EOA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500 -7.6293e+000  4471  4556     0     0     9 z[ 4961] w[ 7962]
+  500  3.8770e-002  6657   894     0     0     9 w[ 6675] z[ 5555]
+ 1000  1.4700e-001  6522  1029     0     0    19 w[ 6963] w[ 6489]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-   75   883   477    81 3.9579e+003  2.3e-002 SB 1.0e+001 9.7e+002 (Eq1(EOA,summer,)
+   78  1479   255    80 5.7780e+003  1.0e+000 CO 9.9e-003 1.3e+003 (Eq1(EOA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500  5.1616e-005  7934  1093     0     0     9 w[ 7710] z[ 3980]
- 1000  1.5273e-004  7436  1591     0     0    19 w[ 3422] z[ 7160]
- 1500  3.1025e-004  6938  2089     0     0    29 w[ 6992] z[ 7264]
- 2000  5.9513e-004  6440  2587     0     0    39 w[ 4578] z[ 7322]
- 2500  1.3386e-003  5950  3077     0     0    49 w[ 3097] z[ 6229]
- 3000  4.7398e-003  5612  3415     0     0    58 w[ 4931] z[ 6580]
- 3500  1.6195e-001  5426  3601     0     0    68 z[ 8618] z[ 4888]
+  500 -8.3336e-002  6373  1178     0     0     9 w[ 6727] w[ 2297]
+ 1000 -1.4167e-001  6074  1477     0     0    19 z[ 6888] z[ 6334]
+ 1500 -1.7138e-001  5927  1624     0     0    29 z[ 5973] w[ 5813]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-   76  3592   488    82 3.9619e+003  1.5e-003 SB 4.0e+000 9.8e+002 (Eq1(EOA,summer,)
+   79  1696   256    81 5.7780e+003  1.0e+000 CO 4.0e-003 1.3e+003 (Eq1(EOA,summer,)
 
 Minor Iteration Log
 minor      t          z     w     v   art ckpts  enter    leave
-  500 -4.6669e-009  8384   643     0     0     9 w[ 8177] z[ 8075]
+  500  5.2990e-002  6357  1194     0     0     9 w[ 2501] z[ 5493]
+ 1000  2.4758e-001  6209  1342     0     0    19 w[ 3500] z[ 3498]
+ 1500  6.7321e-001  6134  1417     0     0    29 w[ 6624] w[ 3985]
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-   77   955   489    83 3.9619e+003  1.0e+000 CM 1.6e+000 9.8e+002 (Eq1(EOA,summer,)
-   78   117   490    84 3.9619e+003  1.0e+000 CM 6.4e-001 9.8e+002 (Eq1(EOA,summer,)
-   79    30   491    85 3.9619e+003  1.0e+000 CM 2.6e-001 9.8e+002 (Eq1(EOA,summer,)
-   80    85   492    86 3.9619e+003  1.0e+000 CM 1.0e-001 9.8e+002 (Eq1(EOA,summer,)
-   81    96   520    87 3.8213e+003  1.5e-006 CG 1.0e+001 9.6e+002 (Eq1(EOA,summer,)
-
-Minor Iteration Log
-minor      t          z     w     v   art ckpts  enter    leave
-  500 -4.0250e+001  4469  4558     0     0     9 z[ 3006] w[ 6211]
- 1000 -1.0074e+001  4967  4060     0     0    19 z[ 4478] w[ 6029]
+   80  1730   257    82 2.5017e+000  1.0e+000 SO 1.6e-003 2.9e-001 (Eq_inv(fringe,N)
+   81   398   258    83 2.3931e-001  1.0e+000 SO 6.3e-004 2.5e-002 (Eq_ret(g3,GT,CO)
+   82   150   259    84 6.1752e-002  1.0e+000 SO 2.5e-004 8.1e-003 (Eq_ret(g1,GT,SO)
+   83    78   260    85 1.3228e-002  1.0e+000 SO 1.0e-004 3.0e-003 (Eq_ret(g2,GT,SO)
+   84    14   261    86 2.1314e-003  1.0e+000 SO 4.0e-005 5.8e-004 (Eq_ret(g2,GT,SO)
+   85     2   262    87 1.8527e-004  1.0e+000 SO 1.6e-005 5.2e-005 (Eq_ret(g2,GT,SO)
+   86    11   263    88 5.2997e-006  1.0e+000 SO 6.5e-006 1.5e-006 (Eq_ret(g2,GT,SO)
 
 FINAL STATISTICS
-Inf-Norm of Complementarity . .  9.5872e+002 eqn: (Eq1(EOA,summer,l7,s1,s1))
-Inf-Norm of Normal Map. . . . .  9.5872e+002 eqn: (Eq1(EOA,summer,l7,s1,s1))
-Inf-Norm of Minimum Map . . . .  9.5872e+002 eqn: (Eq1(EOA,summer,l7,s1,s1))
-Inf-Norm of Fischer Function. .  9.5872e+002 eqn: (Eq1(EOA,summer,l7,s1,s1))
-Inf-Norm of Grad Fischer Fcn. .  2.1720e+005 eqn: (Eq9_4(g1,South,SOA,WOA,summer)
-Two-Norm of Grad Fischer Fcn. .  4.7354e+005
+Inf-Norm of Complementarity . .  4.0018e-005 eqn: (Eq_inv(g2,ST,SOA))
+Inf-Norm of Normal Map. . . . .  1.4819e-006 eqn: (Eq_ret(g2,GT,SOA))
+Inf-Norm of Minimum Map . . . .  1.4819e-006 eqn: (Eq_ret(g2,GT,SOA))
+Inf-Norm of Fischer Function. .  1.4819e-006 eqn: (Eq_ret(g2,GT,SOA))
+Inf-Norm of Grad Fischer Fcn. .  3.1835e-006 eqn: (Eq9_1(fringe,ST,EOA,winter,l3)
+Two-Norm of Grad Fischer Fcn. .  9.6642e-006
 
 FINAL POINT STATISTICS
-Maximum of X. . . . . . . . . .  1.5878e+002 var: (Q(fringe,CCGT,EOA,spring-fall)
-Maximum of F. . . . . . . . . .  9.5872e+002 eqn: (Eq1(EOA,summer,l7,s1,s1))
-Maximum of Grad F . . . . . . .  1.5705e+002 eqn: (Eq1(SOA,winter,l7,s1,s1))
+Maximum of X. . . . . . . . . .  2.4207e+002 var: (alpha(fringe,Nuclear,SOA))
+Maximum of F. . . . . . . . . .  2.0455e+001 eqn: (Eq_q(fringe,CCGT,COA,summer,l)
+Maximum of Grad F . . . . . . .  3.9262e+002 eqn: (Eq1(SOA,winter,l7,s1,s1))
                                             var: (sales(fringe,SOA,winter,l7,s1)
 
- ** EXIT - other error.
+ ** EXIT - solution found.
 
-Major Iterations. . . . 81
-Minor Iterations. . . . 68849
-Restarts. . . . . . . . 3
-Crash Iterations. . . . 2
-Gradient Steps. . . . . 12
-Function Evaluations. . 548
-Gradient Evaluations. . 87
-Total Time. . . . . . . 132.076000
-Residual. . . . . . . . 3.821284e+003
+Major Iterations. . . . 86
+Minor Iterations. . . . 104653
+Restarts. . . . . . . . 1
+Crash Iterations. . . . 0
+Gradient Steps. . . . . 3
+Function Evaluations. . 263
+Gradient Evaluations. . 88
+Total Time. . . . . . . 279.877000
+Residual. . . . . . . . 5.299714e-006
 
 --- Restarting execution
---- run_model.gms(934) 8 Mb
+--- run_model.gms(937) 6 Mb
 --- Reading solution for model CMO
---- Executing after solve: elapsed 0:02:13.284
---- run_model.gms(995) 9 Mb
-*** Error at line 995: division by zero (0)
---- run_model.gms(1007) 9 Mb 1 Error
+--- run_model.gms(937) 7 Mb
+--- Executing after solve: elapsed 0:04:41.121
+--- run_model.gms(998) 8 Mb
+*** Error at line 998: division by zero (0)
+--- run_model.gms(1010) 8 Mb 1 Error
 --- GDX File D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\test.gdx
---- run_model.gms(1007) 9 Mb 1 Error
+--- run_model.gms(1010) 8 Mb 1 Error
 *** Status: Execution error(s)
---- Job run_model.gms Stop 11/20/16 13:19:28 elapsed 0:02:13.305
-Cannot delete directory: 225i
+--- Job run_model.gms Stop 11/22/16 15:46:15 elapsed 0:04:41.146
+Cannot delete directory: 225a
 Exit code = 3

@@ -5,10 +5,11 @@ $offtext
 
 *$INCLUDE ACCESS_HLC.gms
 $INCLUDE Macros.gms
+
 $FuncLibIn stolib stodclib
 function cdfnorm     /stolib.cdfnormal/;
 
-scalar trading set to 1 to allow regional trade by firms /0/;
+scalar trading set to 1 to allow regional trade by firms /1/;
 scalar no_fringe set to 1 to exclude fringe from simulation /0/;
 
 $INCLUDE SetsAndVariables.gms
@@ -23,7 +24,6 @@ $include demand_calib.gms
 
 
 $ontext
-*        Used to customize capacity markets based on expected prices that are more than two times the baseload prices
 *$gdxin energy.gdx
 
 *$LOAD price
@@ -36,11 +36,15 @@ $offtext
 
 *price.l(r,e,l,s,ss)=0;
 
-*Option Savepoint=1;
+Option Savepoint=1;
 
 CMO.optfile = 1 ;
 
-*Execute_Loadpoint 'test.gdx';
+*Execute_Loadpoint 'test2.gdx';
+
+v('fringe') = -0.25;
+z(i) = v(i)         ;
+x(i,r,rr)  = v(i);
 
 *trade.l(i,n,r,rr,e,l,s,ss)$(not r_trans(n,r,rr))=0;
 *arbitrage.l(n,r,rr,e,l,s,ss)$(not r_trans(n,r,rr))=0;
