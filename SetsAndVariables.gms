@@ -8,8 +8,8 @@ Sets
      gt(h) /GT/
      l market segment   /l1*l8/
      seasons  /winter,summer,spring-fall/
-*     e(seasons) seasons for running the model /summer/
-     e(seasons) seasons for running the model /winter,summer,spring-fall/
+     e(seasons) seasons for running the model /summer/
+*     e(seasons) seasons for running the model /winter,summer,spring-fall/
      winter(seasons) /winter/
      spring(seasons) /spring-fall/
      summer(seasons) /summer/
@@ -56,17 +56,20 @@ variables
          arbitrage(n,r,rr,seasons,l,s,ss) TSO outgoing electricity arbitrage from node r on line n
          trade(company,n,r,rr,seasons,l,s,ss) outgoing electricity trade by firm i from node r on line n
          trans(n,seasons,l,s,ss) electricity trans by on line n
-
-         tau(n,seasons,l,s,ss) shadow prices for the high capacity constraint in USD per MW
+         trans_pos(n,seasons,l,s,ss) electricity trans by on line n
+         trans_neg(n,seasons,l,s,ss) electricity trans by on line n
+         tau_pos(n,seasons,l,s,ss) shadow prices for the high capacity constraint in USD per MW
+         tau_neg(n,seasons,l,s,ss) shadow prices for the high capacity constraint in USD per MW
          zeta(company,n,r,rr,seasons,l,s,ss) shadow prices for the outgoing no-negative trade constraint in USD per MW
          shadows_arbitrage(n,r,rr,seasons,l,s,ss) shadow prices for no-negative incoming arbitrage constriant in USD per MW
-         shadows_trans(n,seasons,l,s,ss) shadow prices for the positive transmission constriant in USD per MW
-
+         shadows_trans_pos(n,seasons,l,s,ss) shadow prices for the positive transmission constriant in USD per MW
+         shadows_trans_neg(n,seasons,l,s,ss) shadow prices for the negative transmission constriant in USD per MW
          shadows_gttocc(company,r) shadows on upper bound of GT conversion USD per MW
          shadows_fringe(company,r) shadows on upper bound on fring investments in USD per MW
           ;
 
 positive variables lambda_high, lambda_low,  alpha,
                    eta_high,eta_low, psi
-                   tau,zeta,shadows_arbitrage,shadows_trans,shadows_gttocc
+                   tau_pos,tau_neg,zeta,shadows_arbitrage,shadows_trans,shadows_gttocc
+                   price_trans_pos,price_trans_neg
                    ;
