@@ -1383,14 +1383,6 @@ Order=1,2,3,4,5,6
 Decim=7
 PlaneRownr=-1
 
-[GDXDISP: price_trans Var 5]
-PlaneDim=0
-RowDim=5
-Squeeze=1
-Order=1,2,3,4,5,6
-Decim=7
-PlaneRownr=-1
-
 [RP:CHINAPOWERMARKET]
 1=idir =model_files;db;integration_files;report_writer; gdx=LongRunReg
 2=idir =model_files;db;integration_files;report_writer; gdx=LongRun2
@@ -1931,15 +1923,6 @@ PlaneRownr=-1
 [RP:SOLAR]
 1=
 
-[RP:PARAMETERS]
-1=
-
-[RP:SETSANDVARIABLES]
-1=
-
-[RP:EQUATIONS]
-1=
-
 [GDXDISP: price Var 5]
 PlaneDim=0
 RowDim=5
@@ -1948,49 +1931,216 @@ Order=1,2,3,4,5,6
 Decim=7
 PlaneRownr=-1
 
-[RP:RUN_MODEL]
-1=idir=db;load; gdx=test
-2=idir=db;load; gdx=test2
-3=idir=db;load; gdx=CMO_5
-4=idir=db;load; gdx=test3
-5=idir=db;load; gdx=test;
-6=idir=db;load;
-7=
+[RP:UNTITLED_2]
+1=
 
 [RP:POWERSUBMODEL]
 1=
 2=idir=../submodels;../db;../integration_files;../Report_Writer; GDX=Power
 3=idir=../submodels;../db;../integration_files;../Report_Writer gdx=ChinaPower
 
-[RP:FUELSUBMODEL]
-1=
+[GDXDISP: arbitrage Var 7]
+PlaneDim=0
+RowDim=7
+Squeeze=1
+Order=1,2,3,4,5,6,7,8
+Decim=7
+PlaneRownr=-1
 
-[RP:UNTITLED_2]
+[GDXDISP: trade Var 8]
+PlaneDim=0
+RowDim=7
+Squeeze=1
+Order=1,2,3,4,5,7,8,6,9
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: price_avg Par 3]
+PlaneDim=0
+RowDim=3
+Squeeze=1
+Order=1,2,3
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: price_trans Var 5]
+PlaneDim=0
+RowDim=4
+Squeeze=1
+Order=1,2,4,5,3,6
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: price_trans Var 6]
+PlaneDim=0
+RowDim=5
+Squeeze=1
+Order=1,2,3,5,6,4,7
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: a Par 5]
+PlaneDim=0
+RowDim=5
+Squeeze=1
+Order=1,2,3,4,5
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: trans Var 6]
+PlaneDim=0
+RowDim=5
+Squeeze=1
+Order=1,2,3,5,6,4,7
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: trans_neg Var 6]
+PlaneDim=0
+RowDim=6
+Squeeze=1
+Order=1,2,3,4,5,6,7
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: trans_pos Var 6]
+PlaneDim=0
+RowDim=6
+Squeeze=1
+Order=1,2,3,4,5,6,7
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: prob Par 5]
+PlaneDim=0
+RowDim=5
+Squeeze=1
+Order=1,2,3,4,5
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: price_trans_pos Var 6]
+PlaneDim=1
+RowDim=5
+Squeeze=1
+Order=7,1,2,3,5,6,4
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: price_trans_neg Var 6]
+PlaneDim=1
+RowDim=5
+Squeeze=1
+Order=7,1,2,3,5,6,4
+Decim=7
+PlaneRownr=-1
+
+[RP:FUELSUBMODEL]
 1=
 
 [RP:KEM_EMP]
 1=
 
+[RP:EQUATIONS]
+1=
+
+[RP:RUN_MODEL]
+1=idir=db;load; gdx=test_trade
+2=idir=db;load; gdx=test
+3=idir=db;load; gdx=test2
+4=idir=db;load; gdx=CMO_5
+5=idir=db;load; gdx=test3
+6=idir=db;load; gdx=test;
+7=idir=db;load;
+8=
+
+[RP:RUN_MODEL_ENERGY_BETA_1]
+1=idir=db;load; gdx=energy_beta_1
+2=
+
+[RP:PARAMETERS]
+1=
+
+[RP:RUN_MODEL_ENERGY_BETA_105]
+1=
+
+[RP:RUN_MODEL_ENERGY_BETA_110]
+1=idir=db;load; gdx=energy_beta_110
+2=
+
+[RP:RUN_MODEL_ENERGY_BETA_115]
+1=idir=db;load; gdx=energy_beta_115
+
+[RP:RUN_MODEL_ENERGY_BETA_120]
+1=idir=db;load; gdx=energy_beta_120
+
+[RP:RUN_MODEL_ENERGY_BETA_125]
+1=idir=db;load; gdx=energy_beta_125
+2=idir=db;load; gdx=energy_beta_100
+3=
+
+[RP:RUN_MODEL_ENERGY_BETA_130]
+1=idir=db;load; gdx=energy_beta_130
+2=
+
+[RP:RUN_MODEL_ENERGY_BETA_135]
+1=idir=db;load; gdx=energy_beta_135
+2=
+
+[RP:RUN_MODEL_ENERGY_BETA_140]
+1=idir=db;load; gdx=energy_beta_100
+2=
+
+[RP:RUN_MODEL_ENERGY_BETA_145]
+1=idir=db;load; gdx=energy_beta_100
+2=
+
+[RP:RUN_MODEL_ENERGY_BETA_150]
+1=idir=db;load; gdx=energy_beta_150
+2=
+
+[RP:SETSANDVARIABLES]
+1=
+
+[RP:RUN_MODEL_ENERGY_BETA_100]
+1=idir=db;load; gdx=energy_beta_100
+2=idir=db;load; gdx=energy_beta_1
+3=
+
 [MRUFILES]
-1=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\Untitled_2.gms
-2=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\solar.gms
-3=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\SetsAndVariables.gms
-4=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\parameters_2.gms
-5=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\parameters.gms
-6=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\equations.gms
-7=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\demand_calib.gms
-8=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\demand.gms
+1=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_files\Nov 25\run_model_energy_beta_145.gms
+2=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_files\Nov 25\run_model_energy_beta_140.gms
+3=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_files\Nov 25\run_model_energy_beta_135.gms
+4=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_files\Nov 25\run_model_energy_beta_130.gms
+5=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_files\Nov 25\run_model_energy_beta_125.gms
+6=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_files\Nov 25\run_model_energy_beta_120.gms
 
 [OPENWINDOW_1]
-FILE0=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\PATH.opt
-FILE1=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_model.gms
-FILE2=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_model.lst
-FILE3=D:\Dropbox (KAPSARC)\ES- KEM\KEM_SA\KEM-SA_August4th2015\KEM\fuelsubmodel.gms
-FILE4=D:\Dropbox (KAPSARC)\ES- KEM\KEM_SA\KEM-SA_August4th2015\KEM\KEM_EMP.gms
-FILE5=D:\Dropbox (KAPSARC)\ES- KEM\KEM_SA\KEM-SA_August4th2015\KEM\powersubmodel.gms
-FILE6=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_model.gms
+FILE0=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\equations.gms
+FILE1=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\parameters.gms
+FILE2=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\PATH.opt
+FILE3=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_files\Nov 25\run_model_energy_beta_100.gms
+FILE4=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_files\Nov 25\run_model_energy_beta_150.gms
+FILE5=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_model_energy_beta_1.lst
+FILE6=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_model_energy_beta_100.lst
+FILE7=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_model_energy_beta_105.lst
+FILE8=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_model_energy_beta_110.lst
+FILE9=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_model_energy_beta_115.lst
+FILE10=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_model_energy_beta_120.lst
+FILE11=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_model_energy_beta_125.lst
+FILE12=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_model_energy_beta_130.lst
+FILE13=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_model_energy_beta_135.lst
+FILE14=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_model_energy_beta_140.lst
+FILE15=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_model_energy_beta_145.lst
+FILE16=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_model_energy_beta_150.lst
+FILE17=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\SetsAndVariables.gms
+FILE18=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\test_trade.gdx
+FILE19=D:\Dropbox (KAPSARC)\ES- KEM\KEM_SA\KEM-SA_August4th2015\KEM\fuelsubmodel.gms
+FILE20=D:\Dropbox (KAPSARC)\ES- KEM\KEM_SA\KEM-SA_August4th2015\KEM\KEM_EMP.gms
+FILE21=D:\Dropbox (KAPSARC)\ES- KEM\KEM_SA\KEM-SA_August4th2015\KEM\powersubmodel.gms
+FILE22=D:\Dropbox (KAPSARC)\ES- KEM\KEM_power_market\model\run_model_energy_beta_120.lst
 MAXIM=0
-TOP=93
-LEFT=692
-HEIGHT=624
+TOP=6
+LEFT=0
+HEIGHT=462
 WIDTH=1604

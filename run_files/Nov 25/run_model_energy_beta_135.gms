@@ -8,7 +8,7 @@ $INCLUDE Macros.gms
 $FuncLibIn stolib stodclib
 function cdfnorm     /stolib.cdfnormal/;
 
-scalar trading set to 1 to allow regional trade by firms /0/;
+scalar trading set to 1 to allow regional trade by firms /1/;
 scalar no_fringe set to 1 to exclude fringe from simulation /0/;
 
 $INCLUDE SetsAndVariables.gms
@@ -19,6 +19,8 @@ $include parameters.gms
 $INCLUDE equations.gms
 $include demand_calib.gms
      m(r,e,l) = no;
+
+     beta('fringe')=1.35;
 
 
 $ontext

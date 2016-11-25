@@ -1,3 +1,4 @@
+
 Parameters
            v(company)   CONJECTURAL VARIANTION for production by player /g1 0, g2 0, g3 0, g4 0, fringe -1/
            z(company)   CONJECTURAL VARIANTION for capacity by player /g1 0, g2 0, g3 0, g4 0, fringe -1/
@@ -91,9 +92,9 @@ mc(h,r,s,ss) = mc(h,r,s,ss)+heat_rate(h)*fuel_price(h)*1;
 ;
 
 
-parameter  beta(h,r,l) available capacity in market l
+parameter  beta(company) parameter used to inflate fixed cost for small private investors with higher eocnomies of scale compared to larger firms
 ;
-beta(h,r,l)=1;
+beta(i)=1;
 
 Parameters  a(r,e,l,s,ss) intercept of energy demand curve,
             b(r,e,l,s,ss) slope of energy demand curve
@@ -142,29 +143,26 @@ fringe.GT        1.116           3.7085          0               6.0056
 fringe.ST        0.706           6.4968          1.020           7.12936
 ;
 
-parameter kind_trans0(n) transmission capacity in GW
- /
-         East    5.22
-         South   1.5
-         West    1.2
- /
+table kind_trans0(r,rr) transmission capacity in GW
+
+                WOA   SOA     COA     EOA
+         WOA          1.5     1.2
+         SOA    1.5
+         COA    1.2                   5.22
+         EOA                  5.22
+
       ;
 *WOA   0     1.16
 
 *Data for 2014 inter-regional transmission capacities were obtained from ECRA correspondence.
-         parameter phi(n)  oper. and maint. cost of transmission in USD per MWH
-         /
-          West   3.71
-          South  3.73
-          East   3.78
-         /
-$ontext
+         table phi(r,rr)  oper. and maint. cost of transmission in USD per MWH
+
                 WOA   SOA     COA     EOA
          WOA   3.49   3.73    3.71    4.33
          SOA   3.73   3.49    4.10    4.50
          COA   3.71   4.1     3.49    3.78
          EOA   4.33   4.5     3.78    3.49
-$offtext
+
 ;
 
 Parameter capfactor(h) capacity factors for dispatchable plants
