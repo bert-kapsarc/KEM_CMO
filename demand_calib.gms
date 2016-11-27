@@ -8,6 +8,8 @@ COA      1.217
 /
 ;
 
+
+*        apply growth equally to all demand segments
 EL_demand(r,e,l,s,ss)= EL_demand(r,e,l,s,ss)*EL_demgro(r);
 $INCLUDE solar.gms
 
@@ -36,7 +38,7 @@ LRMC(r,e,l,s,ss) =
 smin(h,mc(h,r,s,ss)+(ic(h)+om(h))/sum((ll)$(EL_Demand(r,e,ll,s,ss)>=EL_Demand(r,e,l,s,ss)),d(e,ll)) )
 ;
 
-elasticity(r) = 0.12;
+elasticity(r) = 0.16;
 
 * Energy Price calibration                                                     *
             a(r,e,l,s,ss) = LRMC(r,e,l,s,ss)*(1+1/elasticity(r));

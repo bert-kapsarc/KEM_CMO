@@ -1,13 +1,10 @@
-major_iteration_limit 1500;
 time_limit 1e5;
-proximal_perturbation 0
-crash_method none
-crash_perturb no
-nm_initial_reference_factor 10
-nms_memory_size 2
-nms_mstep_frequency 1
-lemke_search_type slack
+proximal_perturbation 0;
+crash_method none;
+crash_perturb no;
+nms_initial_reference_factor 10;
+nms_memory_size 2;
+nms_mstep_frequency 1;
 convergence_tolerance 1e-5;
-lemke rank deficiency iterations 20;
-
+lemke_search_type slack
 

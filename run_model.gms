@@ -8,7 +8,7 @@ $INCLUDE Macros.gms
 $FuncLibIn stolib stodclib
 function cdfnorm     /stolib.cdfnormal/;
 
-scalar trading set to 1 to allow regional trade by firms /0/;
+scalar trading set to 1 to allow regional trade by firms /1/;
 scalar no_fringe set to 1 to exclude fringe from simulation /0/;
 
 $INCLUDE SetsAndVariables.gms
@@ -19,10 +19,18 @@ $include parameters.gms
 $INCLUDE equations.gms
 $include demand_calib.gms
      m(r,e,l) = no;
+     beta(i)=1;
+     kind_trans0(r,rr) = kind_trans0(r,rr);
 
+         v(i) = -1;
+         v('g1') = 0;
+         v('g2') = 0;
+         v('g3') = 0;
+         v('g4') = 0;
+         x(i,r,rr)  = v(i) ;
 
 $ontext
-*        Used to customize capacity markets based on expected prices that are more than two times the baseload prices
+*        Used to customize capacity markets based on expected prices that are greater than double the baseload prices
 *$gdxin energy.gdx
 
 *$LOAD price
@@ -33,15 +41,12 @@ $ontext
          );
 $offtext
 
-*price.l(r,e,l,s,ss)=0;
 
 *Option Savepoint=1;
 
-CMO.optfile = 1 ;
+*Execute_Loadpoint 'test_trade.gdx';
 
-*trade.l(i,n,r,rr,e,l,s,ss)$(not r_trans(n,r,rr))=0;
-*arbitrage.l(n,r,rr,e,l,s,ss)$(not r_trans(n,r,rr))=0;
-*trans.lo(n,e,l,s,ss)=0;
+CMO.optfile = 1 ;
 
 solve CMO using mcp;
 

@@ -117,19 +117,15 @@ duration(e,l)$(card(e)=1)=duration(e,l)*365/number_of_days(e);
 
 );
 
-parameter CDF_lo(r,e,l), CDF_hi(r,e,l), diff(r,e,l), CDF_alpha(r,e,l), CDF_beta(r,e,l), Z_cdf(r,e,l), X_cdf(r,e,l,scen);
-parameter CDF_x(r,e,l,scen) cumulative distribution functions for each scenario s;
 
-
-
-
-*        apply growth equally to all demand segments
 *        Rescale demand to GW
 *        Rescale duration such taht energy is in units of TWH
 *        Marginal costs should be in units of MMUSD/TWH
-
          d(e,l) = duration(e,l)*1e-3;
-         ;
+
+parameter CDF_lo(r,e,l), CDF_hi(r,e,l), diff(r,e,l), CDF_alpha(r,e,l), CDF_beta(r,e,l), Z_cdf(r,e,l), X_cdf(r,e,l,scen);
+parameter CDF_x(r,e,l,scen) cumulative distribution functions for each scenario s;
+
 
          CDF_lo(r,e,l)=ELlcgw(r,e,l)-ELlcgw_stddev(r,e,l)*2;
          CDF_hi(r,e,l)=ELlcgw(r,e,l)+ELlcgw_stddev(r,e,l)*2;

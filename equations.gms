@@ -29,8 +29,6 @@ Equations
          Eq11_2(r,rr,e,l,s,ss)
          Eq11_3(r,rr,e,l,s,ss)
          Eq11_4(r,rr,e,l,s,ss)
-         Eq11_5a(r,rr,e,l,s,ss)
-         Eq11_5b(r,rr,e,l,s,ss)
 
          Eq_q(company,h,r,e,l,s,ss)
          Eq_inv(company,h,r)
@@ -68,8 +66,8 @@ Eq9_3(i,h,r)$(not gttocc(h))..      -sum((e,l)$m(r,e,l),d(e,l)*delta(r,e,l))
 Eq9_4(i,r,rr,e,l,s,ss)$(trading=1 and r_trade(r,rr))..
          price(rr,e,l,s,ss)-price(r,e,l,s,ss)+zeta(i,r,rr,e,l,s,ss)
          -price_trans(r,rr,e,l,s,ss)
-        +b(r,e,l,s,ss)*sales(i,r,e,l,s,ss)*(1+x(i,r,rr))
-        -b(rr,e,l,s,ss)*sales(i,rr,e,l,s,ss)*(1+x(i,rr,r))
+        +b(r,e,l,s,ss)*sales(i,r,e,l,s,ss)*(1+v(i))
+        -b(rr,e,l,s,ss)*sales(i,rr,e,l,s,ss)*(1+v(i))
                  =e=0;
 
 Eq9_5(i,h,r,e,l,s,ss)$(not gttocc(h)) ..  Cap_avail(i,h,r)-Q(i,h,r,e,l,s,ss)=g=0;
@@ -79,8 +77,8 @@ Eq9_7(i,h,r)$(not gttocc(h))..  Cap_avail(i,h,r) =e= kind(i,h,r)+sum(hh,inv(i,hh
 
 Eq9_8(i,r,e,l,s,ss)..     sales(i,r,e,l,s,ss)=e=
                          sum(h$(not gttocc(h)),Q(i,h,r,e,l,s,ss))
-                       -sum((rr)$r_trans(r,rr),trade(i,r,rr,e,l,s,ss))$(trading=1)
-                       +sum((rr)$r_trans(r,rr),trade(i,rr,r,e,l,s,ss))$(trading=1) ;
+                       -sum((rr)$r_trade(r,rr),trade(i,r,rr,e,l,s,ss))$(trading=1)
+                       +sum((rr)$r_trade(r,rr),trade(i,rr,r,e,l,s,ss))$(trading=1) ;
 
 Eq9_9(i,h,r).. kind0(i,h,r)-kind(i,h,r)=e=0  ;
 
@@ -94,40 +92,33 @@ Eq10_1(r,rr,e,l,s,ss)$r_trade(r,rr)..
 
 
 Eq11_1(r,rr,e,l,s,ss)$r_trans(r,rr)..
-                 price_trans_pos(r,rr,e,l,s,ss)+ price_trans_neg(r,rr,e,l,s,ss)
-                         -phi(r,rr)-tau(r,rr,e,l,s,ss)/d(e,l)
-                         =e= 0;
 
-
-
-
+         kind_trans0(r,rr)=g=
+                 sum(i,trade(i,r,rr,e,l,s,ss))$(trading=1)
+                 -sum(i,trade(i,rr,r,e,l,s,ss))$(trading=1)
+                 +arbitrage(r,rr,e,l,s,ss)
+*                 -arbitrage(rr,r,e,l,s,ss)
+;
 
 Eq11_2(r,rr,e,l,s,ss)$r_trans(r,rr)..
 
-         trans(r,rr,e,l,s,ss)=g=
-                 sum(i,trade(i,r,rr,e,l,s,ss))$(trading=1)
-                 +arbitrage(r,rr,e,l,s,ss)
-         ;
-
-
-Eq11_3(r,rr,e,l,s,ss)$r_trans(r,rr)..
-
-         trans(r,rr,e,l,s,ss)=g=
+         kind_trans0(r,rr)=g=
                  sum(i,trade(i,rr,r,e,l,s,ss))$(trading=1)
+                 -sum(i,trade(i,r,rr,e,l,s,ss))$(trading=1)
                  +arbitrage(rr,r,e,l,s,ss)
-         ;
+*                 -arbitrage(r,rr,e,l,s,ss)
+;
 
-Eq11_4(r,rr,e,l,s,ss)$r_trans(r,rr)..
-                         kind_trans0(r,rr)-trans(r,rr,e,l,s,ss)=g=0;
 
-Eq11_5a(r,rr,e,l,s,ss)$r_trans(r,rr) ..
+Eq11_3(r,rr,e,l,s,ss)$r_trans(r,rr) ..
          price_trans(r,rr,e,l,s,ss)
-                         =e=
-         price_trans_pos(r,rr,e,l,s,ss)+price_trans_neg(r,rr,e,l,s,ss);
+                         =e=  phi(r,rr)+tau_pos(r,rr,e,l,s,ss)/d(e,l)
+
 
 ;
-Eq11_5b(r,rr,e,l,s,ss)$r_trans(r,rr)..
-         price_trans(rr,r,e,l,s,ss)=e=price_trans(r,rr,e,l,s,ss)
+Eq11_4(r,rr,e,l,s,ss)$r_trans(r,rr)..
+         price_trans(rr,r,e,l,s,ss)
+                         =e= phi(r,rr)+tau_neg(r,rr,e,l,s,ss)/d(e,l)
 
 ;
 
@@ -151,8 +142,6 @@ model CMO   /
             Eq9_4,
             Eq9_5.lambda_high,
 
-
-
             Eq9_6.eta_high,
             Eq9_7,
             Eq9_8,
@@ -160,12 +149,10 @@ model CMO   /
             Eq9_10.shadows_gttocc,
 
             Eq10_1,
-            Eq11_1,
-            Eq11_2.price_trans_pos,
-            Eq11_3.price_trans_neg,
-            Eq11_4.tau,
-            EQ11_5a,
-            EQ11_5b,
+            Eq11_1.tau_pos,
+            Eq11_2.tau_neg,
+            EQ11_3,
+            EQ11_4,
 
             Eq_q.lambda_low,
             Eq_trade.zeta,

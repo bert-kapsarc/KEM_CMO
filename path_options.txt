@@ -1,0 +1,6 @@
+*major_iteration_limit 1500;
+*crash_nbchange_limit 10
+*crash_searchtype arc
+*nms_searchtype arc
+*gradient_searchtype arc
+*lemke_search_type slack;   
