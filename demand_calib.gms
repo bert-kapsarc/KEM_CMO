@@ -52,8 +52,8 @@ elasticity(r) = 0.16;
 * price is set to the maximum fixed cost of all generators operating in the market
 * soread of the total number of demand hours
 
-         theta(r,e,l)$m(r,e,l) =  0
-                 +smax(h,(ic(h)+om(h)))/sum((ee,ll),d(ee,ll))
+         theta(r,e,l) =  0
+                 +smax(h$(not nuclear(h)),(ic(h)+om(h)))/sum((ee,ll),d(ee,ll))
 *                 sum((s),prob(s,ss)*d(e,m))    ;
 *                 sum((s,ll)$(EL_Demand(r,e,ll,s,ss)>=EL_Demand(r,e,m,s,ss)),prob(s,ss)*d(e,ll));
 ;

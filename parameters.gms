@@ -1,12 +1,15 @@
-
 Parameters
            v(company)   CONJECTURAL VARIANTION for production by player /g1 0, g2 0, g3 0, g4 0, fringe -1/
            z(company)   CONJECTURAL VARIANTION for capacity by player /g1 0, g2 0, g3 0, g4 0, fringe -1/
            x(company,r,rr)   CONJECTURAL VARIANTION for electricity by player between region r and rr
 
            capital_cost(h) Capital cost in USD per GW /CCGT 1102, GT 1016, ST 1680, Nuclear 6500, GTtoCC 600/
+*           capital_cost(h) Capital cost in USD per GW /CCGT 1740, GT 1485, ST 2120, Nuclear 4896, GTtoCC 600/
+
            ic(h)  investment cost USD per GW
+
            om(h) Fixed O&M cost USD per GW  /GT 10.68, GTtoCC 19.94, CCGT 19.94, ST 38.67, Nuclear 130/
+*           om(h) Fixed O&M cost USD per GW  /GT 11.2, GTtoCC 12.4, CCGT 12.4, ST 11.2, Nuclear 68.8/
            K0(h,r) existent capacity of technology h in region r before liberalization
            kind0(company,h,r) initial capacity by technology and firm in each region in GW
            K(r,l) minimum installed capacity available to sell in region r and market segment l
@@ -18,8 +21,10 @@ Parameters
            lifetime(h) plant lifetime /CCGT 35, GT 30, ST 40, Nuclear 55, GTtoCC 20/
            discrate discount rate used for power plant investments /0.06/
 
-
+           market_share_cap(company) cap on a companies market share by investment
 ;
+         market_share_cap(i) = 1;
+
            x(i,r,rr)  = v(i) ;
 
            Table capadd(hh,h) a factor for adding capacity (only applicable to dispatchable tech)

@@ -21,6 +21,7 @@ Equations
          Eq9_8(company,r,e,l,s,ss)
          Eq9_9(company,h,r)
          Eq9_10(company,r)
+         Eq9_11(company,r)
 
          Eq10_1(r,rr,e,l,s,ss)
          Eq10_1a(r,rr,e,l,s,ss)
@@ -53,8 +54,14 @@ Eq9_2(i,h,r)..       sum((e,l)$m(r,e,l),d(e,l)*delta(r,e,l))
                     -sum((e,l)$m(r,e,l),d(e,l)*xi(r,e,l)*(1+z(i))*sum(hh,Cap_avail(i,hh,r)))
                      +sum((hh,e,l,s,ss)$(not gttocc(hh)),prob(r,e,l,s,ss)*d(e,l)*lambda_high(i,hh,r,e,l,s,ss)*capadd(h,hh))
                      -shadows_gttocc(i,r)$gttocc(h)
-                     +alpha(i,h,r) =e=beta(i)*(ici(h)+om(h));
+                     +alpha(i,h,r)
+                     +(market_share_cap(i)-1)*shadows_inv_cap(i,r)
+
+                         =e=beta(i)*(ici(h)+om(h));
 *
+
+Eq9_11(i,r)$(market_share_cap(i)<1)  ..           market_share_cap(i)*sum((j,h),inv(j,h,r))
+                         -sum(h,inv(i,h,r))=g=0;
 
 Eq9_3(i,h,r)$(not gttocc(h))..      -sum((e,l)$m(r,e,l),d(e,l)*delta(r,e,l))
                     +sum((e,l)$m(r,e,l),d(e,l)*xi(r,e,l)*(1+z(i))*sum(hh,Cap_avail(i,hh,r)))
@@ -145,6 +152,7 @@ model CMO   /
             Eq9_8,
             Eq9_9,
             Eq9_10.shadows_gttocc,
+            EQ9_11.shadows_inv_cap
 
             Eq10_1,
             Eq11_1.tau_pos,

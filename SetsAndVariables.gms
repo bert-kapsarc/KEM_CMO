@@ -6,10 +6,11 @@ Sets
      h(tech) technology       /CCGT, GT, GTtoCC, ST, Nuclear/
      gttocc(h) /GTtoCC/
      gt(h) /GT/
+     nuclear(h) /nuclear/
      l market segment   /l1*l8/
      seasons  /winter,summer,spring-fall/
-     e(seasons) seasons for running the model /summer/
-*     e(seasons) seasons for running the model /winter,summer,spring-fall/
+*     e(seasons) seasons for running the model /summer/
+     e(seasons) seasons for running the model /winter,summer,spring-fall/
      winter(seasons) /winter/
      spring(seasons) /spring-fall/
      summer(seasons) /summer/
@@ -61,10 +62,11 @@ variables
          shadows_arbitrage(r,rr,seasons,l,s,ss) shadow prices for no-negative incoming arbitrage constriant in USD per MW
          shadows_gttocc(company,r) shadows on upper bound of GT conversion USD per MW
          shadows_fringe(company,r) shadows on upper bound on fring investments in USD per MW
+         shadows_inv_cap(company,r)
           ;
 
 positive variables lambda_high, lambda_low,  alpha,
                    eta_high,eta_low, psi
                    tau,zeta,shadows_arbitrage,shadows_trans,shadows_gttocc
-                   tau_pos,tau_neg
+                   tau_pos,tau_neg,shadows_inv_cap
                    ;
