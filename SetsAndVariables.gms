@@ -8,8 +8,8 @@ Sets
      gt(h) /GT/
      l market segment   /l1*l8/
      seasons  /winter,summer,spring-fall/
-*     e(seasons) seasons for running the model /summer/
-     e(seasons) seasons for running the model /winter,summer,spring-fall/
+     e(seasons) seasons for running the model /summer/
+*     e(seasons) seasons for running the model /winter,summer,spring-fall/
      winter(seasons) /winter/
      spring(seasons) /spring-fall/
      summer(seasons) /summer/

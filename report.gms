@@ -41,6 +41,12 @@ Parameters
 
          price_avg(r,e,l) = sum((s,ss),prob(r,e,l,s,ss)*price.l(r,e,l,s,ss));
 
+         trans.l(r,rr,e,l,s,ss)$r_trade(r,rr) =
+                 sum(i,trade.l(i,r,rr,e,l,s,ss))$(trading=1)
+                 -sum(i,trade.l(i,rr,r,e,l,s,ss))$(trading=1)
+                 +arbitrage.l(r,rr,e,l,s,ss)
+                 -arbitrage.l(rr,r,e,l,s,ss);
+
 profit(i,h)=sum((r,e,l,s,ss),prob(r,e,l,s,ss)*(price.l(r,e,l,s,ss)-mc(h,r,s,ss))*q.l(i,h,r,e,l,s,ss)*d(e,l))-sum((hh,r),(ici(hh)+om(h))*beta(i)*inv.l(i,hh,r)*capadd(hh,h))-sum((r),(icr(h)-om(h)*beta(i))*ret.l(i,h,r))+sum((r,e,l)$m(r,e,l),delta.l(r,e,l)*Cap_avail.l(i,h,r));
 *profit(i,'all')=sum(h,profit(i,h));
 

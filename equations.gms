@@ -39,8 +39,8 @@ Equations
 Eq1(r,e,l,s,ss)..    price(r,e,l,s,ss)=e=
                      a(r,e,l,s,ss)-b(r,e,l,s,ss)*sum(j,sales(j,r,e,l,s,ss))
                      +b(r,e,l,s,ss)*(
-                          sum((rr)$r_trans(r,rr),arbitrage(r,rr,e,l,s,ss))
-                          -sum((rr)$r_trans(r,rr),arbitrage(rr,r,e,l,s,ss))
+                          sum((rr)$r_trade(r,rr),arbitrage(r,rr,e,l,s,ss))
+                          -sum((rr)$r_trade(r,rr),arbitrage(rr,r,e,l,s,ss))
                      );
 
 Eq2(r,e,l)$m(r,e,l) ..        delta(r,e,l)=e=theta(r,e,l)-xi(r,e,l)*sum((j,hh)$(not gttocc(hh)),Cap_avail(j,hh,r));
@@ -97,7 +97,6 @@ Eq11_1(r,rr,e,l,s,ss)$r_trans(r,rr)..
                  sum(i,trade(i,r,rr,e,l,s,ss))$(trading=1)
                  -sum(i,trade(i,rr,r,e,l,s,ss))$(trading=1)
                  +arbitrage(r,rr,e,l,s,ss)
-*                 -arbitrage(rr,r,e,l,s,ss)
 ;
 
 Eq11_2(r,rr,e,l,s,ss)$r_trans(r,rr)..
@@ -106,7 +105,6 @@ Eq11_2(r,rr,e,l,s,ss)$r_trans(r,rr)..
                  sum(i,trade(i,rr,r,e,l,s,ss))$(trading=1)
                  -sum(i,trade(i,r,rr,e,l,s,ss))$(trading=1)
                  +arbitrage(rr,r,e,l,s,ss)
-*                 -arbitrage(r,rr,e,l,s,ss)
 ;
 
 
