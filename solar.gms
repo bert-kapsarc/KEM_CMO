@@ -44,15 +44,28 @@ Parameter ELsolcurvenorm(l,seasons,r) normalized DNI profiles from ELsolcurve;
 Elsolcurvenorm(l,e,r)=ELsolcurve(l,e,r)/smax((ll,ee),ELsolcurve(ll,ee,r));
 
 
-parameter solar_cap(r) regional solar capcitity installation in GW
+parameter solar_cap(r) regional solar PV capacity installation in GW
 /
-COA      1.5
-EOA      1.5
-SOA      1
-WOA      2
+COA      0.9
+EOA      0
+SOA      0
+WOA      1
 /
 
 ;
+
+parameter wind_cap(r) regional wind capacity installation in GW
+/
+COA      0.9
+EOA      0.2
+SOA      0.2
+WOA      0.8
+/
+
+;
+
+$INCLUDE wind.gms
+
 scalar random, mean, stddev;
 
          mean = 0.9;
@@ -71,10 +84,12 @@ loop(ss,
                  prob(r,e,l,s,ss) = (prob(r,e,l,s,ss)+(CDF_x(r,e,l,ss) - CDF_x(r,e,l,ss-1))/card(s))/(2);
          );
          X_cdf(r,e,l,ss)=X_cdf(r,e,l,ss)-(diff(r,e,l)/(2*card(ss)))$(card(ss)>1);
-         EL_Demand(r,e,l,s,ss)= EL_Demand(r,e,l,s,ss)-solar_cap(r)*Elsolcurvenorm(l,e,r)*X_cdf(r,e,l,ss);
+         EL_Demand(r,e,l,s,ss)= EL_Demand(r,e,l,s,ss)
+                 -(solar_cap(r)*Elsolcurvenorm(l,e,r)+wind_cap(r)*ELdiffGWwind(l,e,r))*X_cdf(r,e,l,ss);
 );
-
+display ELwindpower,ELdiffGWwind ;
 display prob,EL_Demand,CDF_x,Elsolcurvenorm,solar_cap,x_cdf ;
+*abort"";
 
 
 

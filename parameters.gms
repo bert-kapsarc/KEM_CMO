@@ -68,7 +68,7 @@ mc('Nuclear',r,s,ss) = 6.9;
 
 
 * Uranium-235 use is in g/GWh
-parameter heat_rate(h) fueal burn rate in mmbtu and KG per MWH
+parameter heat_rate(h) fueal burn rate in mmbtu and g per MWH
 /
 CCGT               6.09286
 GT                 10.000
@@ -78,17 +78,17 @@ Nuclear            0.120
 ;
 
 
-parameter fuel_price(h) price of fuels in USD per mmbtu and KG U235
-/
-CCGT               1.25
-GT                 1.25
-ST                 1.25
-Nuclear            113
-/
+parameter fuel_price(h,r) price of fuels in USD per mmbtu and KG U235
 ;
+*fuel_price(h,r)$(not nuclear(h)) = 1.25;
+fuel_price(h,'WOA')$(not nuclear(h)) = 8.80;
+fuel_price(h,'SOA')$(not nuclear(h)) = 8.83;
+fuel_price(h,'COA')$(not nuclear(h)) = 8.59;
+fuel_price(h,'WOA')$(not nuclear(h)) = 8.42;
+fuel_price('nuclear',r)= 113;
 
 loop(s,
-mc(h,r,s,ss) = mc(h,r,s,ss)+heat_rate(h)*fuel_price(h)*1;
+mc(h,r,s,ss) = mc(h,r,s,ss)+heat_rate(h)*fuel_price(h,r)*1;
 *uniform(1,1)
 );
 ;
@@ -119,7 +119,6 @@ ST    0     0     0     0
 ;
 $offtext
 
-
 table kind0(company,h,r) firms existing generation capacity in GW
 
                  COA             EOA             SOA             WOA
@@ -141,7 +140,7 @@ g4.GT            0               0               0               8.5497
 g4.ST            0               0               0               9.8884
 
 fringe.CCGT      0               2.56737         0               0
-fringe.GT        1.116           3.7085          0               6.0056
+fringe.GT        1.116           3.7085          0               0.60056
 fringe.ST        0.706           6.4968          1.020           7.12936
 ;
 

@@ -1,6 +1,8 @@
 Sets
      company /fringe, g1*g4/
      i(company) generators       /fringe,g1*g4/
+     Genco(company) /g1*g4/
+
      fringe(company)     /fringe/
      tech       /CCGT, GT, GTtoCC, ST, Nuclear, all/
      h(tech) technology       /CCGT, GT, GTtoCC, ST, Nuclear/
@@ -19,16 +21,22 @@ Sets
 
      m(r,e,l) capacity markets
      scen /s1*s10/
-     s(scen) scenarios for energy demand        /s1*s1/
-     ss(scen) scenarios for renewables       /s1*s1/
+     s(scen) scenarios for energy demand        /s1*s5/
+     ss(scen) scenarios for renewables       /s1*s2/
 
-     n power_lines      /East,South,west/
+     oli(genco,r)
+
+;
+         oli("g1","COA") = yes;
+         oli("g2","SOA") = yes;
+         oli("g3","EOA") = yes;
+         oli("g4","WOA") = yes;
 
 
 Alias (h,hh), (i,j), (r,rr);
 
 
-alias (l,ll), (i,ii), (h,hh), (r,rr,rrr), (e,ee);
+alias (l,ll), (i,ii), (h,hh), (r,rr,rrr), (e,ee), (Genco,GGenco);;
 
 *   intialze capacity market in select segements
     m(r,e,'l5') =  yes;

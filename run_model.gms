@@ -14,10 +14,16 @@ scalar no_fringe set to 1 to exclude fringe from simulation /0/;
 $INCLUDE SetsAndVariables.gms
 
 $INCLUDE Demand.gms
+
+
 $include parameters.gms
 
 $INCLUDE equations.gms
 $include demand_calib.gms
+
+* Assets Allocation
+kind0(Genco,h,r) = sum(GGenco, kind_save(GGenco,h,r))*(1$(not oli(genco,r))/6+1$oli(genco,r)/2) ;
+
 
 *        conjectural variations of the firms
      v(i) = 0;
@@ -27,10 +33,10 @@ $include demand_calib.gms
      market_share_cap('fringe') = 0.2;
 
 *        Capacity market configuration
-*     m(r,e,l) = no;
+     m(r,e,l) = no;
 $ontext
 *        Used to customize capacity markets based on expected prices that are greater than double the baseload prices
-$gdxin energy.gdx
+*$gdxin energy.gdx
 
 $LOAD price
          loop(l,
@@ -41,9 +47,9 @@ $LOAD price
 $offtext
 
 
-Option Savepoint=1;
+Option Savepoint=2;
 
-*Execute_Loadpoint 'test2.gdx';
+Execute_Loadpoint 'energy.gdx';
 
 CMO.optfile = 1 ;
 
