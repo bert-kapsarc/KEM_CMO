@@ -110,7 +110,8 @@ sum(hrs$(
                 hour(hrs)<block_end(e,l)
          ), (HLC(r,hrs)-ELlcgw(r,e,l))*(HLC(r,hrs)-ELlcgw(r,e,l)) )/(duration(e,l))
 ;
-ELlcgw_stddev(r,e,l) = sqrt(ELlcgw_stddev(r,e,l));
+
+ELlcgw_stddev(r,e,l) = sqrt(ELlcgw_stddev(r,e,l))*0.3;
 
 if(card(e)=1 ,
 duration(e,l)$(card(e)=1)=duration(e,l)*365/number_of_days(e);
@@ -127,8 +128,8 @@ parameter CDF_lo(r,e,l), CDF_hi(r,e,l), diff(r,e,l), CDF_alpha(r,e,l), CDF_beta(
 parameter CDF_x(r,e,l,scen) cumulative distribution functions for each scenario s;
 
 
-         CDF_lo(r,e,l)=ELlcgw(r,e,l)-ELlcgw_stddev(r,e,l)*2;
-         CDF_hi(r,e,l)=ELlcgw(r,e,l)+ELlcgw_stddev(r,e,l)*2;
+         CDF_lo(r,e,l)=ELlcgw(r,e,l)-ELlcgw_stddev(r,e,l)*3;
+         CDF_hi(r,e,l)=ELlcgw(r,e,l)+ELlcgw_stddev(r,e,l)*3;
 
          diff(r,e,l) = CDF_hi(r,e,l) -CDF_lo(r,e,l);
 

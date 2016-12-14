@@ -29,20 +29,23 @@ if(no_fringe=1,
 
 );
 
-parameter elasticity(r) demand elasticity for eletricity ???;
+parameter elasticity(r,e,l,s,ss) demand elasticity for eletricity ???;
 
-parameter  LRMC(r,e,l,s,ss) long run marginal cost in each load segment USD per MWH;
+parameter  LRMC(r,e,l,s,ss) long run marginal cost in each load segment USD per MWH
+           SRMC(r,e,l,s,ss);
 
 * long run marginal cost. rescale capacity payment to USD/MW
 LRMC(r,e,l,s,ss) =
 smin(h,mc(h,r,s,ss)+(ic(h)+om(h))/sum((ll)$(EL_Demand(r,e,ll,s,ss)>=EL_Demand(r,e,l,s,ss)),d(e,ll)) )
 ;
 
-elasticity(r) = 0.16;
+
+
+elasticity(r,e,l,s,ss) = 0.16;
 
 * Energy Price calibration                                                     *
-            a(r,e,l,s,ss) = LRMC(r,e,l,s,ss)*(1+1/elasticity(r));
-            b(r,e,l,s,ss) = LRMC(r,e,l,s,ss)/EL_demand(r,e,l,s,ss)/elasticity(r) ;
+            a(r,e,l,s,ss) = LRMC(r,e,l,s,ss)*(1+1/elasticity(r,e,l,s,ss));
+            b(r,e,l,s,ss) = LRMC(r,e,l,s,ss)/EL_demand(r,e,l,s,ss)/elasticity(r,e,l,s,ss);
 
 
 * Capacity Price calibration                                                   *

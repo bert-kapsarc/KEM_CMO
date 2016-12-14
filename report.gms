@@ -1,47 +1,59 @@
-*$ontext
-Parameters
-         profit(company,tech)         profit per player by tech
-         roi(company,tech)              return on investment
-         cus(company,tech)              capacity usage
-         rop(company,tech)              return on production
-         roc(company,tech)              return on capacity
-         investments(company,tech)      investments
 
-         price_avg(r,e,l)        expected price by region and season
-         price_trans_avg(r,rr,e,l)        expected price by region and season
-
-
-
-         production(company,tech)      production by player in TWH
-         transmission(r,rr,e,l)        transmission by ISO in TWH
-         trade_avg(company,r,rr,e,l)         expected interregional trade by each firm in TWH
-         arbitrage_avg(r,rr,e,l)       expected interregional arbitrage by ISO in TWH
-
-         error_demand(r,e,l)
-         reserve_capacity(r)
-         ;
-
-         scalar         consumer_surplus                consumer surplus ;
 
 *$ontext
-         error_demand(r,e,l) =
-         -sum((s,ss),prob(r,e,l,s,ss)*
-           (EL_demand(r,e,l,s,ss)-
+         demand_expected(r,e,l) =sum((s,ss),prob(r,e,l,s,ss)*EL_demand(r,e,l,s,ss));
+         demand_actual(r,e,l,s,ss)=
+
                  (sum((j),sales.l(j,r,e,l,s,ss))
                   -sum(rr$r_trans(r,rr),arbitrage.l(r,rr,e,l,s,ss))
-                  +sum(rr$r_trans(r,rr),arbitrage.l(rr,r,e,l,s,ss)) )
-           )
-         )/sum((s,ss),EL_demand(r,e,l,s,ss));
+                  +sum(rr$r_trans(r,rr),arbitrage.l(rr,r,e,l,s,ss)) ) ;
 
-         reserve_capacity(r) = sum((i,h),Cap_avail.l(i,h,r))/smax((e,l),sum((s,ss),EL_demand(r,e,l,s,ss)*prob(r,e,l,s,ss)))-1;
+         error_demand(r,e,l) =
+         -sum((s,ss),prob(r,e,l,s,ss)*
+                 (EL_demand(r,e,l,s,ss)-demand_actual(r,e,l,s,ss))
+         )/demand_expected(r,e,l);
+
+         reserve_capacity(r) = sum((i,h),Cap_avail.l(i,h,r))/smax((e,l,s,ss),demand_actual(r,e,l,s,ss))-1;
 ;
+k1(r,e,l,s,ss) = demand_actual(r,e,l,s,ss)*d(e,l)*price.l(r,e,l,s,ss)**(elasticity(r,e,l,s,ss));
 
-         consumer_surplus = sum((i,h,r,e,l,s,ss),prob(r,e,l,s,ss)*
-                         (a(r,e,l,s,ss) - price.l(r,e,l,s,ss))*q.l(i,h,r,e,l,s,ss)/2*d(e,l));
+         consumer('surplus',r) = sum((e,l,s,ss),prob(r,e,l,s,ss)*
+         k1(r,e,l,s,ss)*price.l(r,e,l,s,ss)**(1-elasticity(r,e,l,s,ss))/(1-elasticity(r,e,l,s,ss))
+         );
+
+
+
+*         sum((i,h,e,l,s,ss),prob(r,e,l,s,ss)*
+*         (a(r,e,l,s,ss) - price.l(r,e,l,s,ss))*q.l(i,h,r,e,l,s,ss)*d(e,l)/2);
+*        Subtract out fuel subsidies
+         consumer('fuel subsidy',r) = sum((i,h,e,l,s,ss),prob(r,e,l,s,ss)*
+         (fuel_price(h,r)-fuel_price_admin(h,r))*q.l(i,h,r,e,l,s,ss)*heat_rate(h)*d(e,l));
+
+         consumer('fixed cost',r) = sum((i,h,e,l)$m(r,e,l),delta.l(r,e,l)*Cap_avail.l(i,h,r)*d(e,l));
+
+
+         balancing_account('purchases energy',r)=
+                 sum((i,h,e,l,s,ss),price.l(r,e,l,s,ss)*
+                         prob(r,e,l,s,ss)*q.l(i,h,r,e,l,s,ss)*d(e,l));
+         balancing_account('purchases capacity',r)=
+                 sum((i,h,e,l)$m(r,e,l),delta.l(r,e,l)*Cap_avail.l(i,h,r));
+
+         balancing_account('consumer sales',r)=sum((i,h,e,l,s,ss,consumer_type),
+         consumer_share(consumer_type,r)*consumer_tariff(consumer_type)*
+                         prob(r,e,l,s,ss)*q.l(i,h,r,e,l,s,ss)*d(e,l));
+
+
 
          investments(i,h) =  sum(r,inv.l(i,h,r));
 
          price_avg(r,e,l) = sum((s,ss),prob(r,e,l,s,ss)*price.l(r,e,l,s,ss));
+
+         price_avg_cost(r,e,l) = (
+                  sum((i,h,s,ss),prob(r,e,l,s,ss)*mc(h,r,s,ss)*q.l(i,h,r,e,l,s,ss)*d(e,l))
+                 +sum((i,h,hh),(ici(hh)+om(h))*beta(i)*inv.l(i,hh,r)*capadd(hh,h))
+                 +sum((i,h),(icr(h)-om(h))*ret.l(i,h,r))
+                 )/sum((s,ss),prob(r,e,l,s,ss)*demand_actual(r,e,l,s,ss));
+
          price_trans_avg(r,rr,e,l) = sum((s,ss),prob(r,e,l,s,ss)*price_trans.l(r,rr,e,l,s,ss));
 
          trans.l(r,rr,e,l,s,ss)$r_trade(r,rr) =
@@ -53,6 +65,9 @@ Parameters
          trade_avg(i,r,rr,e,l) =sum((s,ss),prob(r,e,l,s,ss)*trade.l(i,r,rr,e,l,s,ss)*d(e,l));
          transmission(r,rr,e,l) =sum((s,ss),prob(r,e,l,s,ss)*trans.l(r,rr,e,l,s,ss)*d(e,l));
          arbitrage_avg(r,rr,e,l) =sum((s,ss),prob(r,e,l,s,ss)*arbitrage.l(r,rr,e,l,s,ss)*d(e,l));
+
+
+*         price.l(r,e,l,s,ss) = price_avg_cost(r,e,l) ;
 
 profit(i,h)=sum((r,e,l,s,ss),prob(r,e,l,s,ss)*(price.l(r,e,l,s,ss)-mc(h,r,s,ss))*q.l(i,h,r,e,l,s,ss)*d(e,l))-sum((hh,r),(ici(hh)+om(h))*beta(i)*inv.l(i,hh,r)*capadd(hh,h))-sum((r),(icr(h)-om(h)*beta(i))*ret.l(i,h,r))+sum((r,e,l)$m(r,e,l),delta.l(r,e,l)*Cap_avail.l(i,h,r));
 *profit(i,'all')=sum(h,profit(i,h));
@@ -71,7 +86,8 @@ cus(i,h)$(sum(r,Cap_avail.l(i,h,r))>1e-6)=sum((r,e,l,s,ss),prob(r,e,l,s,ss)*d(e,
 *cus(i,'all')=sum(h,cus(i,h));
 
 ****return on production
-rop(i,h)=profit(i,h)/sum((r,e,l,s,ss),prob(r,e,l,s,ss)*d(e,l)*q.l(i,h,r,e,l,s,ss));
+rop(i,h)$(sum((r,e,l,s,ss),prob(r,e,l,s,ss)*d(e,l)*q.l(i,h,r,e,l,s,ss))>0)=
+         profit(i,h)/sum((r,e,l,s,ss),prob(r,e,l,s,ss)*d(e,l)*q.l(i,h,r,e,l,s,ss));
 *rop(i,'all')=sum(h,rop(i,h));
 
 ****return on capacity

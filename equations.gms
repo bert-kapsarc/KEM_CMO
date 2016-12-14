@@ -22,6 +22,8 @@ Equations
          Eq9_9(company,h,r)
          Eq9_10(company,r)
          Eq9_11(company,r)
+         Eq9_11a(company,r)
+         Eq9_12(h,r)     lower bound aggregate gencos production (replicate effect of long term PPA's on the market)
 
          Eq10_1(r,rr,e,l,s,ss)
          Eq10_1a(r,rr,e,l,s,ss)
@@ -30,6 +32,8 @@ Equations
          Eq11_2(r,rr,e,l,s,ss)
          Eq11_3(r,rr,e,l,s,ss)
          Eq11_4(r,rr,e,l,s,ss)
+
+         Eq11_7(r,rr,e,l,s,ss)
 
          Eq_q(company,h,r,e,l,s,ss)
          Eq_inv(company,h,r)
@@ -47,7 +51,12 @@ Eq1(r,e,l,s,ss)..    price(r,e,l,s,ss)=e=
 Eq2(r,e,l)$m(r,e,l) ..        delta(r,e,l)=e=theta(r,e,l)-xi(r,e,l)*sum((j,hh)$(not gttocc(hh)),Cap_avail(j,hh,r));
 
 Eq9_1(i,h,r,e,l,s,ss)$(not gttocc(h)) ..
-price(r,e,l,s,ss)-mc(h,r,s,ss)-b(r,e,l,s,ss)*(1+v(i))*sales(i,r,e,l,s,ss)-lambda_high(i,h,r,e,l,s,ss)+lambda_low(i,h,r,e,l,s,ss)=e= 0 ;
+         price(r,e,l,s,ss)-mc(h,r,s,ss)
+         -b(r,e,l,s,ss)*(1+v(i))*sales(i,r,e,l,s,ss)
+         -lambda_high(i,h,r,e,l,s,ss)
+         +shadows_genco_ppa(h,r)*(1+v(i))$(GENCO(i) and Genco_PPA(h,r)>0)
+         +(market_share_prod(i)*(1+v(i))-1)*shadows_prod_cap(i,r)$(market_share_prod(i)<1)
+         +lambda_low(i,h,r,e,l,s,ss)=e= 0 ;
 *
 
 Eq9_2(i,h,r)..       sum((e,l)$m(r,e,l),d(e,l)*delta(r,e,l))
@@ -55,19 +64,24 @@ Eq9_2(i,h,r)..       sum((e,l)$m(r,e,l),d(e,l)*delta(r,e,l))
                      +sum((hh,e,l,s,ss)$(not gttocc(hh)),prob(r,e,l,s,ss)*d(e,l)*lambda_high(i,hh,r,e,l,s,ss)*capadd(h,hh))
                      -shadows_gttocc(i,r)$gttocc(h)
                      +alpha(i,h,r)
-                     +(market_share_cap(i)-1)*shadows_inv_cap(i,r)
+                     +(market_share_inv(i)*(1+z(i))-1)*shadows_inv_cap(i,r)$(market_share_inv(i)<1)
 
-                         =e=beta(i)*(ici(h)+om(h));
+                         =e=(ici(h)+om(h));
 *
 
-Eq9_11(i,r)$(market_share_cap(i)<1)  ..           market_share_cap(i)*sum((j,h),inv(j,h,r))
+Eq9_11(i,r)$(market_share_inv(i)<1)  ..
+                 market_share_inv(i)*sum((j,h),inv(j,h,r))
                          -sum(h,inv(i,h,r))=g=0;
+Eq9_11a(i,r)$(market_share_prod(i)<1)  ..
+                 market_share_prod(i)*sum((h,j,e,l,s,ss)$(not gttocc(h)), Q(j,h,r,e,l,s,ss)*prob(r,e,l,s,ss))
+                         -sum((h,e,l,s,ss)$(not gttocc(h)),Q(i,h,r,e,l,s,ss)*prob(r,e,l,s,ss))=g=0;
+
 
 Eq9_3(i,h,r)$(not gttocc(h))..      -sum((e,l)$m(r,e,l),d(e,l)*delta(r,e,l))
                     +sum((e,l)$m(r,e,l),d(e,l)*xi(r,e,l)*(1+z(i))*sum(hh,Cap_avail(i,hh,r)))
                     -sum((e,l,s,ss),prob(r,e,l,s,ss)*d(e,l)*lambda_high(i,h,r,e,l,s,ss))-eta_high(i,h,r)
                      -shadows_gttocc(i,r)$gt(h)
-                     +eta_low(i,h,r) =e= icr(h)-beta(i)*om(h);
+                     +eta_low(i,h,r) =e= icr(h)-om(h);
 *
 
 Eq9_4(i,r,rr,e,l,s,ss)$(trading=1 and r_trade(r,rr))..
@@ -91,11 +105,16 @@ Eq9_9(i,h,r).. kind0(i,h,r)-kind(i,h,r)=e=0  ;
 
 Eq9_10(i,r) ..  (kind(i,'GT',r)-ret(i,'GT',r))=g=inv(i,'GTtoCC',r);
 
+Eq9_12(h,r)$(Genco_PPA(h,r)>0)..
+sum((i,e,l,s,ss)$(not gttocc(h)),
+         Q(i,h,r,e,l,s,ss)*prob(r,e,l,s,ss)*d(e,l)) =g=
+          Genco_PPA(h,r);
+
+
 Eq10_1(r,rr,e,l,s,ss)$r_trade(r,rr)..
          price(rr,e,l,s,ss)-price(r,e,l,s,ss)
          -price_trans(r,rr,e,l,s,ss)
-         +shadows_arbitrage(r,rr,e,l,s,ss)
-                                 =e=0        ;
+         +shadows_arbitrage(r,rr,e,l,s,ss) =e=0        ;
 
 
 Eq11_1(r,rr,e,l,s,ss)$r_trans(r,rr)..
@@ -104,6 +123,7 @@ Eq11_1(r,rr,e,l,s,ss)$r_trans(r,rr)..
                  sum(i,trade(i,r,rr,e,l,s,ss))$(trading=1)
                  -sum(i,trade(i,rr,r,e,l,s,ss))$(trading=1)
                  +arbitrage(r,rr,e,l,s,ss)
+                 -arbitrage(rr,r,e,l,s,ss)
 ;
 
 Eq11_2(r,rr,e,l,s,ss)$r_trans(r,rr)..
@@ -112,19 +132,23 @@ Eq11_2(r,rr,e,l,s,ss)$r_trans(r,rr)..
                  sum(i,trade(i,rr,r,e,l,s,ss))$(trading=1)
                  -sum(i,trade(i,r,rr,e,l,s,ss))$(trading=1)
                  +arbitrage(rr,r,e,l,s,ss)
+                 -arbitrage(r,rr,e,l,s,ss)
 ;
 
 
 Eq11_3(r,rr,e,l,s,ss)$r_trans(r,rr) ..
          price_trans(r,rr,e,l,s,ss)
-                         =e=  phi(r,rr)+tau_pos(r,rr,e,l,s,ss)/d(e,l)
-
-
+                         =e=  phi(r,rr)+(tau_pos(r,rr,e,l,s,ss)+tau_neg(r,rr,e,l,s,ss))/d(e,l)
 ;
+
 Eq11_4(r,rr,e,l,s,ss)$r_trans(r,rr)..
          price_trans(rr,r,e,l,s,ss)
-                         =e= phi(r,rr)+tau_neg(r,rr,e,l,s,ss)/d(e,l)
+                         =e=phi(r,rr)+(tau_pos(r,rr,e,l,s,ss)+tau_neg(r,rr,e,l,s,ss))/d(e,l);
 
+Eq11_7(r,rr,e,l,s,ss)$r_trans(r,rr)..
+         price_trans(rr,r,e,l,s,ss)
+                         =e=
+         (price_trans_pos(r,rr,e,l,s,ss)+price_trans_neg(rr,r,e,l,s,ss))$r_trans(r,rr)
 ;
 
 
@@ -152,13 +176,16 @@ model CMO   /
             Eq9_8,
             Eq9_9,
             Eq9_10.shadows_gttocc,
-            EQ9_11.shadows_inv_cap
+            EQ9_11.shadows_inv_cap,
+            Eq9_11a.shadows_prod_cap,
+            Eq9_12.shadows_genco_ppa,
 
             Eq10_1,
             Eq11_1.tau_pos,
             Eq11_2.tau_neg,
             EQ11_3,
             EQ11_4,
+*            EQ11_7,
 
             Eq_q.lambda_low,
             Eq_trade.zeta,

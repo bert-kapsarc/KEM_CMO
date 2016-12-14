@@ -8,6 +8,8 @@ Sets
      h(tech) technology       /CCGT, GT, GTtoCC, ST, Nuclear/
      gttocc(h) /GTtoCC/
      gt(h) /GT/
+     ccgt(h) /CCGT/
+     st(h) /ST/
      nuclear(h) /nuclear/
      l market segment   /l1*l8/
      seasons  /winter,summer,spring-fall/
@@ -21,6 +23,7 @@ Sets
 
      m(r,e,l) capacity markets
      scen /s1*s10/
+
      s(scen) scenarios for energy demand        /s1*s5/
      ss(scen) scenarios for renewables       /s1*s2/
 
@@ -69,12 +72,20 @@ variables
          zeta(company,r,rr,seasons,l,s,ss) shadow prices for the outgoing no-negative trade constraint in USD per MW
          shadows_arbitrage(r,rr,seasons,l,s,ss) shadow prices for no-negative incoming arbitrage constriant in USD per MW
          shadows_gttocc(company,r) shadows on upper bound of GT conversion USD per MW
-         shadows_fringe(company,r) shadows on upper bound on fring investments in USD per MW
          shadows_inv_cap(company,r)
+         shadows_prod_cap(company,r)
+         shadows_genco_ppa(h,r) shadows on the lower bound for the gencos aggregate prodction
+
+          price_trans_pos(r,rr,seasons,l,s,ss)
+           price_trans_neg(r,rr,seasons,l,s,ss)
+
+          shadows_trans_pos(r,rr,seasons,l,s,ss)
+          shadows_trans_neg(r,rr,seasons,l,s,ss)
           ;
 
 positive variables lambda_high, lambda_low,  alpha,
                    eta_high,eta_low, psi
                    tau,zeta,shadows_arbitrage,shadows_trans,shadows_gttocc
-                   tau_pos,tau_neg,shadows_inv_cap
+                   tau_pos,tau_neg,shadows_inv_cap,shadows_prod_cap,shadows_genco_ppa,
+                   shadows_trans_pos,shadows_trans_neg
                    ;

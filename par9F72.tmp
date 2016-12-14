@@ -13,16 +13,18 @@ Parameters
            K0(h,r) existent capacity of technology h in region r before liberalization
            kind0(company,h,r) initial capacity by technology and firm in each region in GW
            K(r,l) minimum installed capacity available to sell in region r and market segment l
+*           EL_demand(r,e,l,s,ss) Electricity Demand GW
+*           d(e,l) duration of segemt l in region r (deterministic)
+*           prob(s,ss) probability off each scenario
 
 *Design operating life for ST, GT, and CCGT from KFUPM generation report.
            lifetime(h) plant lifetime /CCGT 35, GT 30, ST 40, Nuclear 55, GTtoCC 20/
            discrate discount rate used for power plant investments /0.06/
 
-           market_share_inv(company) cap on a companies market share by investment
-           market_share_prod(company) cap on a companies market share by investment
+           market_share_cap(company) cap on a companies market share by investment
 ;
-         market_share_inv(i) = 1;
-         market_share_prod(i) = 1;
+         market_share_cap(i) = 1;
+
            x(i,r,rr)  = v(i) ;
 
            Table capadd(hh,h) a factor for adding capacity (only applicable to dispatchable tech)
@@ -56,14 +58,13 @@ icr(h) = ic(h)*0.1;
 
 
 
-parameter mc(h,r,s,ss) marginal cost in USD per MWh
-         mc_non_fuel(h,r) variable cost non fuel;;
+parameter mc(h,r,s,ss) marginal cost in USD per MWh  ;
 
-mc_non_fuel('CCGT',r)  = 1.2449 ;
-mc_non_fuel('CCGT','EOA')  = 1.1833 ;
-mc_non_fuel('GT',r) =  1.6840;
-mc_non_fuel('ST',r) =  1.2261;
-mc_non_fuel('Nuclear',r) = 6.9;
+mc('CCGT',r,s,ss)  = 1.2449 ;
+mc('CCGT','EOA',s,ss)  = 1.1833 ;
+mc('GT',r,s,ss) =  1.6840;
+mc('ST',r,s,ss) =  1.2261;
+mc('Nuclear',r,s,ss) = 6.9;
 
 
 * Uranium-235 use is in g/GWh
@@ -75,19 +76,21 @@ ST                 8.949
 Nuclear            0.120
 /
 ;
-parameter fuel_price_admin(h,r) price of fuels in USD per mmbtu and KG U235;
 
-parameter fuel_price(h,r) price of fuels in USD per mmbtu and KG U235;
 
+parameter fuel_price(h,r) price of fuels in USD per mmbtu and KG U235
+;
+*fuel_price(h,r)$(not nuclear(h)) = 1.25;
 fuel_price(h,'WOA')$(not nuclear(h)) = 8.80;
 fuel_price(h,'SOA')$(not nuclear(h)) = 8.83;
 fuel_price(h,'COA')$(not nuclear(h)) = 8.59;
 fuel_price(h,'EOA')$(not nuclear(h)) = 8.42;
 fuel_price('nuclear',r)= 113;
 
- fuel_price_admin(h,r)=fuel_price(h,r);
-
-mc(h,r,s,ss) = mc_non_fuel(h,r)+heat_rate(h)*fuel_price_admin(h,r);
+loop(s,
+mc(h,r,s,ss) = mc(h,r,s,ss)+heat_rate(h)*fuel_price(h,r)*1;
+*uniform(1,1)
+);
 ;
 
 
@@ -97,7 +100,6 @@ beta(i)=1;
 
 Parameters  a(r,e,l,s,ss) intercept of energy demand curve,
             b(r,e,l,s,ss) slope of energy demand curve
-            k1(r,e,l,s,ss) coeficient for the approximated isoleastic demand function
             theta(r,e,l) intercept of capacity demand curve,
             xi(r,e,l) slope of capacity demand curve;
 
@@ -272,85 +274,10 @@ parameter  ELretirement(company,h,time,r), ELaddition(company,h,time,r);
          kind0(company,h,r) =kind0(company,h,r)+ sum(time$(ord(time)<=6),ELaddition(company,h,time,r))
                          - sum(time$(ord(time)<=6),ELretirement(company,h,time,r));
 
-parameter Genco_PPA(h,r);
-Genco_PPA(h,r) = 0;
-
-parameter kind_save
-;
+parameter kind_save  ;
 
          kind_save(company,h,r) = kind0(company,h,r);
 
 
 
-*        REPORT WRITER PARAMS
-
-*$ontext
-
-set consumer_sets /'surplus','fuel subsidy','fixed cost'/
-    balancing_account_sets /'purchases energy','purchases capacity','consumer sales'/
-
-    consumer_type /'Residential', 'Commercial', 'Government', 'Industrial', 'Other'/
-
-
-
-Parameters
-         profit(company,tech)         profit per player by tech
-         roi(company,tech)              return on investment
-         cus(company,tech)              capacity usage
-         rop(company,tech)              return on production
-         roc(company,tech)              return on capacity
-         investments(company,tech)      investments
-
-         price_avg(r,e,l)        expected price by region and season
-         price_trans_avg(r,rr,e,l)        expected price by region and season
-         price_avg_cost(r,e,l)
-
-         production(company,tech)      production by player in TWH
-         transmission(r,rr,e,l)        transmission by ISO in TWH
-         trade_avg(company,r,rr,e,l)         expected interregional trade by each firm in TWH
-         arbitrage_avg(r,rr,e,l)       expected interregional arbitrage by ISO in TWH
-
-         error_demand(r,e,l)
-         demand_actual(r,e,l,s,ss)
-         demand_expected(r,e,l)
-         reserve_capacity(r)
-         consumer(consumer_sets,r)                consumer surplus fuel subsisdies and fixed cost
-
-         balancing_account(balancing_account_sets,r)
-
-;
-
-
-parameter consumer_share(consumer_type,r)
-         /       Residential.COA 0.538
-                 Commercial.COA  0.184
-                 Government.COA  0.165
-                 Industrial.COA  0.068
-
-                 Residential.EOA 0.346
-                 Commercial.EOA  0.109
-                 Government.EOA  0.108
-                 Industrial.EOA  0.398
-
-                 Residential.WOA 0.534
-                 Commercial.WOA  0.182
-                 Government.WOA  0.121
-                 Industrial.WOA  0.131
-
-                 Residential.SOA 0.613
-                 Commercial.SOA  0.156
-                 Government.SOA  0.164
-                 Industrial.SOA  0.029/
-
-         consumer_tariff(consumer_type)
-         /       Residential 0.0447
-                 Commercial  0.0679
-                 Other       0.04
-                 Government  0.085
-                 Industrial  0.048 /
-         ;
-
-
-         consumer_share('Other',r) =
-          1-sum(consumer_type,consumer_share(consumer_type,r));
 

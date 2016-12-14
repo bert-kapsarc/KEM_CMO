@@ -56,8 +56,8 @@ WOA      1
 
 parameter wind_cap(r) regional wind capacity installation in GW
 /
-COA      0.9
-EOA      0.2
+COA      0.2
+EOA      0.0
 SOA      0.2
 WOA      0.8
 /
