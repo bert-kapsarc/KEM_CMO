@@ -33,33 +33,43 @@ is between 12 to 14%, and the error in the maximum hourly speed is between 5.1 t
 $offtext
 Table ELwindspeed(l,seasons,r) wind speeds in meters per second
                WOA          SOA          COA          EOA
-L1.summer        0.785        2.818        2.883        2.641
-L2.summer        1.812        3.188        2.255        2.879
+L1.summer        0.785        2.818        4.883        2.641
+L2.summer        1.812        3.188        3.255        2.879
 L3.summer        4.424        3.782        3.740        4.728
-L4.summer        5.329        5.631        2.512        5.502
-L5.summer        6.046        6.767        2.353        6.579
-L6.summer        3.940        3.837        2.726        5.155
+L4.summer        5.329        5.631        3.512        5.502
+L5.summer        6.046        6.767        3.353        6.579
+L6.summer        3.940        3.837        3.726        5.155
 L7.summer        3.411        2.903        5.019        4.292
 L8.summer        2.283        2.029        5.833        2.883
 
 L1.winter        1.278        2.680        4.418        2.262
 L2.winter        2.061        2.798        3.115        3.454
 L3.winter        4.286        3.794        3.991        5.155
-L4.winter        4.473        4.280        2.460        6.597
-L5.winter        7.411        5.838        2.257        6.662
-L6.winter        4.451        3.543        2.996        4.786
+L4.winter        4.473        4.280        3.460        6.597
+L5.winter        7.411        5.838        3.257        6.662
+L6.winter        4.451        3.543        3.996        4.786
 L7.winter        4.123        2.601        4.203        3.296
 L8.winter        2.436        1.904        4.458        2.724
 
 L1.spring-fall   0.953        1.052        4.329        1.489
-L2.spring-fall   1.434        2.369        2.244        3.248
+L2.spring-fall   1.434        2.369        3.244        3.248
 L3.spring-fall   3.128        3.133        4.534        3.847
-L4.spring-fall   6.315        4.612        2.212        5.670
-L5.spring-fall   6.404        6.784        2.022        7.939
-L6.spring-fall   4.006        5.579        2.220        6.743
-L7.spring-fall   2.946        2.621        2.345        4.355
+L4.spring-fall   6.315        4.612        3.212        5.670
+L5.spring-fall   6.404        6.784        3.022        7.939
+L6.spring-fall   4.006        5.579        3.220        6.743
+L7.spring-fall   2.946        2.621        3.345        4.355
 L8.spring-fall   2.496        0.903        4.826        2.472
 ;
+
+parameter average_wind_spee_80m(r)
+/
+         WOA     8.5
+         EOA     6.5
+         COA     8
+         SOA     8
+/;
+
+ ELwindspeed(l,seasons,r) = ELwindspeed(l,seasons,r)/(sum((ll,sseasons),ELwindspeed(ll,sseasons,r))/24)*average_wind_spee_80m(r);
 
 *If we opt to model wind power generation using different wind turbine technlogies
 *or sizes, we may have to include air densities specific to the measurement locations.

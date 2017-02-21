@@ -1,6 +1,6 @@
 Parameters
-           v(company)   CONJECTURAL VARIANTION for production by player /g1 0, g2 0, g3 0, g4 0, fringe -1/
-           z(company)   CONJECTURAL VARIANTION for capacity by player /g1 0, g2 0, g3 0, g4 0, fringe -1/
+           v(company)   CONJECTURAL VARIANTION for production by player /g1 0, g2 0, g3 0, g4 0, fringe -1, legacy -1/
+           z(company)   CONJECTURAL VARIANTION for capacity by player /g1 0, g2 0, g3 0, g4 0, fringe -1, legacy -1/
            x(company,r,rr)   CONJECTURAL VARIANTION for electricity by player between region r and rr
 
            capital_cost(h) Capital cost in USD per GW /CCGT 1102, GT 1016, ST 1680, Nuclear 6500, GTtoCC 600/
@@ -51,106 +51,94 @@ Parameters ici(h)  investment cost
 
 ici(h) = ic(h)
 ;
-icr(h) = ic(h)*0.1;
+icr(h) = ic(h)*0.15;
 *icr(h) = 0;
 
 
 
-parameter mc(h,r,s,ss) marginal cost in USD per MWh
-         mc_non_fuel(h,r) variable cost non fuel;;
+parameter mc(tech,f,r) marginal cost in USD per MWh
+         mc_non_fuel(h,r) variable cost non fuel;
 
-mc_non_fuel('CCGT',r)  = 1.2449 ;
-mc_non_fuel('CCGT','EOA')  = 1.1833 ;
+mc_non_fuel(ccgt,r)  = 1.2449 ;
+mc_non_fuel(ccgt,'EOA')  = 1.1833 ;
 mc_non_fuel('GT',r) =  1.6840;
 mc_non_fuel('ST',r) =  1.2261;
 mc_non_fuel('Nuclear',r) = 6.9;
-
+mc_non_fuel('GTtoCC',r)  = mc_non_fuel('CCGT',r)  ;
 
 * Uranium-235 use is in g/GWh
-parameter heat_rate(h) fueal burn rate in mmbtu and g per MWH
-/
-CCGT               6.09286
-GT                 10.000
-ST                 8.949
-Nuclear            0.120
-/
-;
-parameter fuel_price_admin(h,r) price of fuels in USD per mmbtu and KG U235;
-
-parameter fuel_price(h,r) price of fuels in USD per mmbtu and KG U235;
-
-fuel_price(h,'WOA')$(not nuclear(h)) = 8.80;
-fuel_price(h,'SOA')$(not nuclear(h)) = 8.83;
-fuel_price(h,'COA')$(not nuclear(h)) = 8.59;
-fuel_price(h,'EOA')$(not nuclear(h)) = 8.42;
-fuel_price('nuclear',r)= 113;
-
- fuel_price_admin(h,r)=fuel_price(h,r);
-
-mc(h,r,s,ss) = mc_non_fuel(h,r)+heat_rate(h)*fuel_price_admin(h,r);
+parameter heat_rate(tech,f) fueal burn rate in mmbtu and g per MWH  ;
+heat_rate(ccgt,'methane')=7.655;
+heat_rate(ccgt,'oil')=9.676;
+heat_rate('GTtoCC','methane')=7.655;
+heat_rate('GTtoCC','oil')=9.676;
+heat_rate('GT','methane')=11.302;
+heat_rate('GT','oil')=13.550;
+heat_rate('ST','methane')=10.372;
+heat_rate('ST','oil')=10.197;
+heat_rate('Nuclear','U-235')=0.120;
 ;
 
+set fuel_set(h,f,r);
+fuel_set(h,f,r)$(heat_rate(h,f)>0) = yes;
 
-parameter  beta(company) parameter used to inflate fixed cost for small private investors with higher eocnomies of scale compared to larger firms
+
+table fuel_quota(f,r)
+
+                 COA     EOA     SOA     WOA
+ methane         400     600     0.1      200
 ;
-beta(i)=1;
+
+fuel_quota(f,r) = fuel_quota(f,r)*1.409;
 
 Parameters  a(r,e,l,s,ss) intercept of energy demand curve,
             b(r,e,l,s,ss) slope of energy demand curve
-            k1(r,e,l,s,ss) coeficient for the approximated isoleastic demand function
+            a1(r,e,l,s,ss),a2(r,e,l,s,ss),b1(r,e,l,s,ss),b2(r,e,l,s,ss),
             theta(r,e,l) intercept of capacity demand curve,
-            xi(r,e,l) slope of capacity demand curve;
-
-$ontext
-Table K0(h,r)
-      COA        EOA          SOA          WOA
-CCGT  1360.6     6496.37      0            9144.97
-GT    14185.3    9540.3       4113.14      9150.26
-ST    706        13252.8      1020         16399.2
+            xi(r,e,l) slope of capacity demand curve
+            mu(h,r) slope for price of legacy assets purchased by gencos
 ;
-
-Table K0(h,r)
-      COA   EOA   SOA   WOA
-CCGT  0     0     0     0
-GT    0     0     0     0
-ST    0     0     0     0
-;
-$offtext
 
 table kind0(company,h,r) firms existing generation capacity in GW
 
                  COA             EOA             SOA             WOA
 
-g1.CCGT          1.3606          0               0               0
+g1.CCGT          5.419           0               0               0
 g1.GT            13.0693         0               0               0
 g1.ST            0               0               0               0
 
-g2.CCGT          0               3.929           0               0
-g2.GT            0               5.8315          0               0
-g2.ST            0               6.756           0               0
+g2.CCGT          0               3.333           0               0
+g2.GT            0               7.4663          0               0
+g2.ST            0               10.192          0               0
 
 g3.CCGT          0               0               0               0
 g3.GT            0               0               4.11314         0
 g3.ST            0               0               0               0
 
 g4.CCGT          0               0               0               1.288
-g4.GT            0               0               0               8.5497
-g4.ST            0               0               0               9.8884
+g4.GT            0               0               0               7.358
+g4.ST            0               0               0               13.518
 
 fringe.CCGT      0               2.56737         0               0
-fringe.GT        1.116           3.7085          0               0.60056
-fringe.ST        0.706           6.4968          1.020           7.12936
+fringe.GT        1.116           2.144           0               0.60056
+fringe.ST        0.706           3.4968          1.128           2.51877
 ;
+
+
+K0(h,r) = sum(genco,kind0(genco,h,r));
+* Legacy assets investment cost calibration
+mu(h,r)$(K0(h,r)>0 and not CCGT(h)) = ici(h)/K0(h,r);
 
 table kind_trans0(r,rr) transmission capacity in GW
 
                 WOA   SOA     COA     EOA
          WOA          1.5     1.2
-         SOA    1.5
-         COA    1.2                   5.22
+         SOA    0
+         COA    0                     0
          EOA                  5.22
 
       ;
+kind_trans0(r,rr)$(kind_trans0(rr,r)>0) = kind_trans0(rr,r);
 *WOA   0     1.16
 
 *Data for 2014 inter-regional transmission capacities were obtained from ECRA correspondence.
@@ -269,6 +257,11 @@ parameter  ELretirement(company,h,time,r), ELaddition(company,h,time,r);
          ELretirement('g2','ST','2031','EOA')=0.625;
          ELretirement('g2','ST','2032','EOA')=0.625;
 
+*        Fringe retires capacity by 2020
+
+         ELretirement('fringe','ST','2020','EOA')=2.306;
+         ELretirement('fringe','ST','2020','WOA')=1.203;
+
          kind0(company,h,r) =kind0(company,h,r)+ sum(time$(ord(time)<=6),ELaddition(company,h,time,r))
                          - sum(time$(ord(time)<=6),ELretirement(company,h,time,r));
 
@@ -300,8 +293,10 @@ Parameters
          rop(company,tech)              return on production
          roc(company,tech)              return on capacity
          investments(company,tech)      investments
+         retirements(company,tech)
 
-         price_avg(r,e,l)        expected price by region and season
+         price_avg(r,e,l)                 expected price by region and season
+         price_avg_flat(r)
          price_trans_avg(r,rr,e,l)        expected price by region and season
          price_avg_cost(r,e,l)
 
@@ -315,8 +310,11 @@ Parameters
          demand_expected(r,e,l)
          reserve_capacity(r)
          consumer(consumer_sets,r)                consumer surplus fuel subsisdies and fixed cost
+         social_surplus
 
          balancing_account(balancing_account_sets,r)
+
+          cs_threshold(r,e,l,s,ss)
 
 ;
 
@@ -353,4 +351,7 @@ parameter consumer_share(consumer_type,r)
 
          consumer_share('Other',r) =
           1-sum(consumer_type,consumer_share(consumer_type,r));
+
+
+
 

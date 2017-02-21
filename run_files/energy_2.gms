@@ -25,10 +25,6 @@ $include scen_config.gms
 
 *v(i) = -1;
 *z(i) = -1;
-;
-
-kind_trans0('WOA','COA')  = 5;
-kind_trans0('COA','WOA')  = 5;
 
 $ontext
 *        Configure capacity market segments
@@ -42,7 +38,7 @@ $offtext
 *m(r,e,l)$(summer(e) and ord(l)<=8 and ord(l)>3)=yes;
 Option Savepoint=1;
 
-Execute_Loadpoint 'energy.gdx';
+Execute_Loadpoint 'capacity_summ.gdx';
 
 CMO.optfile = 1 ;
 

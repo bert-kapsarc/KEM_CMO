@@ -8,78 +8,67 @@ COA      1.217
 /
 ;
 
-
 *        apply growth equally to all demand segments
 EL_demand(r,e,l,s,ss)= EL_demand(r,e,l,s,ss)*EL_demgro(r);
 $INCLUDE solar.gms
 
-if(no_fringe=1,
-         i('fringe')=no ;
-         Q.l('fringe',h,r,e,l,s,ss)    =0;
-         Q.l('fringe','GT',r,seasons,'l5',s,ss)=kind0('fringe','GT',r)*0.5$(summer(seasons));
-         Q.l('fringe','GT',r,seasons,'l6',s,ss)=kind0('fringe','GT',r)*0.5$(summer(seasons));
-         Q.l('fringe','GT',r,seasons,'l7',s,ss)=kind0('fringe','GT',r)*0.5$(summer(seasons));
-
-         Q.l('fringe','ST',r,e,l,s,ss)=kind0('fringe','ST',r)*0.8;
-         Q.l('fringe','CCGT',r,e,l,s,ss)=kind0('fringe','CCGT',r)*0.8;
-
-         EL_Demand(r,e,l,s,ss) = (EL_Demand(r,e,l,s,ss) -sum(h,Q.l('fringe',h,r,e,l,s,ss)))$(EL_Demand(r,e,l,s,ss)-sum(h,Q.l('fringe',h,r,e,l,s,ss))>smin(ll,EL_Demand(r,e,ll,s,ss)))
-                                 +smin(ll,EL_Demand(r,e,ll,s,ss))$(EL_Demand(r,e,l,s,ss)-sum(h,Q.l('fringe',h,r,e,l,s,ss))<=smin(ll,EL_Demand(r,e,ll,s,ss)))
-                                 ;
-
-);
-
-parameter elasticity(r,e,l,s,ss) demand elasticity for eletricity ???;
-
-parameter  LRMC(r,e,l,s,ss) long run marginal cost in each load segment USD per MWH
-           SRMC(r,e,l,s,ss);
-
-* long run marginal cost. rescale capacity payment to USD/MW
-LRMC(r,e,l,s,ss) =
-smin(h,mc(h,r,s,ss)+(ic(h)+om(h))/sum((ll)$(EL_Demand(r,e,ll,s,ss)>=EL_Demand(r,e,l,s,ss)),d(e,ll)) )
-;
-
-
-
+parameter elasticity(r,e,l,s,ss) demand elasticity for eletricity;
 elasticity(r,e,l,s,ss) = 0.16;
 
-* Energy Price calibration                                                     *
-            a(r,e,l,s,ss) = LRMC(r,e,l,s,ss)*(1+1/elasticity(r,e,l,s,ss));
-            b(r,e,l,s,ss) = LRMC(r,e,l,s,ss)/EL_demand(r,e,l,s,ss)/elasticity(r,e,l,s,ss);
+parameter  LRMC(r,seasons,l,s,ss) long run marginal cost in each load segment USD per MWH
+           LRMC_baseline(r,seasons,l,s,ss) baseline LRMC;
 
+parameter util_hrs(r,e,l,s,ss) average number of hours in a given load segment;
+         util_hrs(r,e,l,s,ss)=
+         sum((ee,ll)$(EL_Demand(r,ee,ll,s,ss)>=EL_Demand(r,e,l,s,ss)),d(ee,ll));
+
+* long run marginal cost. rescale capacity payment to USD/MWh
+LRMC(r,e,l,s,ss) =
+smin((h,f)$(fuel_set(h,f,r) and oil(f) and not nuclear(h) and not gttocc(h)),
+         mc_reform(h,f,r)+((ic(h)+om(h))/util_hrs(r,e,l,s,ss))
+);
+
+LRMC_baseline(r,e,l,s,ss) =
+smin((h,f)$(fuel_set(h,f,r) and not nuclear(h) and not gttocc(h)),
+         mc_baseline(h,f,r)+((ic(h)+om(h))/util_hrs(r,e,l,s,ss))
+);
+
+* Adjust baseline LRMC during select market segments (calibration)
+*LRMC_baseline(r,e,l,s,ss) = LRMC_baseline(r,e,l,s,ss)*
+*         ( 1.2*util_hrs(r,e,l,s,ss)$(util_hrs(r,e,l,s,ss)<0.5*8.760 and util_hrs(r,e,l,s,ss)>=0.2*8.760  )
+*          +1.8*util_hrs(r,e,l,s,ss)$(util_hrs(r,e,l,s,ss)<0.2*8.760)
+*          +util_hrs(r,e,l,s,ss)$(util_hrs(r,e,l,s,ss)>=0.5*8.760))/8.760;
+
+a(r,e,l,s,ss) = LRMC(r,e,l,s,ss)*(1+1/elasticity(r,e,l,s,ss));
+b(r,e,l,s,ss) = LRMC(r,e,l,s,ss)/EL_demand(r,e,l,s,ss)/elasticity(r,e,l,s,ss);
+
+parameter        c(r,e,l,s,ss)
+                 EL_demand_resp(r,e,l,s,ss) equlibrium demand response after price reform;
+
+
+c(r,e,l,s,ss) =  (LRMC(r,e,l,s,ss)-LRMC_baseline(r,e,l,s,ss))/
+                 ((LRMC_baseline(r,e,l,s,ss)+LRMC(r,e,l,s,ss))/2);
+
+EL_demand_resp(r,e,l,s,ss) = EL_demand(r,e,l,s,ss)*
+         (1-c(r,e,l,s,ss)/2*elasticity(r,e,l,s,ss))/
+         (1+c(r,e,l,s,ss)/2*elasticity(r,e,l,s,ss));
+
+b(r,e,l,s,ss) = (LRMC(r,e,l,s,ss)-LRMC_baseline(r,e,l,s,ss))/
+                 (EL_demand(r,e,l,s,ss)-EL_demand_resp(r,e,l,s,ss));
+a(r,e,l,s,ss) = LRMC(r,e,l,s,ss)+b(r,e,l,s,ss)*EL_demand_resp(r,e,l,s,ss);
 
 * Capacity Price calibration                                                   *
-
-
 * assume a flat inverse demand curve for capacity
 * price is set to the maximum fixed cost of all generators operating in the market
 * soread of the total number of demand hours
 
-         theta(r,e,l) =  0
-                 +smax(h$(not nuclear(h)),(ic(h)+om(h)))/sum((ee,ll),d(ee,ll))
+         theta(r,e,l) =
+                 +smax(h$(not nuclear(h)),(ic(h)+om(h)))/
+                 sum((ee,ll),d(ee,ll))
+*                 sum((s,ss),util_hrs(r,e,l,s,ss)*prob(r,e,l,s,ss))
 *                 sum((s),prob(s,ss)*d(e,m))    ;
 *                 sum((s,ll)$(EL_Demand(r,e,ll,s,ss)>=EL_Demand(r,e,m,s,ss)),prob(s,ss)*d(e,ll));
 ;
          xi(r,e,l)$m(r,e,l) =0;
 
-
-
-$ontext
-         a(r,'l1',s,ss) = 1200 +uniform(0,100);
-         a(r,'l2',s,ss) = 600 +uniform(0,50);
-         a(r,'l3',s,ss) = 300 +uniform(0,10);
-
-         b(r,'l1',s,ss) = 0.005 +uniform(0,0.0005);
-         b(r,'l2',s,ss) = 0.01 +uniform(0,0.0005);
-         b(r,'l3',s,ss) = 0.01 +uniform(0,0.0005);
-
-
-theta(r,e,'l1') = 5000 +uniform(0,200);
-theta(r,e,'l2') = 3000 +uniform(0,100);
-theta(r,e,'l3') = 2000 +uniform(0,50);
-
-xi(r,e,'l1') = 0.00001 ;
-xi(r,e,'l2') = 0.00002 ;
-xi(r,e,'l3') = 0.00003 ;
-$offtext
 

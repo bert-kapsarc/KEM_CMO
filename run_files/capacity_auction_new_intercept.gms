@@ -26,11 +26,11 @@ $include scen_config.gms
 $ontext
 *        Configure capacity market segments
          scalar price_threshold /1.25/
+         scalar capacity_threshold /1/
 *  Enter file to load previous data from
-$gdxin energy.gdx
+$gdxin testc_2.gdx
 $include capacity_market.gms
 $offtext
-;
 m(r,e,l)$(summer(e) and ord(l)<=8 and ord(l)>3)=yes;
 
  Parameter Cap_target(r)/COA 18.99
@@ -38,16 +38,16 @@ m(r,e,l)$(summer(e) and ord(l)<=8 and ord(l)>3)=yes;
                          SOA 7.42
                          WOA 27.46/ ;
 
-         Cap_target('COA') = 30;
-         Cap_target('WOA') = 22;
+         Cap_target('COA') = 25;
+         Cap_target('WOA') = 25;
 
- theta(r,e,l)$m(r,e,l) =  2*smax(h$(not nuclear(h)),(ic(h)+om(h)))/sum((ee,ll),d(ee,ll)) ;
- xi(r,e,l)$m(r,e,l) = smax(h$(not nuclear(h)),(ic(h)+om(h)))/sum((ee,ll),d(ee,ll))/(1.0*Cap_target(r)) ;
+ xi(r,e,l)$m(r,e,l) = smax(h$(not nuclear(h)),(ic(h)+om(h)))/sum((ee,ll),d(ee,ll))/sum(rr,Cap_target(rr)) ;
+ theta(r,e,l)$m(r,e,l) =  smax(h$(not nuclear(h)),(ic(h)+om(h)))/sum((ee,ll),d(ee,ll))*2- (xi(r,e,l)*(sum(rr,Cap_target(rr))-cap_target(r))) ;
 
 
 Option Savepoint=1;
 
-Execute_Loadpoint 'capacity_auction_2.gdx';
+Execute_Loadpoint 'capacity_auction_new_intercept.gdx';
 
 CMO.optfile = 1 ;
 

@@ -9,8 +9,7 @@ $FuncLibIn stolib stodclib
 function cdfnorm /stolib.cdfnormal/;
 
 scalar trading set to 1 to allow regional trade by firms /0/
-       fixed_ppa  /0/
-       legacy_auction /0/
+       fixed_ppa  /0/;
 
 $INCLUDE SetsAndVariables.gms
 
@@ -23,23 +22,14 @@ $include demand_calib.gms
 
 $include scen_config.gms
 
-*v(i) = -1;
-*z(i) = -1;
-;
-
-kind_trans0('WOA','COA')  = 5;
-kind_trans0('COA','WOA')  = 5;
-
-$ontext
+*$ontext
 *        Configure capacity market segments
-         scalar price_threshold /1.6/
-                 capacity_threshold /0.9/
+         scalar price_threshold /1.25/
 *  Enter file to load previous data from
-$gdxin test_1.gdx
+$gdxin energy_partial.gdx
 $include capacity_market.gms
-$offtext
-;
-*m(r,e,l)$(summer(e) and ord(l)<=8 and ord(l)>3)=yes;
+*$offtext
+
 Option Savepoint=1;
 
 Execute_Loadpoint 'energy.gdx';

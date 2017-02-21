@@ -26,7 +26,7 @@ $INCLUDE equations.gms
 $include demand_calib.gms
 
 
-$gdxin capacity_80.gdx
+$gdxin capacity80.gdx
 $LOAD price sales arbitrage
 $gdxin
 
@@ -47,7 +47,7 @@ reduced_price(r,e,l,s,ss) = LRMC(r,e,l,s,ss) ;
 reduced_price(r,e,l,s,ss)$(LRMC(r,e,l,s,ss)>80) = 80;
 
 b(r,e,l,s,ss) = reduced_price(r,e,l,s,ss)/EL_demand(r,e,l,s,ss)/elasticity(r,e,l,s,ss);
-  a(r,e,l,s,ss) = (reduced_price(r,e,l,s,ss)+ b(r,e,l,s,ss)*EL_demand(r,e,l,s,ss));
+a(r,e,l,s,ss) = (reduced_price(r,e,l,s,ss)+ b(r,e,l,s,ss)*EL_demand(r,e,l,s,ss));
 
 
 
@@ -108,7 +108,7 @@ $offtext
 
 Option Savepoint=2;
 
-Execute_Loadpoint 'baseline_ppa.gdx';
+*Execute_Loadpoint 'baseline_ppa.gdx';
 
 CMO.optfile = 1 ;
 
