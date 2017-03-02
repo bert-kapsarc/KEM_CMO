@@ -1,7 +1,7 @@
 
 
 elasticity(r,e,l,s,ss) = 1/b(r,e,l,s,ss) * price.l(r,e,l,s,ss)/ (
-                   sum((j),sales.l(j,r,e,l,s,ss))
+                   sum((j,h),sales.l(j,h,r,e,l,s,ss))
                   -sum(rr$r_trans(r,rr),arbitrage.l(r,rr,e,l,s,ss))
                   +sum(rr$r_trans(r,rr),arbitrage.l(rr,r,e,l,s,ss)) ) ;
 
@@ -9,7 +9,7 @@ elasticity(r,e,l,s,ss) = 1/b(r,e,l,s,ss) * price.l(r,e,l,s,ss)/ (
 *$ontext
          demand_expected(r,e,l) =sum((s,ss),prob(r,e,l,s,ss)*EL_demand(r,e,l,s,ss)*d(e,l));
          demand_actual(r,e,l,s,ss)=(
-                 sum(j,sales.l(j,r,e,l,s,ss))
+                 sum((j,h),sales.l(j,h,r,e,l,s,ss))
                   -sum(rr$r_trade(r,rr),arbitrage.l(r,rr,e,l,s,ss))
                   +sum(rr$r_trade(r,rr),arbitrage.l(rr,r,e,l,s,ss)) )*d(e,l);
 
@@ -46,13 +46,10 @@ sum((f,r,e,l,s,ss)$fuel_set(h,f,r),prob(r,e,l,s,ss)*d(e,l)*
 
 -sum((hh,r)$(capadd(hh,h)>0),ici(hh)*inv.l(i,hh,r))
 
-*-sum(r,sum(hh$(capadd(hh,h)>0),inv.l(i,hh,r)*capadd(hh,h)))*om(h)$(legacy_auction<>1)
 -sum(r, Cap_avail.l(i,h,r)*om(h))
 
 -sum(r,icr(h)*ret.l(i,h,r))
-*+sum((r,e,l)$m(r,e,l),sum(hh$(capadd(hh,h)>0),inv.l(i,hh,r)*capadd(hh,h))*delta.l(r,e,l)*d(e,l))$(legacy_auction<>1)
 +sum((r,e,l)$m(r,e,l),delta.l(r,e,l)*Cap_avail.l(i,h,r)*d(e,l))
-*$(legacy_auction=1)
 ;
 
 social_surplus  = sum((i,h),profit(i,h))   +
@@ -96,12 +93,12 @@ price_avg_cost(r,e,l) = (
 price_trans_avg(r,rr,e,l) = sum((s,ss),prob(r,e,l,s,ss)*price_trans.l(r,rr,e,l,s,ss));
 
 trans.l(r,rr,e,l,s,ss)$r_trade(r,rr) =
-        sum(i,trade.l(i,r,rr,e,l,s,ss))$(trading=1)
-        -sum(i,trade.l(i,rr,r,e,l,s,ss))$(trading=1)
+        sum((i,h),trade.l(i,h,r,rr,e,l,s,ss))$(trading=1)
+        -sum((i,h),trade.l(i,h,rr,r,e,l,s,ss))$(trading=1)
         +arbitrage.l(r,rr,e,l,s,ss)
         -arbitrage.l(rr,r,e,l,s,ss);
 
-trade_avg(i,r,rr,e,l) =sum((s,ss),prob(r,e,l,s,ss)*trade.l(i,r,rr,e,l,s,ss)*d(e,l));
+trade_avg(i,r,rr,e,l) =sum((h,s,ss),prob(r,e,l,s,ss)*trade.l(i,h,r,rr,e,l,s,ss)*d(e,l));
 transmission(r,rr,e,l) =sum((s,ss),prob(r,e,l,s,ss)*trans.l(r,rr,e,l,s,ss)*d(e,l));
 arbitrage_avg(r,rr,e,l) =sum((s,ss),prob(r,e,l,s,ss)*arbitrage.l(r,rr,e,l,s,ss)*d(e,l));
 

@@ -71,34 +71,8 @@ WOA      0.8
 
 $INCLUDE wind.gms
 
-scalar random, mean, stddev;
-
-         mean = 0.9;
-         stddev =0.3;
-         CDF_lo(r,e,l) = 0;
-         CDF_hi(r,e,l) = 1;
-         diff(r,e,l) = CDF_hi(r,e,l) -CDF_lo(r,e,l);
-
-CDF_alpha(r,e,l) = cdfnorm(0,mean,stddev);
-CDF_beta(r,e,l) =  cdfnorm(1,mean,stddev);
-Z_cdf(r,e,l)=CDF_beta(r,e,l)-CDF_alpha(r,e,l);
-if(card(ss)>1,
-loop(ss,
-         X_cdf(r,e,l,ss)=CDF_lo(r,e,l)+ord(ss)*diff(r,e,l)/card(ss);
-         CDF_x(r,e,l,ss)= (cdfnorm(X_cdf(r,e,l,ss),mean,stddev)-CDF_alpha(r,e,l))/Z_cdf(r,e,l);
-         if( card(ss)>1,
-                 prob(r,e,l,s,ss) = (prob(r,e,l,s,ss)+(CDF_x(r,e,l,ss) - CDF_x(r,e,l,ss-1))/card(s))/(2);
-         );
-         X_cdf(r,e,l,ss)=X_cdf(r,e,l,ss)-(diff(r,e,l)/(2*card(ss)))$(card(ss)>1);
-         EL_Demand(r,e,l,s,ss)= EL_Demand(r,e,l,s,ss)
-                 -(solar_cap(r)*Elsolcurvenorm(l,e,r)+wind_cap(r)*ELdiffGWwind(l,e,r))*X_cdf(r,e,l,ss);
-);
-else
- EL_Demand(r,e,l,s,ss)=EL_Demand(r,e,l,s,ss)-(solar_cap(r)*Elsolcurvenorm(l,e,r)+wind_cap(r)*ELdiffGWwind(l,e,r))*mean;
-);
-display ELwindpower,ELdiffGWwind ;
-display prob,EL_Demand,CDF_x,Elsolcurvenorm,solar_cap,x_cdf ;
-*abort"";
-
-
+CDF_x(r,e,l,'s1') = 0.1;
+CDF_x(r,e,l,'s2') = 1;
+X_cdf(r,e,l,'s1') = 0;
+X_cdf(r,e,l,'s2') = 1;
 

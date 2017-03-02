@@ -1,21 +1,20 @@
 Parameters
            v(company)   CONJECTURAL VARIANTION for production by player /g1 0, g2 0, g3 0, g4 0, fringe -1, legacy -1/
            z(company)   CONJECTURAL VARIANTION for capacity by player /g1 0, g2 0, g3 0, g4 0, fringe -1, legacy -1/
-           x(company,r,rr)   CONJECTURAL VARIANTION for electricity by player between region r and rr
 
-           capital_cost(h) Capital cost in USD per GW /CCGT 1102, GT 1016, ST 1680, Nuclear 6500, GTtoCC 600/
+           capital_cost(tech) Capital cost in USD per GW /CCGT 1102, GT 1016, ST 1680, Nuclear 6500, GTtoCC 600, PV 2584, WT 1569/
 *           capital_cost(h) Capital cost in USD per GW /CCGT 1740, GT 1485, ST 2120, Nuclear 4896, GTtoCC 600/
 
-           ic(h)  investment cost USD per GW
+           ic(tech)  investment cost USD per GW
 
-           om(h) Fixed O&M cost USD per GW  /GT 10.68, GTtoCC 19.94, CCGT 19.94, ST 38.67, Nuclear 130/
+           om(tech) Fixed O&M cost USD per GW  /GT 10.68, GTtoCC 19.94, CCGT 19.94, ST 38.67, Nuclear 130, PV 26.75, WT 39.625 /
 *           om(h) Fixed O&M cost USD per GW  /GT 11.2, GTtoCC 12.4, CCGT 12.4, ST 11.2, Nuclear 68.8/
            K0(h,r) existent capacity of technology h in region r before liberalization
-           kind0(company,h,r) initial capacity by technology and firm in each region in GW
+
            K(r,l) minimum installed capacity available to sell in region r and market segment l
 
 *Design operating life for ST, GT, and CCGT from KFUPM generation report.
-           lifetime(h) plant lifetime /CCGT 35, GT 30, ST 40, Nuclear 55, GTtoCC 20/
+           lifetime(tech) plant lifetime /CCGT 35, GT 30, ST 40, Nuclear 55, GTtoCC 20, PV 20, WT 20/
            discrate discount rate used for power plant investments /0.06/
 
            market_share_inv(company) cap on a companies market share by investment
@@ -23,7 +22,6 @@ Parameters
 ;
          market_share_inv(i) = 1;
          market_share_prod(i) = 1;
-           x(i,r,rr)  = v(i) ;
 
            Table capadd(hh,h) a factor for adding capacity (only applicable to dispatchable tech)
                   GT      CCGT
@@ -54,10 +52,8 @@ ici(h) = ic(h)
 icr(h) = ic(h)*0.15;
 *icr(h) = 0;
 
-
-
 parameter mc(tech,f,r) marginal cost in USD per MWh
-         mc_non_fuel(h,r) variable cost non fuel;
+         mc_non_fuel(tech,r) variable cost non fuel;
 
 mc_non_fuel(ccgt,r)  = 1.2449 ;
 mc_non_fuel(ccgt,'EOA')  = 1.1833 ;
@@ -79,9 +75,10 @@ heat_rate('ST','oil')=10.197;
 heat_rate('Nuclear','U-235')=0.120;
 ;
 
-set fuel_set(h,f,r);
+set fuel_set(tech,f,r);
 fuel_set(h,f,r)$(heat_rate(h,f)>0) = yes;
-
+         fuel_set('PV','ren',r) = yes;
+         fuel_set('WT','ren',r) = yes;
 
 table fuel_quota(f,r)
 
@@ -96,10 +93,12 @@ Parameters  a(r,e,l,s,ss) intercept of energy demand curve,
             a1(r,e,l,s,ss),a2(r,e,l,s,ss),b1(r,e,l,s,ss),b2(r,e,l,s,ss),
             theta(r,e,l) intercept of capacity demand curve,
             xi(r,e,l) slope of capacity demand curve
-            mu(h,r) slope for price of legacy assets purchased by gencos
 ;
 
-table kind0(company,h,r) firms existing generation capacity in GW
+
+parameter P_cap(tech,r,e,l), Sales_bar(tech,r,e,l,s,ss);
+
+table kind0(company,tech,r) firms existing generation capacity in GW
 
                  COA             EOA             SOA             WOA
 
@@ -122,12 +121,12 @@ g4.ST            0               0               0               13.518
 fringe.CCGT      0               2.56737         0               0
 fringe.GT        1.116           2.144           0               0.60056
 fringe.ST        0.706           3.4968          1.128           2.51877
+fringe.PV        0.9             0               0               1
+fringe.WT        0.2             0               0.2             0.8
 ;
 
 
 K0(h,r) = sum(genco,kind0(genco,h,r));
-* Legacy assets investment cost calibration
-mu(h,r)$(K0(h,r)>0 and not CCGT(h)) = ici(h)/K0(h,r);
 
 table kind_trans0(r,rr) transmission capacity in GW
 
@@ -152,7 +151,7 @@ kind_trans0(r,rr)$(kind_trans0(rr,r)>0) = kind_trans0(rr,r);
 
 ;
 
-Parameter capfactor(h) capacity factors for dispatchable plants
+Parameter capfactor(tech) capacity factors for dispatchable plants
 /ST      0.885
  GT      0.923
  CCGT    0.885

@@ -196,7 +196,7 @@ if(card(s)>1,
          X_cdf(r,e,l,s)=CDF_lo(r,e,l)+ord(s)*diff(r,e,l)/card(s);
          CDF_x(r,e,l,s)= (cdfnorm(X_cdf(r,e,l,s),ELlcgw(r,e,l),ELlcgw_stddev(r,e,l))-CDF_alpha(r,e,l))/Z_cdf(r,e,l);
          prob(r,e,l,s,ss) = (CDF_x(r,e,l,s) - CDF_x(r,e,l,s-1))/card(ss);
-         X_cdf(r,e,l,s)=X_cdf(r,e,l,s)-(diff(r,e,l)/(2*card(s)))$(card(s)>1);
+         X_cdf(r,e,l,s)=X_cdf(r,e,l,s)-(diff(r,e,l)/(2*card(s)));
          EL_Demand(r,e,l,s,ss)= X_cdf(r,e,l,s);
   );
 else

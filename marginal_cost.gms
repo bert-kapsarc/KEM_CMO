@@ -6,12 +6,13 @@ intl_fuel_price('U-235',r)= 113;
 intl_fuel_price('oil',r) = 10;
 
 fuel_price('methane',r) = 3;
-fuel_price('oil',r) = 10;
+fuel_price('oil',r) = 3;
 fuel_price('u-235',r)= 113;
 
 fuel_price_admin('methane',r) = 1.25;
 fuel_price_admin('oil',r) = 1.26;
 fuel_price_admin('u-235',r)= 113;
+
 *intl_fuel_price(f,r)=fuel_price(f,r);
 
 parameters  mc_baseline(h,f,r) marginal cost of baseline scenario

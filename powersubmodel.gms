@@ -108,6 +108,7 @@ Parameter ELleadtime(ELp) Lead time for plant construction units of time
          Nuclear 7
          /
 ;
+
 *Number of days in each season split up into work days and weekends/holidays.
 Table ELdaysinseason(ELs,ELday) Days of each type in a season
       wday wendhol
@@ -115,6 +116,8 @@ summ  61   32
 wint  64   26
 spfa  123  59
 ;
+
+
 *To rescale to TWh rather than GWh in the ELcaplim equations
 ELdaysinseason(ELs,ELday)=1e-3*ELdaysinseason(ELs,ELday);
 ;
