@@ -42,7 +42,7 @@ m(r,e,l) =yes;
 *$(summer(e))
 Option Savepoint=1;
 
-*Execute_Loadpoint 'test_2.gdx';
+*Execute_Loadpoint 'energy.gdx';
 
 CMO.optfile = 1 ;
 

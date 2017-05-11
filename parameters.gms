@@ -1,6 +1,6 @@
 Parameters
-           v(company)   CONJECTURAL VARIANTION for production by player /g1 0, g2 0, g3 0, g4 0, fringe -1, legacy -1/
-           z(company)   CONJECTURAL VARIANTION for capacity by player /g1 0, g2 0, g3 0, g4 0, fringe -1, legacy -1/
+           v(firm)   CONJECTURAL VARIANTION for production by player /g1 0, g2 0, g3 0, g4 0, fringe -1/
+           X(firm)   CONJECTURAL VARIANTION for capacity by player /g1 0, g2 0, g3 0, g4 0, fringe -1/
 
            capital_cost(tech) Capital cost in USD per GW /CCGT 1102, GT 1016, ST 1680, Nuclear 6500, GTtoCC 600, PV 2584, WT 1569/
 *           capital_cost(h) Capital cost in USD per GW /CCGT 1740, GT 1485, ST 2120, Nuclear 4896, GTtoCC 600/
@@ -11,14 +11,12 @@ Parameters
 *           om(h) Fixed O&M cost USD per GW  /GT 11.2, GTtoCC 12.4, CCGT 12.4, ST 11.2, Nuclear 68.8/
            K0(h,r) existent capacity of technology h in region r before liberalization
 
-           K(r,l) minimum installed capacity available to sell in region r and market segment l
-
 *Design operating life for ST, GT, and CCGT from KFUPM generation report.
            lifetime(tech) plant lifetime /CCGT 35, GT 30, ST 40, Nuclear 55, GTtoCC 20, PV 20, WT 20/
            discrate discount rate used for power plant investments /0.06/
 
-           market_share_inv(company) cap on a companies market share by investment
-           market_share_prod(company) cap on a companies market share by investment
+           market_share_inv(firm) cap on a companies market share by investment
+           market_share_prod(firm) cap on a companies market share by investment
 ;
          market_share_inv(i) = 1;
          market_share_prod(i) = 1;
@@ -66,8 +64,8 @@ mc_non_fuel('GTtoCC',r)  = mc_non_fuel('CCGT',r)  ;
 parameter heat_rate(tech,f) fueal burn rate in mmbtu and g per MWH  ;
 heat_rate(ccgt,'methane')=7.655;
 heat_rate(ccgt,'oil')=9.676;
-heat_rate('GTtoCC','methane')=7.655;
-heat_rate('GTtoCC','oil')=9.676;
+*heat_rate('GTtoCC','methane')=7.655;
+*heat_rate('GTtoCC','oil')=9.676;
 heat_rate('GT','methane')=11.302;
 heat_rate('GT','oil')=13.550;
 heat_rate('ST','methane')=10.372;
@@ -96,9 +94,9 @@ Parameters  a(r,e,l,s,ss) intercept of energy demand curve,
 ;
 
 
-parameter P_cap(tech,r,e,l), Sales_bar(tech,r,e,l,s,ss);
+parameter P_cap(o,r,e,l), Sales_bar(o,r,e,l,s,ss);
 
-table kind0(company,tech,r) firms existing generation capacity in GW
+table kind0(firm,tech,r) firms existing generation capacity in GW
 
                  COA             EOA             SOA             WOA
 
@@ -163,7 +161,7 @@ Parameter capfactor(tech) capacity factors for dispatchable plants
 
 
 
-parameter  ELretirement(company,h,time,r), ELaddition(company,h,time,r);
+parameter  ELretirement(firm,h,time,r), ELaddition(firm,h,time,r);
 
 *updated capacity additions/retirements as of June 13 2016
 
@@ -261,8 +259,8 @@ parameter  ELretirement(company,h,time,r), ELaddition(company,h,time,r);
          ELretirement('fringe','ST','2020','EOA')=2.306;
          ELretirement('fringe','ST','2020','WOA')=1.203;
 
-         kind0(company,h,r) =kind0(company,h,r)+ sum(time$(ord(time)<=6),ELaddition(company,h,time,r))
-                         - sum(time$(ord(time)<=6),ELretirement(company,h,time,r));
+         kind0(firm,h,r) =kind0(firm,h,r)+ sum(time$(ord(time)<=6),ELaddition(firm,h,time,r))
+                         - sum(time$(ord(time)<=6),ELretirement(firm,h,time,r));
 
 parameter Genco_PPA(h,r);
 Genco_PPA(h,r) = 0;
@@ -270,7 +268,7 @@ Genco_PPA(h,r) = 0;
 parameter kind_save
 ;
 
-         kind_save(company,h,r) = kind0(company,h,r);
+         kind_save(firm,h,r) = kind0(firm,h,r);
 
 
 
@@ -286,22 +284,21 @@ set consumer_sets /'surplus','fuel subsidy','fixed cost'/
 
 
 Parameters
-         profit(company,tech)         profit per player by tech
-         roi(company,tech)              return on investment
-         cus(company,tech)              capacity usage
-         rop(company,tech)              return on production
-         roc(company,tech)              return on capacity
-         investments(company,tech)      investments
-         retirements(company,tech)
+         roi(firm,tech)              return on investment
+         cus(firm,tech)              capacity usage
+         rop(firm,tech)              return on production
+         roc(firm,tech)              return on capacity
+         investments(firm,tech)      investments
+         retirements(firm,tech)
 
          price_avg(r,e,l)                 expected price by region and season
          price_avg_flat(r)
          price_trans_avg(r,rr,e,l)        expected price by region and season
          price_avg_cost(r,e,l)
 
-         production(company,tech)      production by player in TWH
+         production(firm,tech)      production by player in TWH
          transmission(r,rr,e,l)        transmission by ISO in TWH
-         trade_avg(company,r,rr,e,l)         expected interregional trade by each firm in TWH
+         trade_avg(firm,r,rr,e,l)         expected interregional trade by each firm in TWH
          arbitrage_avg(r,rr,e,l)       expected interregional arbitrage by ISO in TWH
 
          error_demand(r,e,l)

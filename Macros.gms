@@ -29,7 +29,7 @@ $MACRO   hourangle(solhour)                   (solhour-12)*360/24
 $MACRO   soldecl(Dayofyear)              (0.3963723-22.9132745*COS(earthpos(Dayofyear)*pi/180)+4.0254304*SIN(earthpos(Dayofyear)*pi/180)-0.387205*COS(2*earthpos(Dayofyear)*pi/180)+0.05196728*SIN(2*earthpos(Dayofyear)*pi/180)-0.1545267*COS(3*earthpos(Dayofyear)*pi/180)+0.0847977*SIN(3*earthpos(Dayofyear)*pi/180))
 $MACRO   solalt(hrangle,solardeclination,lat)   (arcsin(COS(lat*pi/180)*COS(hrangle*pi/180)*COS(solardeclination*pi/180)+SIN(lat*pi/180)*SIN(solardeclination*pi/180))*180/pi)
 $MACRO   solazim(hrangle,solardeclination,lat,solaralt)  (180/pi*arccos((SIN(solardeclination*pi/180)*COS(lat*pi/180)-COS(solardeclination*pi/180)*SIN(lat*pi/180)*COS(hrangle*pi/180))/COS(solaralt*pi/180)))
-$MACRO   Gamma(solarazimuth,surfaceazimuth)  (ABS(solarazimuth-surfaceazimuth))
+*$MACRO   Gamma(solarazimuth,surfaceazimuth)  (ABS(solarazimuth-surfaceazimuth))
 
 
 $MACRO   Incidence(solaralt,gammaa,orientation)    (180/pi*arccos(COS(solaralt*pi/180)*COS(gammaa*pi/180)*SIN(orientation*pi/180)+SIN(solaralt*pi/180)*COS(orientation*pi/180)))
