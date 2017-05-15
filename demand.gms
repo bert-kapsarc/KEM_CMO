@@ -6,9 +6,9 @@ set hrs hours in the load curve data set /1*8760/ ;
 parameter HLC(r,hrs) hourly load curves for represenative day in each month in MW
 parameter ELlcgw(r,seasons,l) average power demand load blocks in MW
           ELlcgw_stddev(r,seasons,l) variance power demand load blocks in MW
-          EL_demand(r,e,l,s,ss) Stochastic Electricity Demand for scenarios s in GW
-          d(e,l) duration of segemt l in region r (deterministic)
-          prob(r,e,l,s,ss) probability off each scenario
+          EL_demand(r,seasons,l,s,ss) Stochastic Electricity Demand for scenarios s in GW
+          d(seasons,l) duration of segemt l in region r (deterministic)
+          prob(r,seasons,l,s,ss) probability off each scenario
 ;
 $gdxin db\load.gdx
 $load HLC
@@ -27,18 +27,8 @@ parameter day(hrs)    day for each hour in a year
 
           hour(hrs)=ord(hrs)-1-(day(hrs)-1)*24;
 
-table duration(seasons,l) duration of segemt l in region r and season e
-
-* these are the hour blocks used to average the actual hourly demand patterns
-* must sum to 24
-*$ontext
-                                 l1  l2  l3  l4  l5  l6  l7  l8
-(winter,spring-fall,summer)       4   4   4   2   3   2   2   3
-*$offtext
-
-*                                 l1  l2
-*(winter,spring-fall,summer)      12  12
- ;
+parameter duration(seasons,l) duration of segemt l in region r and season e
+;
 
  duration(seasons,'l1')=4;
  duration(seasons,'l2')=4;
@@ -102,67 +92,67 @@ loop(hrs,
 
   day_of_week = day_of_week+1/24;
 
-  number_of_wkdy_wknd(e)$((
-               (day(hrs)>=start_day(e) and
-                day(hrs)<=end_day(e) and (spring(e) or summer(e)) ) or
+  number_of_wkdy_wknd(seasons)$((
+               (day(hrs)>=start_day(seasons) and
+                day(hrs)<=end_day(seasons) and (spring(seasons) or summer(seasons)) ) or
 
                (day(hrs)>=start_day_fall and
-                day(hrs)<=end_day_fall and fall(e)) or
+                day(hrs)<=end_day_fall and fall(seasons)) or
 
-               ((day(hrs)>=start_day(e) or day(hrs)<=end_day(e)) and
-                       winter(e))
-               ) and  dayofweek(hrs) = season_day_of_week(e)
+               ((day(hrs)>=start_day(seasons) or day(hrs)<=end_day(seasons)) and
+                       winter(seasons))
+               ) and  dayofweek(hrs) = season_day_of_week(seasons)
 
-  ) =  number_of_wkdy_wknd(e)+1;
+  ) =  number_of_wkdy_wknd(seasons)+1;
 );
 
- number_of_wkdy_wknd(e) = round(number_of_wkdy_wknd(e))/24;
+ number_of_wkdy_wknd(seasons) = round(number_of_wkdy_wknd(seasons))/24;
 
 
 duration(seasons,l)=duration(seasons,l)*number_of_wkdy_wknd(seasons);
 
-ELlcgw(r,e,l) =
+ELlcgw(r,seasons,l) =
 sum(hrs$(
-                (        (day(hrs)>=start_day(e) and
-                          day(hrs)<=end_day(e) and (spring(e) or summer(e)) ) or
+                (        (day(hrs)>=start_day(seasons) and
+                          day(hrs)<=end_day(seasons) and (spring(seasons) or summer(seasons)) ) or
 
                          (day(hrs)>=start_day_fall and
-                          day(hrs)<=end_day_fall and fall(e)) or
+                          day(hrs)<=end_day_fall and fall(seasons)) or
 
-                         ((day(hrs)>=start_day(e) or day(hrs)<=end_day(e)) and
-                                 winter(e))
+                         ((day(hrs)>=start_day(seasons) or day(hrs)<=end_day(seasons)) and
+                                 winter(seasons))
 
                 )and
-                dayofweek(hrs) = season_day_of_week(e) and
-                hour(hrs)>=block_start(e,l) and
-                hour(hrs)<block_end(e,l)
-         ), HLC(r,hrs))/duration(e,l)
+                dayofweek(hrs) = season_day_of_week(seasons) and
+                hour(hrs)>=block_start(seasons,l) and
+                hour(hrs)<block_end(seasons,l)
+         ), HLC(r,hrs))/duration(seasons,l)
 ;
 
 *abort ELlcgw;
 
-ELlcgw_stddev(r,e,l) =
+ELlcgw_stddev(r,seasons,l) =
 sum(hrs$(
-                (        (day(hrs)>=start_day(e) and
-                          day(hrs)<=end_day(e) and (spring(e) or summer(e)) ) or
+                (        (day(hrs)>=start_day(seasons) and
+                          day(hrs)<=end_day(seasons) and (spring(seasons) or summer(seasons)) ) or
 
                          (day(hrs)>=start_day_fall and
-                          day(hrs)<=end_day_fall and fall(e)) or
+                          day(hrs)<=end_day_fall and fall(seasons)) or
 
-                         ((day(hrs)>=start_day(e) or day(hrs)<=end_day(e)) and
-                                 winter(e))
+                         ((day(hrs)>=start_day(seasons) or day(hrs)<=end_day(seasons)) and
+                                 winter(seasons))
 
                 )and
-                dayofweek(hrs) = season_day_of_week(e) and
-                hour(hrs)>=block_start(e,l) and
-                hour(hrs)<block_end(e,l)
-         ), (HLC(r,hrs)-ELlcgw(r,e,l))*(HLC(r,hrs)-ELlcgw(r,e,l)) )/(duration(e,l))
+                dayofweek(hrs) = season_day_of_week(seasons) and
+                hour(hrs)>=block_start(seasons,l) and
+                hour(hrs)<block_end(seasons,l)
+         ), (HLC(r,hrs)-ELlcgw(r,seasons,l))*(HLC(r,hrs)-ELlcgw(r,seasons,l)) )/(duration(seasons,l))
 ;
 
-ELlcgw_stddev(r,e,l) = sqrt(ELlcgw_stddev(r,e,l));
+ELlcgw_stddev(r,seasons,l) = sqrt(ELlcgw_stddev(r,seasons,l));
 
 if(card(e)=1 ,
-duration(e,l)$(card(e)=1)=duration(e,l)*365/number_of_wkdy_wknd(e);
+*duration(seasons,l)$(card(seasons)=1)=duration(seasons,l)*365/number_of_wkdy_wknd(seasons);
 
 );
 
@@ -170,40 +160,46 @@ duration(e,l)$(card(e)=1)=duration(e,l)*365/number_of_wkdy_wknd(e);
 *        Rescale demand to GW
 *        Rescale duration such taht energy is in units of TWH
 *        Marginal costs should be in units of MMUSD/TWH
-         d(e,l) = duration(e,l)*1e-3;
+         d(seasons,l) = duration(seasons,l)*1e-3;
 
-parameter CDF_lo(r,e,l), CDF_hi(r,e,l), diff(r,e,l), CDF_alpha(r,e,l), CDF_beta(r,e,l), Z_cdf(r,e,l), X_cdf(r,e,l,scen);
-parameter CDF_x(r,e,l,scen) cumulative distribution functions for each scenario s;
+parameter        CDF_lo(r,seasons,l),
+                 CDF_hi(r,seasons,l),
+                 diff(r,seasons,l),
+                 CDF_alpha(r,seasons,l),
+                 CDF_beta(r,seasons,l),
+                 Z_cdf(r,seasons,l),
+                 X_cdf(r,seasons,l,scen),
+                 CDF_x(r,seasons,l,scen) cumulative distribution functions for each scenario s;
 
 
-         CDF_lo(r,e,l)=ELlcgw(r,e,l)-ELlcgw_stddev(r,e,l)*3;
-         CDF_hi(r,e,l)=ELlcgw(r,e,l)+ELlcgw_stddev(r,e,l)*3;
+         CDF_lo(r,seasons,l)=ELlcgw(r,seasons,l)-ELlcgw_stddev(r,seasons,l)*3;
+         CDF_hi(r,seasons,l)=ELlcgw(r,seasons,l)+ELlcgw_stddev(r,seasons,l)*3;
 
-*        CDF_lo(r,e,l)$spring(e)=ELlcgw(r,e,l)-ELlcgw_stddev(r,e,l)*2;
-*        CDF_hi(r,e,l)$spring(e)=ELlcgw(r,e,l)+ELlcgw_stddev(r,e,l)*2;
+*        CDF_lo(r,seasons,l)$spring(seasons)=ELlcgw(r,seasons,l)-ELlcgw_stddev(r,seasons,l)*2;
+*        CDF_hi(r,seasons,l)$spring(seasons)=ELlcgw(r,seasons,l)+ELlcgw_stddev(r,seasons,l)*2;
 
-         diff(r,e,l) = CDF_hi(r,e,l) -CDF_lo(r,e,l);
+         diff(r,seasons,l) = CDF_hi(r,seasons,l) -CDF_lo(r,seasons,l);
 
-         CDF_alpha(r,e,l) = cdfnorm(CDF_lo(r,e,l),ELlcgw(r,e,l),ELlcgw_stddev(r,e,l));
-         CDF_beta(r,e,l) =  cdfnorm(CDF_hi(r,e,l),ELlcgw(r,e,l),ELlcgw_stddev(r,e,l));
-         Z_cdf(r,e,l)=CDF_beta(r,e,l)-CDF_alpha(r,e,l);
-         prob(r,e,l,s,ss)=0;
-         CDF_x(r,e,l,s)=0;
+         CDF_alpha(r,seasons,l) = cdfnorm(CDF_lo(r,seasons,l),ELlcgw(r,seasons,l),ELlcgw_stddev(r,seasons,l));
+         CDF_beta(r,seasons,l) =  cdfnorm(CDF_hi(r,seasons,l),ELlcgw(r,seasons,l),ELlcgw_stddev(r,seasons,l));
+         Z_cdf(r,seasons,l)=CDF_beta(r,seasons,l)-CDF_alpha(r,seasons,l);
+         prob(r,seasons,l,s,ss)=0;
+         CDF_x(r,seasons,l,s)=0;
 
 if(card(s)>1,
   loop(s$(ord(s)<=card(s)),
 
-         X_cdf(r,e,l,s)=CDF_lo(r,e,l)+ord(s)*diff(r,e,l)/card(s);
-         CDF_x(r,e,l,s)= (cdfnorm(X_cdf(r,e,l,s),ELlcgw(r,e,l),ELlcgw_stddev(r,e,l))-CDF_alpha(r,e,l))/Z_cdf(r,e,l);
-         prob(r,e,l,s,ss) = (CDF_x(r,e,l,s) - CDF_x(r,e,l,s-1))/card(ss);
-         X_cdf(r,e,l,s)=X_cdf(r,e,l,s)-(diff(r,e,l)/(2*card(s)));
-         EL_Demand(r,e,l,s,ss)= X_cdf(r,e,l,s);
+         X_cdf(r,seasons,l,s)=CDF_lo(r,seasons,l)+ord(s)*diff(r,seasons,l)/card(s);
+         CDF_x(r,seasons,l,s)= (cdfnorm(X_cdf(r,seasons,l,s),ELlcgw(r,seasons,l),ELlcgw_stddev(r,seasons,l))-CDF_alpha(r,seasons,l))/Z_cdf(r,seasons,l);
+         prob(r,seasons,l,s,ss) = (CDF_x(r,seasons,l,s) - CDF_x(r,seasons,l,s-1))/card(ss);
+         X_cdf(r,seasons,l,s)=X_cdf(r,seasons,l,s)-(diff(r,seasons,l)/(2*card(s)))$(card(s)>1);
+         EL_Demand(r,seasons,l,s,ss)= X_cdf(r,seasons,l,s);
   );
 else
-         prob(r,e,l,s,ss) = 1;
-         EL_Demand(r,e,l,s,ss)=ELlcgw(r,e,l);
+         prob(r,seasons,l,s,ss) = 1;
+         EL_Demand(r,seasons,l,s,ss)=ELlcgw(r,seasons,l);
 );
-       EL_Demand(r,e,l,s,ss)= EL_Demand(r,e,l,s,ss)*1e-3;
+       EL_Demand(r,seasons,l,s,ss)= EL_Demand(r,seasons,l,s,ss)*1e-3;
 
 *abort prob,EL_Demand,CDF_x,x_cdf,ELlcgw_stddev,ELlcgw
 

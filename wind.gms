@@ -63,10 +63,10 @@ L8.spring-fall   2.496        0.903        4.826        2.472
 
 parameter average_wind_spee_80m(r)
 /
-         WOA     8.5
+         WOA     7.5
          EOA     6.5
-         COA     8
-         SOA     8
+         COA     7
+         SOA     7
 /;
 
  ELwindspeed(l,seasons,r) = ELwindspeed(l,seasons,r)/(sum((ll,sseasons),ELwindspeed(ll,sseasons,r))/24)*average_wind_spee_80m(r);
@@ -102,7 +102,7 @@ ELwindpower(l,seasons,r)$(ELwindspeed(l,seasons,r)>=ELcutoffspeed)=0;
 *or turbine conversion efficiency. Moreover, this approach simulates the wind turbine
 *power output to be proportional to the power in the wind:
 Parameter ELwindpowernorm(l,seasons,r) power generated normalized by maximum annual value (regional);
-ELwindpowernorm(l,seasons,r)=ELwindpower(l,seasons,r)/smax((ll,ee),ELwindpower(ll,ee,r));
+ELwindpowernorm(l,e,r)=ELwindpower(l,e,r)/(0.5*ELairdensity(r)*ELratedspeed**3);
 
 
 *The following table considers the impact of incrementally adding wind capacity

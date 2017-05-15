@@ -1,14 +1,14 @@
 Sets
      firm /fringe, g1*g15/
-     Genco(firm) /g1*g2/
-     i(firm) generators  /g1*g2/
+     Genco(firm)      /g1*g2/
+     i(firm) generators  /fringe,g1*g2/
 
-     Cournot(i) cournot firms /g1*g2/
+     Cournot(i) cournot firms
 
      fringe(firm)     /fringe/
      tech       /CCGT, CCconv, GT, ST, Nuclear, PV, WT,GTtoCC, all/
      h(tech) technology       / CCGT, GT, ST, GTtoCC, Nuclear, PV, WT /
-     o reliability option /o1,o2/
+     o reliability option /o1/
      ccgt(tech) /CCGT/
      gttocc(tech) /GTtoCC/
      gt(tech) /GT/
@@ -21,8 +21,8 @@ Sets
 
      l market segment   /l1*l8/
      seasons  /winter,winter-wknd,summer,summer-wknd,spring-fall,spf-wknd/
-*     e(seasons) seasons for running the model /winter,summer,spring-fall/
-     e(seasons) seasons for running the model /summer/
+     e(seasons) seasons for running the model /winter,winter-wknd,summer,summer-wknd,spring-fall,spf-wknd/
+*     e(seasons) seasons for running the model /summer/
      e_wkdy(seasons) /winter,summer,spring-fall/
      e_wknd(seasons) /winter-wknd,summer-wknd,spf-wknd/
      winter(seasons) /winter,winter-wknd/
@@ -72,20 +72,21 @@ variables
 
          kind(firm,h,r) existing capacity by player
          trans(r,rr,e,l,s,ss) electricity transmission
-
-         demand(r,e,l,s,ss)
 ;
 Positive Variables
          Q(i,h,f,r,e,l,s,ss)  generation quantity from a player i at market l in scenario in MW
          inv(i,h,r)  investment by player i in technology h
          ret(i,h,r)  retirement of technology h in region r by player i
          sales(i,o,r,e,l,s,ss) sales of firm in region r market l scenario s in MW
+         demand(r,e,l,s,ss)
+         demand_capacity(h,r)
+         total_sales(r,e,l,s,ss)
 
-         U(i,r,e,l,s,ss) residual sales not bound to an option contract
          K(i,o,r,e,l) Capacity sold into the reliabilty options contract
 
-
-         Z(o,r,e,l,s,ss) Non-negative difference between market and exercise price (P_cap)
+         U(i,r,e,l,s,ss) residual sales not bound to an option contract
+         Z(i,o,r,e,l,s,ss) Non-negative difference between market and exercise price (P_cap)
+         Zm(i,o,r,e,l,s,ss)
 
          arbitrage(r,rr,e,l,s,ss) TSO outgoing electricity arbitrage from node r on line n
          trade(i,r,rr,e,l,s,ss) outgoing electricity trade by firm i from node r on line n
@@ -95,7 +96,7 @@ Positive Variables
          tau_neg(r,rr,e,l,s,ss) shadow prices for the high capacity constraint in USD per MW
 
 
-         Omega(o,r,e,l,s,ss)
+         Omega(i,o,r,e,l,s,ss)
          Gamma(i,r,e,l,s,ss)
 ;
 Variables

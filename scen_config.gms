@@ -14,14 +14,16 @@
      market_share_prod('fringe') = 0.2;
 
 *        Capacity market configuration
-     m(r,e,l) = no;
+*     m(r,e,"l6") = yes;
 
+* identify cournot players
+     cournot(i)$genco(i)  =yes;
 
      P_cap(o,r,e,l) =1e6;
 
 
-     P_cap('o1',r,e,l) = 1e3;
-     P_cap('o2',r,e,l) = 50;
+     P_cap('o1',r,e,l) = 150;
+*     P_cap('o2',r,e,l) = 50;
 
      Sales_bar(o,r,e,l,s,ss) = (a(r,e,l,s,ss)-p_cap(o,r,e,l))/b(r,e,l,s,ss);
      Sales_bar(o,r,e,l,s,ss)$(Sales_bar(o,r,e,l,s,ss)<0) = 0;

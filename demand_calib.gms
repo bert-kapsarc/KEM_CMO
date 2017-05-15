@@ -9,18 +9,19 @@ COA      1.217
 ;
 
 *        apply growth equally to all demand segments
-EL_demand(r,e,l,s,ss)= EL_demand(r,e,l,s,ss)*EL_demgro(r);
+EL_demand(r,seasons,l,s,ss)= EL_demand(r,seasons,l,s,ss)*EL_demgro(r);
 $INCLUDE solar.gms
 
-parameter elasticity(r,e,l,s,ss) demand elasticity for eletricity;
-elasticity(r,e,l,s,ss) = 0.16;
+parameter elasticity(r,seasons,l,s,ss) demand elasticity for eletricity;
+elasticity(r,seasons,l,s,ss) = 0.16;
 
 parameter  LRMC(r,seasons,l,s,ss) long run marginal cost in each load segment USD per MWH
            LRMC_baseline(r,seasons,l,s,ss) baseline LRMC;
 
-parameter util_hrs(r,e,l,s,ss) average number of hours in a given load segment;
-         util_hrs(r,e,l,s,ss)=
-         sum((ee,ll)$(EL_Demand(r,ee,ll,s,ss)>=EL_Demand(r,e,l,s,ss)),d(ee,ll));
+parameter util_hrs(r,seasons,l,s,ss) average number of hours in a given load segment;
+alias (season,sseasons);
+         util_hrs(r,seasons,l,s,ss)=
+         sum((sseasons,ll)$(EL_Demand(r,sseasons,ll,s,ss)>=EL_Demand(r,seasons,l,s,ss)),d(sseasons,ll));
 
 * long run marginal cost. rescale capacity payment to USD/MWh
 LRMC(r,e,l,s,ss) =
@@ -32,12 +33,6 @@ LRMC_baseline(r,e,l,s,ss) =
 smin((h,f)$(fuel_set(h,f,r) and not nuclear(h) and not gttocc(h)),
          mc_baseline(h,f,r)+((ic(h)+om(h))/util_hrs(r,e,l,s,ss))
 );
-
-* Adjust baseline LRMC during select market segments (calibration)
-*LRMC_baseline(r,e,l,s,ss) = LRMC_baseline(r,e,l,s,ss)*
-*         ( 1.2*util_hrs(r,e,l,s,ss)$(util_hrs(r,e,l,s,ss)<0.5*8.760 and util_hrs(r,e,l,s,ss)>=0.2*8.760  )
-*          +1.8*util_hrs(r,e,l,s,ss)$(util_hrs(r,e,l,s,ss)<0.2*8.760)
-*          +util_hrs(r,e,l,s,ss)$(util_hrs(r,e,l,s,ss)>=0.5*8.760))/8.760;
 
 a(r,e,l,s,ss) = LRMC(r,e,l,s,ss)*(1+1/elasticity(r,e,l,s,ss));
 b(r,e,l,s,ss) = LRMC(r,e,l,s,ss)/EL_demand(r,e,l,s,ss)/elasticity(r,e,l,s,ss);

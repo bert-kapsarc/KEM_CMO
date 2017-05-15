@@ -8,10 +8,7 @@ elasticity(r,e,l,s,ss) = 1/b(r,e,l,s,ss) * price.l(r,e,l,s,ss)/ (
 *        EL_demand(r,e,l,s,ss) = EL_demand_resp(r,e,l,s,ss);
 *$ontext
          demand_expected(r,e,l) =sum((s,ss),prob(r,e,l,s,ss)*EL_demand(r,e,l,s,ss)*d(e,l));
-         demand_actual(r,e,l,s,ss)=(
-                 sum((ii,o),sales.l(ii,o,r,e,l,s,ss))
-                  -sum(rr$r_trade(r,rr),arbitrage.l(r,rr,e,l,s,ss))
-                  +sum(rr$r_trade(r,rr),arbitrage.l(rr,r,e,l,s,ss)) )*d(e,l);
+         demand_actual(r,e,l,s,ss)=demand.l(r,e,l,s,ss)*d(e,l);
 
          error_demand(r,e,l) =
          -sum((s,ss),prob(r,e,l,s,ss)*
@@ -21,12 +18,14 @@ elasticity(r,e,l,s,ss) = 1/b(r,e,l,s,ss) * price.l(r,e,l,s,ss)/ (
          scalar error_total ;
          error_total =  sum((r,e,l,s,ss),prob(r,e,l,s,ss)*demand_actual(r,e,l,s,ss))/sum((r,e,l),demand_expected(r,e,l))-1;
 
-         reserve_capacity(r) = sum((i,h),Cap_avail.l(i,h,r))/
-                 smax((e,l,s,ss),demand_actual(r,e,l,s,ss)/d(e,l))-1;
+         reserve_capacity(r) = sum((i,h)$(not ren(h)),Cap_avail.l(i,h,r))/
+                 smax((e,l,s,ss),demand.l(r,e,l,s,ss))-1;
 
         consumer('surplus',r) =
-         sum((e,l,s,ss),prob(r,e,l,s,ss)*
-         (a(r,e,l,s,ss) - price.l(r,e,l,s,ss))*demand_actual(r,e,l,s,ss))/2;
+         sum((e,l,s,ss),prob(r,e,l,s,ss)*d(e,l)*(
+         (a(r,e,l,s,ss) - price.l(r,e,l,s,ss))*demand.l(r,e,l,s,ss)/2
+         +sum((i,o),Z.l(i,o,r,e,l,s,ss)*sales.l(i,o,r,e,l,s,ss))$(r_options=1)
+         ));
 
 *        fuel subsidies
          consumer('fuel subsidy',r) = sum((i,f,h,e,l,s,ss),prob(r,e,l,s,ss)*
@@ -34,12 +33,16 @@ elasticity(r,e,l,s,ss) = 1/b(r,e,l,s,ss) * price.l(r,e,l,s,ss)/ (
          q.l(i,h,f,r,e,l,s,ss)*heat_rate(h,f)*d(e,l));
 
          consumer('fixed cost',r) =
-         sum((i,o,h,e,l)$m(r,e,l),delta.l(o,r,e,l)*Cap_avail.l(i,h,r)*d(e,l));
+         sum((i,o,e,l),d(e,l)*(
+                 delta.l(o,r,e,l)*K.l(i,o,r,e,l)$(r_options=1)
+                 +sum(h$(m(r,e,l) and not gttocc(h) and ord(o)=1),
+                    delta.l(o,r,e,l)*Cap_avail.l(i,h,r))$(r_options<>1)
+         ));
 
          cs_threshold(r,e,l,s,ss) = demand_actual(r,e,l,s,ss)/d(e,l)-2*a(r,e,l,s,ss)/b(r,e,l,s,ss);
 
 
-social_surplus  = sum((i),profit.l(i))   +
+social_surplus  = -sum((i),profit.l(i))   +
          sum(r, consumer('surplus',r)
                 -consumer('fuel subsidy',r)
                 -consumer('fixed cost',r))

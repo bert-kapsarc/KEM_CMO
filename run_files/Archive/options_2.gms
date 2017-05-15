@@ -10,7 +10,7 @@ function cdfnorm /stolib.cdfnormal/;
 
 scalar trading set to 1 to allow regional trade by firms /0/
        fixed_ppa  /0/
-       legacy_auction /0/ ;
+       r_options reliability options switch /1/
 
 $INCLUDE SetsAndVariables.gms
 
@@ -18,25 +18,30 @@ $INCLUDE Demand.gms
 $include parameters.gms
 $include marginal_cost.gms
 
-$INCLUDE equations.gms
 $include demand_calib.gms
+$INCLUDE equations.gms
+
 
 $include scen_config.gms
-
-*$ontext
-*        Configure capacity market segments
-         scalar price_threshold /1.50/
-         scalar capacity_threshold  /0.9/
-*  Enter file to load previous data from
-$gdxin test.gdx
-$include capacity_market.gms
-*$offtext
 ;
-*m(r,e,l)$(summer(e) and ord(l)<=8 and ord(l)>3)=yes;
+
+v(i)=0;
+*z(i) = -1;
+
+$ontext
+*        Configure capacity market segments
+         scalar price_threshold /1.6/
+                 capacity_threshold /0.9/
+*  Enter file to load previous data from
+$gdxin test_1.gdx
+$include capacity_market.gms
+$offtext
+;
+m(r,e,l)$(summer(e)) =yes;
 
 Option Savepoint=1;
 
-Execute_Loadpoint 'test_1.gdx';
+Execute_Loadpoint 'test.gdx';
 
 CMO.optfile = 1 ;
 

@@ -1,7 +1,7 @@
-ssolu="E:\bjwr\KEM_CMO\225e\empsolu.dat"
-sstat="E:\bjwr\KEM_CMO\225e\empstat.dat"
-scntr="E:\bjwr\KEM_CMO\225e\empcntr.dat"
-smatr="E:\bjwr\KEM_CMO\225e\empmatr.dat"
+ssolu="E:\bjwr\KEM_CMO\225c\empsolu.dat"
+sstat="E:\bjwr\KEM_CMO\225c\empstat.dat"
+scntr="E:\bjwr\KEM_CMO\225c\empcntr.dat"
+smatr="E:\bjwr\KEM_CMO\225c\empmatr.dat"
 suppress=1 AL=1 LO=3
 LP=CPLEX
 MIP=CPLEX

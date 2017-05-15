@@ -1,6 +1,7 @@
 * Below we define in what demand segments the capacity market is oeprated
 * It is defined when the demand exceeds some ratio of the avabilabe capacity in a gien region
-$LOAD demand_actual Cap_avail price
+scalar price_threshold /1.6/
+         capacity_threshold /0.9/
 $gdxin
 loop(l,
  m(r,e,l)$(
