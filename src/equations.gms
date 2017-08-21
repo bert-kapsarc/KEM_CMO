@@ -21,7 +21,7 @@ Equations
          EqX_1(i,r)
          EqX_2(i,r)
          EqX_3(i,r)
-         EqX_4(h,r)     lower bound aggregate gencos production (replicate effect of long term PPA's on the market)
+         EqX_4(h,r)     lower bound aggregate gencos production (replicate effect of long term PPAs on the market)
          EqX_5(i,f,r)    fuel demand constraint
 
 
@@ -89,53 +89,52 @@ demand_capacity(h,r)=e=sum((i),Cap_avail(i,h,r))
 
 EQ3_1(i)..
 profit(i) =e=
--sum((r,e,l,s,ss),(
-     (sum(o,sales(i,o,r,e,l,s,ss))$(r_options=1)+U(i,r,e,l,s,ss))*(
-             a(r,e,l,s,ss)
-             -b(r,e,l,s,ss)*(
-                  sum((ii,oo),sales(ii,oo,r,e,l,s,ss))$(r_options=1)
-                 +sum(ii,U(ii,r,e,l,s,ss))
-                 -sum(rr$r_trade(r,rr),arbitrage(r,rr,e,l,s,ss))
-                 +sum(rr$r_trade(r,rr),arbitrage(rr,r,e,l,s,ss)) )$Cournot(i)
-             -b(r,e,l,s,ss)*demand(r,e,l,s,ss)$(not Cournot(i))
-      )
+    -sum((r,e,l,s,ss),(
+         (sum(o,sales(i,o,r,e,l,s,ss))$(r_options=1)+U(i,r,e,l,s,ss))*(
+                 a(r,e,l,s,ss)
+                 -b(r,e,l,s,ss)*(
+                      sum((ii,oo),sales(ii,oo,r,e,l,s,ss))$(r_options=1)
+                     +sum(ii,U(ii,r,e,l,s,ss))
+                     -sum(rr$r_trade(r,rr),arbitrage(r,rr,e,l,s,ss))
+                     +sum(rr$r_trade(r,rr),arbitrage(rr,r,e,l,s,ss)) )$Cournot(i)
+                 -b(r,e,l,s,ss)*demand(r,e,l,s,ss)$(not Cournot(i))
+          )
 
-    -sum(o,Z("g1",o,r,e,l,s,ss)*sales(i,o,r,e,l,s,ss))$(r_options=1)
+        -sum(o,Z("g1",o,r,e,l,s,ss)*sales(i,o,r,e,l,s,ss))$(r_options=1)
 
-    -sum((h,f)$fuel_set(h,f,r),Q(i,h,f,r,e,l,s,ss)*mc(h,f,r))
-    -sum(rr$r_trade(r,rr),price_trans(r,rr,e,l,s,ss)*trade(i,r,rr,e,l,s,ss))
-)*prob(r,e,l,s,ss)*d(e,l))
+        -sum((h,f)$fuel_set(h,f,r),Q(i,h,f,r,e,l,s,ss)*mc(h,f,r))
+        -sum(rr$r_trade(r,rr),price_trans(r,rr,e,l,s,ss)*trade(i,r,rr,e,l,s,ss))
+    )*prob(r,e,l,s,ss)*d(e,l))
 
--sum((o,r,e,l),delta(o,r,e,l)*K(i,o,r,e,l)*d(e,l))$(r_options=1)
--sum((h,r,e,l)$(m(r,e,l) and not gttocc(h)),
-  (theta(r,e,l)
-    -xi(r,e,l)*sum((ii,hh)$(not gttocc(hh)),Cap_avail(ii,hh,r))$Cournot(i)
-    -xi(r,e,l)*sum(hh$(not gttocc(hh)),demand_capacity(hh,r))$(not Cournot(i))
-  )*Cap_avail(i,h,r)*d(e,l))$(r_options<>1)
+    -sum((o,r,e,l),delta(o,r,e,l)*K(i,o,r,e,l)*d(e,l))$(r_options=1)
+    -sum((h,r,e,l)$(m(r,e,l) and not gttocc(h)),
+      (theta(r,e,l)
+        -xi(r,e,l)*sum((ii,hh)$(not gttocc(hh)),Cap_avail(ii,hh,r))$Cournot(i)
+        -xi(r,e,l)*sum(hh$(not gttocc(hh)),demand_capacity(hh,r))$(not Cournot(i))
+      )*Cap_avail(i,h,r)*d(e,l))$(r_options<>1)
 
-+sum((h,r),ici(h)*inv(i,h,r)+ret(i,h,r)*icr(h)$(not gttocc(h)))
-+sum((h,r)$(not gttocc(h)),Cap_avail(i,h,r)*om(h))
+    +sum((h,r),ici(h)*inv(i,h,r)+ret(i,h,r)*icr(h)$(not gttocc(h)))
+    +sum((h,r)$(not gttocc(h)),Cap_avail(i,h,r)*om(h))
 ;
 
 Eq3_2(i,h,r,e,l,s,ss)$(not gttocc(h)) ..
-         (kind(i,h,r)+sum(hh,inv(i,hh,r)*capadd(hh,h))-ret(i,h,r))*(
-                 1$(not ren(h))
-                 +ELwindpowernorm(l,e,r)$WT(h)
-                 +Elsolcurvenorm(l,e,r)$PV(h)
-         )
-         -sum((f)$fuel_set(h,f,r),Q(i,h,f,r,e,l,s,ss))=g=0;
+    (kind(i,h,r)+sum(hh,inv(i,hh,r)*capadd(hh,h))-ret(i,h,r))*(
+        1$(not ren(h))
+        +ELwindpowernorm(l,e,r)$WT(h)
+        +Elsolcurvenorm(l,e,r)$PV(h) )
+    -sum((f)$fuel_set(h,f,r),Q(i,h,f,r,e,l,s,ss))=g=0;
 
 Eq3_3(i,h,r)$(not gttocc(h))..  kind(i,h,r) - ret(i,h,r)=g=0
 ;
 
 Eq3_4(i,r,e,l,s,ss)..
 
-         sum((f,h)$fuel_set(h,f,r),Q(i,h,f,r,e,l,s,ss))
-         -sum(rr$r_trade(r,rr),trade(i,r,rr,e,l,s,ss))$(trading=1)
-         +sum(rr$r_trade(r,rr),trade(i,rr,r,e,l,s,ss))$(trading=1)
-=e=
-         sum(o,sales(i,o,r,e,l,s,ss))$(r_options=1)
-         +U(i,r,e,l,s,ss)
+    sum((f,h)$fuel_set(h,f,r),Q(i,h,f,r,e,l,s,ss))
+    -sum(rr$r_trade(r,rr),trade(i,r,rr,e,l,s,ss))$(trading=1)
+    +sum(rr$r_trade(r,rr),trade(i,rr,r,e,l,s,ss))$(trading=1)
+    =e=
+    sum(o,sales(i,o,r,e,l,s,ss))$(r_options=1)
+    +U(i,r,e,l,s,ss)
 ;
 
 EQ3_5(i,o,r,e,l,s,ss)$(r_options=1)..

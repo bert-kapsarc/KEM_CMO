@@ -2497,9 +2497,6 @@ Order=1,2,3
 Decim=7
 PlaneRownr=-1
 
-[RP:LOOP]
-1=
-
 [GDXDISP: Genco Set 1]
 PlaneDim=0
 RowDim=1
@@ -4456,9 +4453,6 @@ Order=4,1,3,2
 Decim=7
 PlaneRownr=-1
 
-[RP:CAPACITY_MARKET]
-1=
-
 [GDXDISP: arb_profit Var 0]
 PlaneDim=0
 RowDim=0
@@ -4556,12 +4550,6 @@ Order=1,2,3,4,5,6,7
 Decim=7
 PlaneRownr=-1
 
-[RP:SCEN_CONFIG]
-1=
-
-[RP:EQUATIONS]
-1=
-
 [RP:PARAMETERS]
 1=
 
@@ -4602,62 +4590,49 @@ PlaneRownr=-1
 19=idir=db;load; gdx=testt2
 20=idir=db;load; gdx=energy_oligopoly
 
+[RP:SETSANDVARIABLES]
+1=
+
+[RP:LOOP]
+1=
+
+[RP:CAPACITY_MARKET]
+1=
+
+[RP:SCEN_CONFIG]
+1=
+
+[RP:EMP]
+1=
+
+[RP:EQUATIONS]
+1=
+
 [RP:OPTIONS]
 1=idir=db;load; gdx=options
 2=idir=db;load; gdx=options_2
 3=idir=db;load; gdx=options-
 4=
 
-[RP:SETSANDVARIABLES]
+[RP:KEM_CEM]
 1=
 
 [MRUFILES]
-1=E:\bjwr\KEM_CMO\Untitled_3.lst
-2=E:\bjwr\KEM_CMO\Untitled_3.gms
-3=E:\bjwr\KEM_CMO\Untitled_2.gms
-4=E:\bjwr\KEM_CMO\Untitled_1.gms
-5=E:\bjwr\KEM_CMO\report.lst
-6=E:\bjwr\KEM_CMO\options_2.gdx
-7=E:\bjwr\KEM_CEM\demand.gms
-8=E:\bjwr\KEM_CEM\demand_calib.gms
+1=C:\Users\willbj0b\github\KEM_CMO\KEM_CEM.lst
+2=C:\Users\willbj0b\github\KEM_CMO\run_files\options.gms
+3=C:\Users\willbj0b\github\KEM_CMO\options.lst
+4=C:\Users\willbj0b\github\KEM_CMO\capacity_market.gms
+5=E:\bjwr\KEM_CMO\Untitled_3.lst
+6=E:\bjwr\KEM_CMO\Untitled_3.gms
+7=E:\bjwr\KEM_CMO\Untitled_2.gms
+8=E:\bjwr\KEM_CMO\Untitled_1.gms
+9=E:\bjwr\KEM_CMO\report.lst
 
 [OPENWINDOW_1]
-FILE0=E:\bjwr\KEM_CMO\demand_calib_new.gms
-FILE1=E:\bjwr\KEM_CMO\demand_new.gms
-FILE2=E:\bjwr\KEM_CMO\demand_new.gms
+FILE0=C:\Users\willbj0b\github\KEM_CMO\KEM_CEM.gms
+FILE1=C:\Users\willbj0b\github\KEM_CMO\KEM_CEM.gms
 MAXIM=0
-TOP=78
-LEFT=78
+TOP=26
+LEFT=26
 HEIGHT=624
-WIDTH=1587
-
-[OPENWINDOW_2]
-FILE0=E:\bjwr\KEM_CEM\capacity.gms
-FILE1=E:\bjwr\KEM_CMO\3_4_2_6.gms
-FILE2=E:\bjwr\KEM_CMO\3_4_2_8.gms
-FILE3=E:\bjwr\KEM_CMO\3_4_2_9.gms
-FILE4=E:\bjwr\KEM_CMO\capacity_market.gms
-FILE5=E:\bjwr\KEM_CMO\demand.gms
-FILE6=E:\bjwr\KEM_CMO\energy.gdx
-FILE7=E:\bjwr\KEM_CMO\energy.lst
-FILE8=E:\bjwr\KEM_CMO\equations.gms
-FILE9=E:\bjwr\KEM_CMO\jams.opt
-FILE10=E:\bjwr\KEM_CMO\marginal_cost.gms
-FILE11=E:\bjwr\KEM_CMO\options.gdx
-FILE12=E:\bjwr\KEM_CMO\options.lst
-FILE13=E:\bjwr\KEM_CMO\parameters.gms
-FILE14=E:\bjwr\KEM_CMO\PATH.opt
-FILE15=E:\bjwr\KEM_CMO\report.gms
-FILE16=E:\bjwr\KEM_CMO\run_files\energy.gms
-FILE17=E:\bjwr\KEM_CMO\run_files\options.gms
-FILE18=E:\bjwr\KEM_CMO\scen_config.gms
-FILE19=E:\bjwr\KEM_CMO\scen_config.lst
-FILE20=E:\bjwr\KEM_CMO\SetsAndVariables.gms
-FILE21=E:\bjwr\KEM_CMO\solar.gms
-FILE22=E:\bjwr\KEM_CMO\wind.gms
-FILE23=E:\bjwr\KEM_CMO\jams.opt
-MAXIM=0
-TOP=-4
-LEFT=58
-HEIGHT=846
-WIDTH=1678
+WIDTH=1604

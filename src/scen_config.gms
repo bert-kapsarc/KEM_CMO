@@ -22,7 +22,7 @@
      P_cap(o,r,e,l) =1e6;
 
 
-     P_cap('o1',r,e,l) = 150;
+     P_cap('o1',r,e,l) = 60;
 *     P_cap('o2',r,e,l) = 50;
 
      Sales_bar(o,r,e,l,s,ss) = (a(r,e,l,s,ss)-p_cap(o,r,e,l))/b(r,e,l,s,ss);

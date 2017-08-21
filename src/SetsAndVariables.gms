@@ -40,7 +40,7 @@ Sets
      m(r,e,l) capacity markets
      scen /s1*s10/
 
-     s(scen) scenarios for energy demand        /s1*s1/
+     s(scen) scenarios for energy demand        /s1*s3/
      ss(scen) scenarios for renewables       /s1*s1/
 
      majority(genco,r)
