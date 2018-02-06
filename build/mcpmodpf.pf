@@ -1,0 +1,20 @@
+ssolu="E:\bjwr\github\KEM_CMO\225e\empsolu.dat"
+sstat="E:\bjwr\github\KEM_CMO\225e\empstat.dat"
+scntr="E:\bjwr\github\KEM_CMO\225e\empcntr.dat"
+smatr="E:\bjwr\github\KEM_CMO\225e\empmatr.dat"
+suppress=1 AL=1 LO=3
+LP=CPLEX
+MIP=CPLEX
+RMIP=CPLEX
+NLP=CONOPT
+MCP=path
+MPEC=NLPEC
+RMPEC=NLPEC
+CNS=path
+DNLP=CONOPT
+RMINLP=CONOPT
+MINLP=DICOPT
+QCP=CONOPT
+MIQCP=SBB
+RMIQCP=CONOPT
+optfile=1

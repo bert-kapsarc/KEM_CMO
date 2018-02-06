@@ -86,15 +86,15 @@ table fuel_quota(f,r)
 
 fuel_quota(f,r) = fuel_quota(f,r)*1.409;
 
-Parameters  a(r,e,l,s,ss) intercept of energy demand curve,
-            b(r,e,l,s,ss) slope of energy demand curve
-            a1(r,e,l,s,ss),a2(r,e,l,s,ss),b1(r,e,l,s,ss),b2(r,e,l,s,ss),
+Parameters  a(r,e,l,s) intercept of energy demand curve,
+            b(r,e,l,s) slope of energy demand curve
+            a1(r,e,l,s),a2(r,e,l,s),b1(r,e,l,s),b2(r,e,l,s),
             theta(r,e,l) intercept of capacity demand curve,
             xi(r,e,l) slope of capacity demand curve
 ;
 
 
-parameter P_cap(o,r,e,l), Sales_bar(o,r,e,l,s,ss);
+parameter P_cap(o,r,e,l), Sales_bar(o,r,e,l,s);
 
 table kind0(firm,tech,r) firms existing generation capacity in GW
 
@@ -126,35 +126,39 @@ fringe.WT        0.2             0               0.2             0.8
 
 K0(h,r) = sum(genco,kind0(genco,h,r));
 
-table kind_trans0(r,rr) transmission capacity in GW
-
-                WOA   SOA     COA     EOA
-         WOA          1.5     1.2
-         SOA    0
-         COA    0                     0
-         EOA                  5.22
-
-      ;
-kind_trans0(r,rr)$(kind_trans0(rr,r)>0) = kind_trans0(rr,r);
-*WOA   0     1.16
+parameter
+         kind_trans0(n) transmission capacity in GW
+         /
+         COA_WOA         1.2
+         SOA_WOA         1.5
+         COA_EOA         5.22
+         /
 
 *Data for 2014 inter-regional transmission capacities were obtained from ECRA correspondence.
-         table phi(r,rr)  oper. and maint. cost of transmission in USD per MWH
+         phi(n,dir)  oper. and maint. cost of transmission in USD per MWH
+         /
+         COA_WOA.p         3.71
+         SOA_WOA.p         3.73
+         COA_EOA.p         3.78
+         /
 
-                WOA   SOA     COA     EOA
-         WOA   3.49   3.73    3.71    4.33
-         SOA   3.73   3.49    4.10    4.50
-         COA   3.71   4.1     3.49    3.78
-         EOA   4.33   4.5     3.78    3.49
+         capfactor(tech) capacity factors for dispatchable plants
+         /ST             0.885
+          GT             0.923
+          CCGT           0.885
+          Nuclear        0.860
+         /
+;
+            phi(n,'m')=phi(n,'p')
+
+table     PTDF(n,r,dir)
+                  COA.p    EOA.p     WOA.p     SOA.p
+         COA_EOA   0       -1         0         0
+         COA_WOA   1        1         0         0
+         SOA_WOA  -1       -1         0        -1
 
 ;
-
-Parameter capfactor(tech) capacity factors for dispatchable plants
-/ST      0.885
- GT      0.923
- CCGT    0.885
- Nuclear 0.860
-/
+           PTDF(n,r,'m')=  -PTDF(n,r,'p')
 
 
 
@@ -281,8 +285,6 @@ set consumer_sets /'surplus','fuel subsidy','fixed cost'/
 
     consumer_type /'Residential', 'Commercial', 'Government', 'Industrial', 'Other'/
 
-
-
 Parameters
          roi(firm,tech)              return on investment
          cus(firm,tech)              capacity usage
@@ -291,27 +293,26 @@ Parameters
          investments(firm,tech)      investments
          retirements(firm,tech)
 
-         price_avg(r,e,l)                 expected price by region and season
-         price_avg_flat(r)
-         price_trans_avg(r,rr,e,l)        expected price by region and season
-         price_avg_cost(r,e,l)
+         price_avg                 expected price by region and season
+         price_avg_flat
+         price_trans_avg       expected price by region and season
+         price_avg_cost
 
-         production(firm,tech)      production by player in TWH
-         transmission(r,rr,e,l)        transmission by ISO in TWH
-         trade_avg(firm,r,rr,e,l)         expected interregional trade by each firm in TWH
-         arbitrage_avg(r,rr,e,l)       expected interregional arbitrage by ISO in TWH
+         production              production by player in TWH
+         transmission  transmission by ISO in TWH
+         trade_avg(firm,r,rr,e,l) expected interregional trade by each firm in TWH
+         arbitrage_avg(r,rr,e,l) expected interregional arbitrage by ISO in TWH
 
-         error_demand(r,e,l)
-         demand_actual(r,e,l,s,ss)
-         demand_expected(r,e,l)
+         error_demand
+         demand_actual
+         demand_total
+         demand_expected
          reserve_capacity(r)
          consumer(consumer_sets,r)                consumer surplus fuel subsisdies and fixed cost
          social_surplus
 
          balancing_account(balancing_account_sets,r)
-
-          cs_threshold(r,e,l,s,ss)
-
+         cs_threshold(r,e,l,s,ss)
 ;
 
 

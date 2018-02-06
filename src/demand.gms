@@ -6,7 +6,7 @@ set hrs hours in the load curve data set /1*8760/ ;
 parameter HLC(r,hrs) hourly load curves for represenative day in each month in MW
 parameter ELlcgw(r,seasons,l) average power demand load blocks in MW
           ELlcgw_stddev(r,seasons,l) variance power demand load blocks in MW
-          EL_demand(r,seasons,l,s,ss) Stochastic Electricity Demand for scenarios s in GW
+          EL_Demand(r,seasons,l,s) Stochastic Electricity Demand for scenarios s in GW
           d(seasons,l) duration of segemt l in region r (deterministic)
           prob(r,seasons,l,s,ss) probability off each scenario
 ;
@@ -172,8 +172,8 @@ parameter        CDF_lo(r,seasons,l),
                  CDF_x(r,seasons,l,scen) cumulative distribution functions for each scenario s;
 
 
-         CDF_lo(r,seasons,l)=ELlcgw(r,seasons,l)-ELlcgw_stddev(r,seasons,l)*3;
-         CDF_hi(r,seasons,l)=ELlcgw(r,seasons,l)+ELlcgw_stddev(r,seasons,l)*3;
+         CDF_lo(r,seasons,l)=ELlcgw(r,seasons,l)-ELlcgw_stddev(r,seasons,l)*2;
+         CDF_hi(r,seasons,l)=ELlcgw(r,seasons,l)+ELlcgw_stddev(r,seasons,l)*2;
 
 *        CDF_lo(r,seasons,l)$spring(seasons)=ELlcgw(r,seasons,l)-ELlcgw_stddev(r,seasons,l)*2;
 *        CDF_hi(r,seasons,l)$spring(seasons)=ELlcgw(r,seasons,l)+ELlcgw_stddev(r,seasons,l)*2;
@@ -193,13 +193,13 @@ if(card(s)>1,
          CDF_x(r,seasons,l,s)= (cdfnorm(X_cdf(r,seasons,l,s),ELlcgw(r,seasons,l),ELlcgw_stddev(r,seasons,l))-CDF_alpha(r,seasons,l))/Z_cdf(r,seasons,l);
          prob(r,seasons,l,s,ss) = (CDF_x(r,seasons,l,s) - CDF_x(r,seasons,l,s-1))/card(ss);
          X_cdf(r,seasons,l,s)=X_cdf(r,seasons,l,s)-(diff(r,seasons,l)/(2*card(s)))$(card(s)>1);
-         EL_Demand(r,seasons,l,s,ss)= X_cdf(r,seasons,l,s);
+         EL_Demand(r,seasons,l,s)= X_cdf(r,seasons,l,s);
   );
 else
          prob(r,seasons,l,s,ss) = 1;
-         EL_Demand(r,seasons,l,s,ss)=ELlcgw(r,seasons,l);
+         EL_Demand(r,seasons,l,s)=ELlcgw(r,seasons,l);
 );
-       EL_Demand(r,seasons,l,s,ss)= EL_Demand(r,seasons,l,s,ss)*1e-3;
+       EL_Demand(r,seasons,l,s)= EL_Demand(r,seasons,l,s)*1e-3;
 
 *abort prob,EL_Demand,CDF_x,x_cdf,ELlcgw_stddev,ELlcgw
 

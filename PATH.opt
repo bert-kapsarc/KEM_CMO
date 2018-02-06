@@ -1,4 +1,4 @@
-time_limit 1e5;
+time_limit 1e6;
 proximal_perturbation 0;
 crash_method none;
 crash_perturb no;
