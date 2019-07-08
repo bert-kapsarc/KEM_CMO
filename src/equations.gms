@@ -10,6 +10,10 @@ set r_trade(r,rr);
          inv.fx(i,'Nuclear',r)=0;
          inv.fx(i,ren,r)=0;
          ret.fx(i,ren,r)=0;
+
+
+
+         ELcapuptime.up(h,r,e,l) = 1;
 Equations
          EqX_1(i,r)
          EqX_2(i,r)
@@ -54,6 +58,8 @@ Equations
          Eq5_4(n,e,l,s,ss,dir)
          Eq5_5(r,e,l,s,ss)
          Eq5_6(n,e,l,s,ss,dir)
+
+         EQcapuptime(h,r,l)
 ;
 
 Eq1(r,e,l,s,ss)..
@@ -114,12 +120,18 @@ profit(i) =e=
     -sum((h,r)$(not gttocc(h)),Cap_avail(i,h,r)*om(h))
 ;
 
+EQcapuptime(h,r,l)$(not ren(h))..
+    sum(e,cap_uptime(h,r,e,l))/card(e) - sum(e, ELcapuptime(h,r,e,l))/card(e) =g= 0
+;
+
 Eq3_2(i,h,r,e,l,s,ss)$(not gttocc(h)) ..
     Cap_avail(i,h,r)*(
-        1$(not ren(h))
+*        ELcapuptime(h,r,e,l)$(not ren(h))
+    1$(not ren(h))
         +ELwindpowernorm(l,e,r)$WT(h)
         +Elsolcurvenorm(l,e,r)$PV(h) )
-    -sum((f)$fuel_set(h,f,r),Q(i,h,f,r,e,l,s,ss))=g=0;
+    -sum((f)$fuel_set(h,f,r),Q(i,h,f,r,e,l,s,ss))=g=0
+;
 
 Eq3_3(i,h,r)$(not gttocc(h))..  kind(i,h,r) - ret(i,h,r)=g=0
 ;
@@ -169,12 +181,11 @@ Eq3_11(i,h,r)$(not gttocc(h))..
 
 EqX_1(i,r)..  kind(i,'GT',r)-ret(i,'GT',r)-inv(i,'GTtoCC',r)=g=0;
 
-EqX_2(i,r)$(market_share_inv(i)<1)  ..
+EqX_2(i,r)$(market_share_inv(i)<1)..
                  market_share_inv(i)*sum((ii,h),inv(ii,h,r))
                          -sum(h,inv(i,h,r))=g=0;
 
-
-EqX_3(i,r)$(market_share_prod(i)<1)  ..
+EqX_3(i,r)$(market_share_prod(i)<1)..
 market_share_prod(i)*sum((h,f,ii,e,l,s,ss)$fuel_set(h,f,r), Q(ii,h,f,r,e,l,s,ss)*prob(r,e,l,s,ss)*d(e,l))
 -sum((h,f,e,l,s,ss)$fuel_set(h,f,r),Q(i,h,f,r,e,l,s,ss)*prob(r,e,l,s,ss)*d(e,l))=g=0;
 
@@ -184,7 +195,7 @@ sum((i,f,e,l,s,ss)$fuel_set(h,f,r),Q(i,h,f,r,e,l,s,ss)*prob(r,e,l,s,ss)*d(e,l))
 
 
 EqX_5(i,f,r)$(fuel_quota(f,r)>0)..
--sum((ii,h,e,l,s,ss)$fuel_set(h,f,r),Q(ii,h,f,r,e,l,s,ss)*prob(r,e,l,s,ss)*d(e,l)*heat_rate(h,f)) =g=
+-sum((ii,h,e,l,s,ss)$fuel_set(h,f,r),Q(ii,h,f,r,e,l,s,ss)*prob(r,e,l,s,ss)*d(e,l)*heat_rate(h,f,r)) =g=
           -fuel_quota(f,r);
 
 EQ4_1(e,l,s,ss).. arb_profit(e,l,s,ss) =e=
@@ -252,7 +263,8 @@ model CMO   /
              EQ5_3,
              EQ5_4
              EQ5_5,
-             EQ5_6
+             EQ5_6,
+*             EQcapuptime
 /;
 
 model CMO_options /CMO,EQ3_5,EQ3_6,EQ3_7,EQ3_8,EQ3_9,EQ3_10/

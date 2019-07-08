@@ -83,6 +83,7 @@ loop(i,
 );
 
 *$ontext
+*PUT / 'vi EQcapuptime';
 PUT / 'vi EQ1_2 demand';
 PUT / 'vi EQ2_2 demand_capacity';
 if(r_options=1,

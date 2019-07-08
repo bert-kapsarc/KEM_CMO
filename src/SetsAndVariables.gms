@@ -6,13 +6,18 @@ Sets
      Cournot(i) cournot firms
 
      fringe(firm)     /fringe/
-     tech       /CCGT, CCconv, GT, ST, Nuclear, PV, WT,GTtoCC, all/
-     h(tech) technology       / CCGT, GT, ST, GTtoCC, Nuclear, PV, WT /
+     tech       /CCGT, CCGT1, CCGT2, CCGT3, CCconv, GT, GT1, GT2, GT3, ST, ST1, Nuclear, PV, WT,GTtoCC, all/
+*     h(tech) technology       /CCGT, CCGT1, CCGT2, CCGT3, CCconv, GT, GT1, GT2, GT3, ST, ST1, PV, WT,GTtoCC/
+     h(tech) technology       /CCGT, GT, ST, PV, WT,GTtoCC/
+     h_default(h) /CCGT GT, ST/
      o reliability option /o1,o2/
-     ccgt(tech) /CCGT/
+     CCGT(tech) /CCGT/
+*     , CCGT1, CCGT2, CCGT3, GTtoCC/
      gttocc(tech) /GTtoCC/
-     gt(tech) /GT/
-     st(tech) /ST/
+     GT(tech) /GT/
+*, GT1, GT2,GT3/
+     ST(tech) /ST/
+*,ST1/
      nuclear(tech) /nuclear/
      PV(tech) /PV/
      WT(tech) /WT/
@@ -41,7 +46,7 @@ Sets
      m(r,e,l) capacity markets
      scen /s1*s10/
 
-     s(scen) scenarios for energy demand        /s1*s7/
+     s(scen) scenarios for energy demand        /s1*s1/
      ss(scen) scenarios for renewables       /s1/
      dir /p,m/
      majority(genco,r)
@@ -83,6 +88,7 @@ variables
 
 ;
 Positive Variables
+
          Q(i,tech,f,r,e,l,s,ss)  generation quantity from a player i at market l in scenario in GW
          inv(i,tech,r)  investment by player i in technology tech in GW
          ret(i,tech,r)  retirement of technology h in region r by player i in GW
@@ -102,4 +108,6 @@ Positive Variables
          Gamma(i,r,e,l,s,ss)
 
          transn(n,e,l,s,ss,dir)
+
+         ELcapuptime(h,r,e,l)  average capacity factor of each tech during a given load segement and region
 ;

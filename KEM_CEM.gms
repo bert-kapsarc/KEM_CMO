@@ -44,6 +44,7 @@ Option Savepoint=1;
 
 *solve CMO using mcp;
 if(r_options<>1,
+    ELcapuptime.fx(h,r,e,l) = cap_uptime(h,r,e,l);
     CMO.optfile = 1 ;
     SOLVE CMO using emp;
 else

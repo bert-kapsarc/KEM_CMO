@@ -29,7 +29,7 @@ scalar error_total ;
 *        fuel subsidies
          consumer('fuel subsidy',r) = sum((i,f,h,e,l,s,ss),prob(r,e,l,s,ss)*
          (fuel_price_intl(f,r)-fuel_price(f,r))*
-         q.l(i,h,f,r,e,l,s,ss)*heat_rate(h,f)*d(e,l));
+         q.l(i,h,f,r,e,l,s,ss)*heat_rate(h,f,r)*d(e,l));
 
          consumer('fixed cost',r) =
          sum((i,o,e,l),d(e,l)*(

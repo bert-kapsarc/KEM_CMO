@@ -2,13 +2,22 @@ Parameters
            v(firm)   CONJECTURAL VARIANTION for production by player /g1 0, g2 0, g3 0, g4 0, fringe -1/
            X(firm)   CONJECTURAL VARIANTION for capacity by player /g1 0, g2 0, g3 0, g4 0, fringe -1/
 
-           capital_cost(tech) Capital cost in USD per GW /CCGT 1102, GT 1016, ST 1680, Nuclear 6500, GTtoCC 600, PV 2584, WT 1569/
+           capital_cost(tech) Capital cost in USD per GW /CCGT 1102, GT 1016, ST 1680, Nuclear 6500, GTtoCC 600, PV 2584, WT 1569/;
+           capital_cost(CCGT) = 1102;
+           capital_cost(GT) = 1016;
+           capital_cost(ST) = 1680;
 *           capital_cost(h) Capital cost in USD per GW /CCGT 1740, GT 1485, ST 2120, Nuclear 4896, GTtoCC 600/
 
+Parameters
            ic(tech)  investment cost USD per GW
-
-           om(tech) Fixed O&M cost USD per GW  /GT 10.68, GTtoCC 19.94, CCGT 19.94, ST 38.67, Nuclear 130, PV 26.75, WT 39.625 /
+           om(tech) Fixed O&M cost USD per GW  /GT 10.68, GTtoCC 19.94, CCconv 19.94, CCGT 19.94, ST 38.67, Nuclear 130, PV 26.75, WT 39.625 /
+;
+           om(GT) = 10.68;
+           om(CCGT) = 19.94;
+           om(ST) = 38.67;
 *           om(h) Fixed O&M cost USD per GW  /GT 11.2, GTtoCC 12.4, CCGT 12.4, ST 11.2, Nuclear 68.8/
+
+Parameters
            K0(h,r) existent capacity of technology h in region r before liberalization
 
 *Design operating life for ST, GT, and CCGT from KFUPM generation report.
@@ -30,14 +39,19 @@ Parameters
 
 
 ;
+
+    lifetime(CCGT)= 35;
+    lifetime(GT)= 30;
+    lifetime(ST)= 40;
 sets     time /2015*2040/
          t dummy time set /2020/
          tt(t) /2020/
-         index /1*1000/
-parameter discoef         ;
+         index /1*1000/;
+
+parameter discoef   ;
 
 *        Discounting plant capital costs over lifetime
-         discoef(h,t) = discounting(lifetime(h),discrate,index,t,tt);
+         discoef(h,t)$(lifetime(h)>0) = discounting(lifetime(h),discrate,index,t,tt);
 
          ic(h)=capital_cost(h)*discoef(h,'2020');
 
@@ -55,28 +69,57 @@ parameter mc(tech,f,r) marginal cost in USD per MWh
 
 mc_non_fuel(ccgt,r)  = 1.2449 ;
 mc_non_fuel(ccgt,'EOA')  = 1.1833 ;
-mc_non_fuel('GT',r) =  1.6840;
-mc_non_fuel('ST',r) =  1.2261;
+mc_non_fuel(GT,r) =  1.6840;
+mc_non_fuel(ST,r) =  1.2261;
 mc_non_fuel('Nuclear',r) = 6.9;
 mc_non_fuel('GTtoCC',r)  = mc_non_fuel('CCGT',r)  ;
 
 * Uranium-235 use is in g/GWh
-parameter heat_rate(tech,f) fueal burn rate in mmbtu and g per MWH  ;
-heat_rate(ccgt,'methane')=7.655;
-heat_rate(ccgt,'oil')=9.676;
-*heat_rate('GTtoCC','methane')=7.655;
-*heat_rate('GTtoCC','oil')=9.676;
-heat_rate('GT','methane')=11.302;
-heat_rate('GT','oil')=13.550;
-heat_rate('ST','methane')=10.372;
-heat_rate('ST','oil')=10.197;
-heat_rate('Nuclear','U-235')=0.120;
+parameter   heat_rate(tech,f,r) fuel burn rate in mmbtu and g per MWH
+            fuel_efficiency(tech,f,r) net thermal efficiency by tech and region
+            Cap_uptime(tech,r,seasons,l) max uptime for tech h in region r season e
 ;
 
-set fuel_set(tech,f,r);
-fuel_set(h,f,r)$(heat_rate(h,f)>0) = yes;
-         fuel_set('PV','ren',r) = yes;
-         fuel_set('WT','ren',r) = yes;
+fuel_efficiency(CCGT,'methane',r) = 0.45;
+fuel_efficiency(CCGT,'oil',r) = 0.35;
+fuel_efficiency('CCGT1','methane',r) = 0.53;
+fuel_efficiency('CCGT2','methane',r) = 0.41;
+fuel_efficiency('CCGT3','methane',r) = 0.39;
+
+fuel_efficiency('CCGT1',f,'WOA') = 0.55;
+fuel_efficiency('CCGT2','methane','WOA') = 0;
+fuel_efficiency('CCGT2','oil','WOA') = 0.33;
+
+fuel_efficiency(GT,'methane',r) = 0.30;
+fuel_efficiency(GT,'oil',r) = 0.25;
+fuel_efficiency('GT1','methane',r) = 0.33;
+fuel_efficiency('GT2','methane',r) = 0.28;
+fuel_efficiency('GT3','methane',r) = 0.25;
+
+fuel_efficiency('GT2','oil','WOA') = 0.26;
+fuel_efficiency('GT2','methane','WOA') = 0;
+fuel_efficiency('GT3','oil','WOA') = 0.20;
+fuel_efficiency('GT3','methane','WOA') = 0;
+
+fuel_efficiency(ST,'oil',r) = 0.33;
+fuel_efficiency('ST1','oil',r) = 0.36;
+fuel_efficiency('ST1','oil','SOA') = 0.45;
+
+
+
+
+heat_rate(tech,f,r)$(fuel_efficiency(tech,f,r)>0) = 3.412/fuel_efficiency(tech,f,r);
+$ontext
+heat_rate(ccgt,'methane',r)=7.655;
+heat_rate(ccgt,'oil',r)=9.676;
+heat_rate('GT','methane',r)=11.302;
+heat_rate('GT','oil',r)=13.550;
+heat_rate('ST','methane',r)=10.372;
+heat_rate('ST','oil',r)=10.197;
+$offtext
+heat_rate('Nuclear','U-235',r)=0.120;
+
+
 
 table fuel_quota(f,r)
 
@@ -100,21 +143,45 @@ table kind0(firm,tech,r) firms existing generation capacity in GW
 
                  COA             EOA             SOA             WOA
 
-g1.CCGT          5.419           0               0               0
-g1.GT            13.0693         0               0               0
-g1.ST            0               0               0               0
+g1.CCGT          2.389           0               0               0
+g1.CCGT1         1.748           0               0               0
+g1.CCGT2         1.328           0               0               0
+g1.CCGT3         4.630           0               0               0
+g1.GT            11.69873        0               0               0
+g1.GT1           0.492           0               0               0
+g1.GT2           0.31787         0               0               0
+g1.GT3           0.5616          0               0               0
+g1.ST            0.01            0               0               0
 
-g2.CCGT          0               3.333           0               0
-g2.GT            0               7.4663          0               0
-g2.ST            0               10.192          0               0
+g2.CCGT          0               0               0               0
+g2.CCGT1         0               5.306           0               0
+*g2.GT            0               7.4663          0               0
+g2.GT            0               5.990           0               0
+g2.GT1           0               0.501           0               0
+g2.GT2           0               0.6475          0               0
+g2.GT3           0               0.3279          0               0
+*g2.ST            0               10.192          0               0
+g2.ST            0               5.220           0               0
+g2.ST1           0               4.972           0               0
 
-g3.CCGT          0               0               0               0
-g3.GT            0               0               4.11314         0
-g3.ST            0               0               0               0
+*g3.GT            0               0               4.11314         0
+g3.GT            0               0               2.39001         0
+g3.GT2           0               0               1.61413         0
+g3.GT3           0               0               0.109           0
+g3.ST1           0               0               2.640           0
 
+*g4.CCGT          0               0               0               1.288
 g4.CCGT          0               0               0               1.288
-g4.GT            0               0               0               7.358
-g4.ST            0               0               0               13.518
+g4.CCGT1         0               0               0               1.288
+g4.CCGT3         0               0               0               1.288
+*g4.GT            0               0               0               7.358
+g4.GT            0               0               0               4.2602
+g4.GT1           0               0               0               0.155
+g4.GT2           0               0               0               1.9448
+g4.GT3           0               0               0               0.998
+*g4.ST            0               0               0               13.518
+g4.ST            0               0               0               10.872
+g4.ST1           0               0               0              2.640
 
 fringe.CCGT      0               2.56737         0               0
 fringe.GT        1.116           2.144           0               0.60056
@@ -123,8 +190,15 @@ fringe.PV        0.9             0               0               1
 fringe.WT        0.2             0               0.2             0.8
 ;
 
-
 K0(h,r) = sum(genco,kind0(genco,h,r));
+
+heat_rate(h,f,r)$(K0(h,r)=0 and not h_default(h)) = 0;
+
+set fuel_set(tech,f,r);
+fuel_set(h,f,r)$(heat_rate(h,f,r)>0) = yes;
+         fuel_set('PV','ren',r) = yes;
+         fuel_set('WT','ren',r) = yes;
+
 
 parameter
          kind_trans0(n) transmission capacity in GW
@@ -148,8 +222,103 @@ parameter
           CCGT           0.885
           Nuclear        0.860
          /
+
+
 ;
-            phi(n,'m')=phi(n,'p')
+    phi(n,'m')=phi(n,'p') ;
+
+* Define cap_uptime regional values by tech.
+    Cap_uptime(h,r,e,l) =  1;
+
+    Cap_uptime('CCGT','COA',winter,l) =  0.953;
+    Cap_uptime('CCGT1','COA',winter,l) =  0.976;
+    Cap_uptime('CCGT2','COA',winter,l) =  0.949;
+    Cap_uptime('CCGT3','COA',winter,l) =  0.955;
+    Cap_uptime('GT','COA',winter,l) =  0.969;
+    Cap_uptime('GT1','COA',winter,l) =  0.960;
+    Cap_uptime('GT2','COA',winter,l) =  0.943;
+    Cap_uptime('GT3','COA',winter,l) =  0.999;
+    Cap_uptime('ST','COA',winter,l) =  1;
+    Cap_uptime('ST1','COA',winter,l) =  1;
+
+    Cap_uptime('CCGT','COA',spring,l) =  0.953;
+    Cap_uptime('CCGT1','COA',spring,l) =  0.976;
+    Cap_uptime('CCGT2','COA',spring,l) =  0.949;
+    Cap_uptime('CCGT3','COA',spring,l) =  0.955;
+    Cap_uptime('GT','COA',spring,l) =  0.985;
+    Cap_uptime('GT1','COA',spring,l) =  0.971;
+    Cap_uptime('GT2','COA',spring,l) =  1;
+    Cap_uptime('GT3','COA',spring,l) =  1;
+    Cap_uptime('ST','COA',spring,l) =  1;
+    Cap_uptime('ST1','COA',spring,l) =  1;
+
+    Cap_uptime(CCGT,'EOA',winter,l) =  0.974;
+    Cap_uptime('GT','EOA',winter,l) = 0.982;
+    Cap_uptime('GT1','EOA',winter,l) =  0.991;
+    Cap_uptime('GT2','EOA',winter,l) =  0.995;
+    Cap_uptime('GT3','EOA',winter,l) =  0.972;
+    Cap_uptime('ST','EOA',spring,l) =  0.983;
+    Cap_uptime('ST1','EOA',spring,l) =  0.996;
+
+    Cap_uptime(CCGT,'EOA',spring,l) =  1;
+    Cap_uptime('GT','EOA',spring,l) = 0.989;
+    Cap_uptime('GT1','EOA',spring,l) =  0.991;
+    Cap_uptime('GT2','EOA',spring,l) =  0.993;
+    Cap_uptime('GT3','EOA',spring,l) =  0.997;
+    Cap_uptime('ST','EOA',spring,l) =  0.983;
+    Cap_uptime('ST1','EOA',spring,l) =  0.996;
+
+    Cap_uptime('CCGT','WOA',winter,l) =  0.952;
+    Cap_uptime('CCGT1','WOA',winter,l) =  0.952;
+    Cap_uptime('CCGT2','WOA',winter,l) =  0.952;
+    Cap_uptime('CCGT3','WOA',winter,l) =  0.965;
+    Cap_uptime('GT','WOA',winter,l) =  0.987;
+    Cap_uptime('GT1','WOA',winter,l) =  0.973;
+    Cap_uptime('GT2','WOA',winter,l) =  0.975;
+    Cap_uptime('GT3','WOA',winter,l) =  0.988;
+    Cap_uptime('ST','WOA',winter,l) =  0.989;
+    Cap_uptime('ST1','WOA',winter,l) =  1;
+
+    Cap_uptime('CCGT','WOA',spring,l) =  0.977;
+    Cap_uptime('CCGT1','WOA',spring,l) =  0.952;
+    Cap_uptime('CCGT2','WOA',spring,l) =  0.952;
+    Cap_uptime('CCGT3','WOA',spring,l) =  0.977;
+    Cap_uptime('GT','WOA',spring,l) =  0.990;
+    Cap_uptime('GT1','WOA',spring,l) =  0.983;
+    Cap_uptime('GT2','WOA',spring,l) =  0.990;
+    Cap_uptime('GT3','WOA',spring,l) =  0.996;
+    Cap_uptime('ST','WOA',spring,l) =  0.996;
+    Cap_uptime('ST1','WOA',spring,l) =  0.989;
+
+
+    Cap_uptime('CCGT','SOA',winter,l) =  0.952;
+    Cap_uptime('CCGT1','SOA',winter,l) =  0.952;
+    Cap_uptime('CCGT2','SOA',winter,l) =  0.952;
+    Cap_uptime('CCGT3','SOA',winter,l) =  0.965;
+    Cap_uptime('GT','SOA',winter,l) =  0.933;
+    Cap_uptime('GT1','SOA',winter,l) =  0.933;
+    Cap_uptime('GT2','SOA',winter,l) =  0.967;
+    Cap_uptime('GT3','SOA',winter,l) =  0.967;
+    Cap_uptime('ST','SOA',winter,l) =  1;
+    Cap_uptime('ST1','SOA',winter,l) =  1;
+
+    Cap_uptime('CCGT','SOA',spring,l) =  0.977;
+    Cap_uptime('CCGT1','SOA',spring,l) =  0.952;
+    Cap_uptime('CCGT2','SOA',spring,l) =  0.952;
+    Cap_uptime('CCGT3','SOA',spring,l) =  0.977;
+    Cap_uptime('GT','SOA',spring,l) =  0.996;
+    Cap_uptime('GT1','SOA',spring,l) =  0.996;
+    Cap_uptime('GT2','SOA',spring,l) =  0.985;
+    Cap_uptime('GT3','SOA',spring,l) =  0.985;
+    Cap_uptime('ST','SOA',spring,l) =  1;
+    Cap_uptime('ST1','SOA',spring,l) =  1;
+
+
+
+
+
+
+
 
 table     PTDF(n,r,dir)
                   COA.p    EOA.p     WOA.p     SOA.p
@@ -284,6 +453,7 @@ set consumer_sets /'surplus','fuel subsidy','fixed cost'/
     balancing_account_sets /'purchases energy','purchases capacity','consumer sales'/
 
     consumer_type /'Residential', 'Commercial', 'Government', 'Industrial', 'Other'/
+;
 
 Parameters
          roi(firm,tech)              return on investment

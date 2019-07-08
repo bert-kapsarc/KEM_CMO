@@ -1,6 +1,6 @@
 * Distribute ownership of exisitng assets by the Genco's
 * Near homogenous with one dominant player per region
- kind0(Genco,h,r)$(not majority(genco,r))   = sum(GGenco, kind_save(GGenco,h,r))/card(Genco)*0;
+ kind0(Genco,h,r)$(not majority(genco,r))   = sum(GGenco, kind_save(GGenco,h,r))/card(Genco)*0.95;
 
 *kind0("g1","gt",r)   = sum(GGenco, kind_save(GGenco,'gt',r));
 *kind0("g2","ccgt",r)  = sum(GGenco, kind_save(GGenco,'ccgt',r));

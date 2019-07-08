@@ -21,9 +21,9 @@ parameters  mc_baseline(h,f,r) marginal cost of baseline scenario in usd per mwh
             mc_intl(h,f,r)
 ;
 
-mc_baseline(h,f,r)$fuel_set(h,f,r) = mc_non_fuel(h,r)+heat_rate(h,f)*fuel_price_admin(f,r);
-mc_reform(h,f,r)$fuel_set(h,f,r) = mc_non_fuel(h,r)+heat_rate(h,f)*fuel_price(f,r);
-mc_intl(h,f,r)$fuel_set(h,f,r) = mc_non_fuel(h,r)+heat_rate(h,f)*fuel_price_intl(f,r);
+mc_baseline(h,f,r)$fuel_set(h,f,r) = mc_non_fuel(h,r)+heat_rate(h,f,r)*fuel_price_admin(f,r);
+mc_reform(h,f,r)$fuel_set(h,f,r) = mc_non_fuel(h,r)+heat_rate(h,f,r)*fuel_price(f,r);
+mc_intl(h,f,r)$fuel_set(h,f,r) = mc_non_fuel(h,r)+heat_rate(h,f,r)*fuel_price_intl(f,r);
 
 if(fixed_ppa=1,
          fuel_price(f,r) = fuel_price_admin(f,r) ;

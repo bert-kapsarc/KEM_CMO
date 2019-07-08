@@ -4,7 +4,7 @@ $oninline
 set hrs hours in the load curve data set /1*8760/ ;
 
 parameter HLC(r,hrs) hourly load curves for represenative day in each month in MW
-parameter ELlcgw(r,seasons,l) average power demand load blocks in MW
+          ELlcgw(r,seasons,l) average power demand load blocks in MW
           ELlcgw_stddev(r,seasons,l) variance power demand load blocks in MW
           EL_Demand(r,seasons,l,s) Stochastic Electricity Demand for scenarios s in GW
           d(seasons,l) duration of segemt l in region r (deterministic)
