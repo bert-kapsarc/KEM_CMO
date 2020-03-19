@@ -45,7 +45,7 @@ Parameter Cap_target(r)/COA 18.99
          Cap_target('COA') = 28.5*1.1;
 
 * theta(r,e,l)$m(r,e,l) =  2*smax(h$(not nuclear(h)),(ic(h)+om(h)))/sum((ee,ll),d(ee,ll))
- theta(r,e,l)$m(r,e,l) =  2*smax(h$(not nuclear(h)),(ic(h)+om(h)))/sum((ee,ll),d(ee,ll))*(1+0.2$coa(r))
+theta(r,e,l)$m(r,e,l) =  2*smax(h$(not nuclear(h)),(ic(h)+om(h)))/sum((ee,ll),d(ee,ll))*(1+0.2$coa(r))
 ;
 xi(r,e,l)$m(r,e,l) = smax(h$(not nuclear(h)),(ic(h)+om(h)))/sum((ee,ll),d(ee,ll))/Cap_target(r)
 ;

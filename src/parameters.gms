@@ -470,7 +470,8 @@ Parameters
     error_demand
     demand_actual
     demand_total
-    demand_expected
+    demand_projected
+    demand_projected_total
     reserve_capacity(r)
     report(indicators,r)                consumer surplus fuel subsisdies and fixed cost
     social_surplus

@@ -4,7 +4,9 @@ elasticity(r,e,l,s) = 1/b(r,e,l,s) * price.l(r,e,l,s,'s1')/ (
                    sum((i,o),sales.l(i,r,e,l,s,'s1'))
                   +arbitrage.l(r,e,l,s,'s1'));
 
-demand_expected(r,e,l) =sum((s,ss),prob(r,e,l,s,ss)*EL_demand(r,e,l,s)*d(e,l));
+demand_projected(r,e,l) =sum((s,ss),prob(r,e,l,s,ss)*EL_demand(r,e,l,s)*d(e,l));
+demand_projected_total(r) = sum((e,l),demand_projected(r,e,l));
+demand_projected_total("national") = sum(r, demand_projected_total(r));
 demand_actual(r,e,l)=sum((s,ss),prob(r,e,l,s,ss)*demand.l(r,e,l,s,ss)*d(e,l));
 demand_total(r) =  sum((e,l),demand_actual(r,e,l));
 demand_total("national") = sum(r, demand_total(r));
@@ -12,10 +14,10 @@ demand_total("national") = sum(r, demand_total(r));
 error_demand(r,e,l) =
 -sum((s,ss),prob(r,e,l,s,ss)*
         (EL_demand(r,e,l,s)*d(e,l)-demand.l(r,e,l,s,ss)*d(e,l))
-)/demand_expected(r,e,l);
+)/demand_projected(r,e,l);
 
 scalar error_total ;
-error_total =  sum((r,e,l,s,ss),prob(r,e,l,s,ss)*demand.l(r,e,l,s,ss)*d(e,l))/sum((r,e,l),demand_expected(r,e,l))-1;
+error_total =  sum((r,e,l,s,ss),prob(r,e,l,s,ss)*demand.l(r,e,l,s,ss)*d(e,l))/sum((r,e,l),demand_projected(r,e,l))-1;
 
 reserve_capacity(r) = sum((i,h)$(not ren(h)),Cap_avail.l(i,h,r))/
     smax((e,l,s,ss),demand.l(r,e,l,s,ss))-1;
@@ -35,17 +37,14 @@ report('fixed cost',r) =
 sum((e,l)$m(r,e,l),d(e,l)*(
    +sum((i,h),delta.l(r,e,l)*Cap_avail.l(i,h,r))
 ));
-report('social surplus',r) =  +
+report('social surplus',r) =
      report('surplus',r)
     -report('fuel subsidy',r)
-    -report('fixed cost',r))
-    -report('profit',r)) 
+    -report('fixed cost',r)
+    -report('profit',r)
 ;
 
 cs_threshold(r,e,l,s,ss) = demand.l(r,e,l,s,ss)-2*a(r,e,l,s)/b(r,e,l,s);
-
-
-  = 
 ;
 parameter production
 ;
