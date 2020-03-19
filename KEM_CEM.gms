@@ -39,16 +39,23 @@ $offtext
 ;
 
 $INCLUDE emp.gms
-
+cournot(i)$genco(i) = no;
 Option Savepoint=1;
-
+    CMO.optfile = 1 ;
+    power.optfile =  1;
 *solve CMO using mcp;
 if(r_options<>1,
-    ELcapuptime.fx(h,r,e,l) = cap_uptime(h,r,e,l);
-    CMO.optfile = 1 ;
-    SOLVE CMO using emp;
+*    inv.fx(i,h,r) =0;
+*    inv.up(i,'GT',r) = inf;
+*    cap_uptime('GT',r,summer) =    cap_uptime('GT',r,summer)*0.6;
+*    cap_uptime('CCGT',r,summer) =    cap_uptime('CCGT',r,summer)*0.95;
+*    inv.up(i,'CCGT',r) = inf;
+    Execute_Loadpoint 'power_p.gdx';
+
+*    SOLVE CMO using emp;
+    SOLVE power using NLP minimizing ELcost;
 else
-*    Execute_Loadpoint 'CMO_options_p.gdx';
+*    Execute_Loadpoint 'test.gdx';
     CMO_options.optfile = 1 ;
     SOLVE CMO_options using emp;
 );

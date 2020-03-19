@@ -9,7 +9,7 @@ COA      1.217
 ;
 
 *        apply growth equally to all demand segments
-EL_Demand(r,seasons,l,s)= EL_Demand(r,seasons,l,s)*EL_demgro(r);
+EL_Demand(r,seasons,l,s)= EL_Demand(r,seasons,l,s)*EL_demgro(r)*0.85;
 $INCLUDE solar.gms
 
 parameter elasticity(r,seasons,l,s) demand elasticity for eletricity;

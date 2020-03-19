@@ -10,7 +10,7 @@ Parameters
 
 Parameters
            ic(tech)  investment cost USD per GW
-           om(tech) Fixed O&M cost USD per GW  /GT 10.68, GTtoCC 19.94, CCconv 19.94, CCGT 19.94, ST 38.67, Nuclear 130, PV 26.75, WT 39.625 /
+           om(tech) Fixed O&M cost USD per GW  /GT 10.68, GTtoCC 19.94, CCGT 19.94, ST 38.67, Nuclear 130, PV 26.75, WT 39.625 /
 ;
            om(GT) = 10.68;
            om(CCGT) = 19.94;
@@ -72,12 +72,11 @@ mc_non_fuel(ccgt,'EOA')  = 1.1833 ;
 mc_non_fuel(GT,r) =  1.6840;
 mc_non_fuel(ST,r) =  1.2261;
 mc_non_fuel('Nuclear',r) = 6.9;
-mc_non_fuel('GTtoCC',r)  = mc_non_fuel('CCGT',r)  ;
 
 * Uranium-235 use is in g/GWh
 parameter   heat_rate(tech,f,r) fuel burn rate in mmbtu and g per MWH
             fuel_efficiency(tech,f,r) net thermal efficiency by tech and region
-            Cap_uptime(tech,r,seasons,l) max uptime for tech h in region r season e
+            Cap_uptime(tech,r,seasons) max uptime for tech h in region r season e
 ;
 
 fuel_efficiency(CCGT,'methane',r) = 0.45;
@@ -86,7 +85,7 @@ fuel_efficiency('CCGT1','methane',r) = 0.53;
 fuel_efficiency('CCGT2','methane',r) = 0.41;
 fuel_efficiency('CCGT3','methane',r) = 0.39;
 
-fuel_efficiency('CCGT1',f,'WOA') = 0.55;
+fuel_efficiency('CCGT1',oil_gas,'WOA') = 0.55;
 fuel_efficiency('CCGT2','methane','WOA') = 0;
 fuel_efficiency('CCGT2','oil','WOA') = 0.33;
 
@@ -171,17 +170,17 @@ g3.GT3           0               0               0.109           0
 g3.ST1           0               0               2.640           0
 
 *g4.CCGT          0               0               0               1.288
-g4.CCGT          0               0               0               1.288
-g4.CCGT1         0               0               0               1.288
-g4.CCGT3         0               0               0               1.288
+g4.CCGT          0               0               0               1.200
+g4.CCGT1         0               0               0               0.3024
+g4.CCGT3         0               0               0               0.948
 *g4.GT            0               0               0               7.358
 g4.GT            0               0               0               4.2602
 g4.GT1           0               0               0               0.155
 g4.GT2           0               0               0               1.9448
 g4.GT3           0               0               0               0.998
 *g4.ST            0               0               0               13.518
-g4.ST            0               0               0               10.872
-g4.ST1           0               0               0              2.640
+g4.ST            0               0               0               11.5354
+g4.ST1           0               0               0               1.9826
 
 fringe.CCGT      0               2.56737         0               0
 fringe.GT        1.116           2.144           0               0.60056
@@ -190,6 +189,9 @@ fringe.PV        0.9             0               0               1
 fringe.WT        0.2             0               0.2             0.8
 ;
 
+kind0(firm,'CCGT',r) = sum(ccgt, kind0(firm,ccgt,r));
+kind0(firm,'GT',r) = sum(gt, kind0(firm,gt,r));
+kind0(firm,'ST',r) = sum(st, kind0(firm,st,r));
 K0(h,r) = sum(genco,kind0(genco,h,r));
 
 heat_rate(h,f,r)$(K0(h,r)=0 and not h_default(h)) = 0;
@@ -209,11 +211,11 @@ parameter
          /
 
 *Data for 2014 inter-regional transmission capacities were obtained from ECRA correspondence.
-         phi(n,dir)  oper. and maint. cost of transmission in USD per MWH
+         phi(n)  oper. and maint. cost of transmission in USD per MWH
          /
-         COA_WOA.p         3.71
-         SOA_WOA.p         3.73
-         COA_EOA.p         3.78
+         COA_WOA         3.71
+         SOA_WOA         3.73
+         COA_EOA         3.78
          /
 
          capfactor(tech) capacity factors for dispatchable plants
@@ -225,93 +227,86 @@ parameter
 
 
 ;
-    phi(n,'m')=phi(n,'p') ;
 
 * Define cap_uptime regional values by tech.
-    Cap_uptime(h,r,e,l) =  1;
+    Cap_uptime(h,r,e) =  1;
+    Cap_uptime(CCGT,r,winter) =  0.97;
+    Cap_uptime(CCGT,r,spring) =  0.99;
 
-    Cap_uptime('CCGT','COA',winter,l) =  0.953;
-    Cap_uptime('CCGT1','COA',winter,l) =  0.976;
-    Cap_uptime('CCGT2','COA',winter,l) =  0.949;
-    Cap_uptime('CCGT3','COA',winter,l) =  0.955;
-    Cap_uptime('GT','COA',winter,l) =  0.969;
-    Cap_uptime('GT1','COA',winter,l) =  0.960;
-    Cap_uptime('GT2','COA',winter,l) =  0.943;
-    Cap_uptime('GT3','COA',winter,l) =  0.999;
-    Cap_uptime('ST','COA',winter,l) =  1;
-    Cap_uptime('ST1','COA',winter,l) =  1;
+    Cap_uptime('CCGT','COA',winter) =  0.953;
+    Cap_uptime('CCGT1','COA',winter) =  0.976;
+    Cap_uptime('CCGT2','COA',winter) =  0.949;
+    Cap_uptime('CCGT3','COA',winter) =  0.955;
+    Cap_uptime('GT','COA',winter) =  0.969;
+    Cap_uptime('GT1','COA',winter) =  0.960;
+    Cap_uptime('GT2','COA',winter) =  0.943;
+    Cap_uptime('GT3','COA',winter) =  0.999;
+    Cap_uptime('ST','COA',winter) =  0.986;
+    Cap_uptime('ST1','COA',winter) =  1;
 
-    Cap_uptime('CCGT','COA',spring,l) =  0.953;
-    Cap_uptime('CCGT1','COA',spring,l) =  0.976;
-    Cap_uptime('CCGT2','COA',spring,l) =  0.949;
-    Cap_uptime('CCGT3','COA',spring,l) =  0.955;
-    Cap_uptime('GT','COA',spring,l) =  0.985;
-    Cap_uptime('GT1','COA',spring,l) =  0.971;
-    Cap_uptime('GT2','COA',spring,l) =  1;
-    Cap_uptime('GT3','COA',spring,l) =  1;
-    Cap_uptime('ST','COA',spring,l) =  1;
-    Cap_uptime('ST1','COA',spring,l) =  1;
+    Cap_uptime('CCGT','COA',spring) =  0.988;
+    Cap_uptime('CCGT1','COA',spring) =  0.985;
+    Cap_uptime('CCGT2','COA',spring) =  0.980;
+    Cap_uptime('CCGT3','COA',spring) =  0.987;
+    Cap_uptime('GT','COA',spring) =  0.985;
+    Cap_uptime('GT1','COA',spring) =  0.971;
+    Cap_uptime('GT2','COA',spring) =  0.985;
+    Cap_uptime('GT3','COA',spring) =  0.985;
+    Cap_uptime('ST','COA',spring) =  0.986;
+    Cap_uptime('ST1','COA',spring) =  1;
 
-    Cap_uptime(CCGT,'EOA',winter,l) =  0.974;
-    Cap_uptime('GT','EOA',winter,l) = 0.982;
-    Cap_uptime('GT1','EOA',winter,l) =  0.991;
-    Cap_uptime('GT2','EOA',winter,l) =  0.995;
-    Cap_uptime('GT3','EOA',winter,l) =  0.972;
-    Cap_uptime('ST','EOA',spring,l) =  0.983;
-    Cap_uptime('ST1','EOA',spring,l) =  0.996;
+    Cap_uptime('CCGT1','EOA',winter) =  0.974;
+    Cap_uptime('GT','EOA',winter) = 0.982;
+    Cap_uptime('GT1','EOA',winter) =  0.981;
+    Cap_uptime('GT2','EOA',winter) =  0.985;
+    Cap_uptime('GT3','EOA',winter) =  0.972;
+    Cap_uptime('ST','EOA',spring) =  0.983;
+    Cap_uptime('ST1','EOA',spring) =  0.986;
 
-    Cap_uptime(CCGT,'EOA',spring,l) =  1;
-    Cap_uptime('GT','EOA',spring,l) = 0.989;
-    Cap_uptime('GT1','EOA',spring,l) =  0.991;
-    Cap_uptime('GT2','EOA',spring,l) =  0.993;
-    Cap_uptime('GT3','EOA',spring,l) =  0.997;
-    Cap_uptime('ST','EOA',spring,l) =  0.983;
-    Cap_uptime('ST1','EOA',spring,l) =  0.996;
+    Cap_uptime('CCGT1','EOA',spring) =  0.98;
+    Cap_uptime('GT','EOA',spring) = 0.989;
+    Cap_uptime('GT1','EOA',spring) =  0.981;
+    Cap_uptime('GT2','EOA',spring) =  0.983;
+    Cap_uptime('GT3','EOA',spring) =  0.987;
+    Cap_uptime('ST','EOA',spring) =  0.983;
+    Cap_uptime('ST1','EOA',spring) =  0.996;
 
-    Cap_uptime('CCGT','WOA',winter,l) =  0.952;
-    Cap_uptime('CCGT1','WOA',winter,l) =  0.952;
-    Cap_uptime('CCGT2','WOA',winter,l) =  0.952;
-    Cap_uptime('CCGT3','WOA',winter,l) =  0.965;
-    Cap_uptime('GT','WOA',winter,l) =  0.987;
-    Cap_uptime('GT1','WOA',winter,l) =  0.973;
-    Cap_uptime('GT2','WOA',winter,l) =  0.975;
-    Cap_uptime('GT3','WOA',winter,l) =  0.988;
-    Cap_uptime('ST','WOA',winter,l) =  0.989;
-    Cap_uptime('ST1','WOA',winter,l) =  1;
+    Cap_uptime('CCGT','WOA',winter) =  0.952;
+    Cap_uptime('CCGT1','WOA',winter) =  0.952;
+    Cap_uptime('CCGT2','WOA',winter) =  0.952;
+    Cap_uptime('CCGT3','WOA',winter) =  0.965;
+    Cap_uptime('GT','WOA',winter) =  0.987;
+    Cap_uptime('GT1','WOA',winter) =  0.973;
+    Cap_uptime('GT2','WOA',winter) =  0.975;
+    Cap_uptime('GT3','WOA',winter) =  0.988;
+    Cap_uptime('ST','WOA',winter) =  0.989;
+    Cap_uptime('ST1','WOA',winter) =  1;
 
-    Cap_uptime('CCGT','WOA',spring,l) =  0.977;
-    Cap_uptime('CCGT1','WOA',spring,l) =  0.952;
-    Cap_uptime('CCGT2','WOA',spring,l) =  0.952;
-    Cap_uptime('CCGT3','WOA',spring,l) =  0.977;
-    Cap_uptime('GT','WOA',spring,l) =  0.990;
-    Cap_uptime('GT1','WOA',spring,l) =  0.983;
-    Cap_uptime('GT2','WOA',spring,l) =  0.990;
-    Cap_uptime('GT3','WOA',spring,l) =  0.996;
-    Cap_uptime('ST','WOA',spring,l) =  0.996;
-    Cap_uptime('ST1','WOA',spring,l) =  0.989;
+    Cap_uptime('CCGT','WOA',spring) =  0.977;
+    Cap_uptime('CCGT1','WOA',spring) =  0.952;
+    Cap_uptime('CCGT2','WOA',spring) =  0.952;
+    Cap_uptime('CCGT3','WOA',spring) =  0.977;
+    Cap_uptime('GT','WOA',spring) =  0.990;
+    Cap_uptime('GT1','WOA',spring) =  0.983;
+    Cap_uptime('GT2','WOA',spring) =  0.990;
+    Cap_uptime('GT3','WOA',spring) =  0.986;
+    Cap_uptime('ST','WOA',spring) =  0.986;
+    Cap_uptime('ST1','WOA',spring) =  0.989;
 
 
-    Cap_uptime('CCGT','SOA',winter,l) =  0.952;
-    Cap_uptime('CCGT1','SOA',winter,l) =  0.952;
-    Cap_uptime('CCGT2','SOA',winter,l) =  0.952;
-    Cap_uptime('CCGT3','SOA',winter,l) =  0.965;
-    Cap_uptime('GT','SOA',winter,l) =  0.933;
-    Cap_uptime('GT1','SOA',winter,l) =  0.933;
-    Cap_uptime('GT2','SOA',winter,l) =  0.967;
-    Cap_uptime('GT3','SOA',winter,l) =  0.967;
-    Cap_uptime('ST','SOA',winter,l) =  1;
-    Cap_uptime('ST1','SOA',winter,l) =  1;
+    Cap_uptime('CCGT','SOA',winter) =  0.952;
+    Cap_uptime('GT','SOA',winter) =  0.933;
+    Cap_uptime('GT2','SOA',winter) =  0.967;
+    Cap_uptime('GT3','SOA',winter) =  0.967;
+    Cap_uptime('ST','SOA',winter) =  0.986;
+    Cap_uptime('ST1','SOA',winter) =  1;
 
-    Cap_uptime('CCGT','SOA',spring,l) =  0.977;
-    Cap_uptime('CCGT1','SOA',spring,l) =  0.952;
-    Cap_uptime('CCGT2','SOA',spring,l) =  0.952;
-    Cap_uptime('CCGT3','SOA',spring,l) =  0.977;
-    Cap_uptime('GT','SOA',spring,l) =  0.996;
-    Cap_uptime('GT1','SOA',spring,l) =  0.996;
-    Cap_uptime('GT2','SOA',spring,l) =  0.985;
-    Cap_uptime('GT3','SOA',spring,l) =  0.985;
-    Cap_uptime('ST','SOA',spring,l) =  1;
-    Cap_uptime('ST1','SOA',spring,l) =  1;
+    Cap_uptime('CCGT','SOA',spring) =  0.977;
+    Cap_uptime('GT','SOA',spring) =  0.996;
+    Cap_uptime('GT2','SOA',spring) =  0.985;
+    Cap_uptime('GT3','SOA',spring) =  0.985;
+    Cap_uptime('ST','SOA',spring) =  0.986;
+    Cap_uptime('ST1','SOA',spring) =  1;
 
 
 
@@ -449,76 +444,70 @@ parameter kind_save
 
 *$ontext
 
-set consumer_sets /'surplus','fuel subsidy','fixed cost'/
+set indicators /'profit', 'surplus','fuel subsidy','fixed cost','social surplus'/
     balancing_account_sets /'purchases energy','purchases capacity','consumer sales'/
-
     consumer_type /'Residential', 'Commercial', 'Government', 'Industrial', 'Other'/
 ;
 
 Parameters
-         roi(firm,tech)              return on investment
-         cus(firm,tech)              capacity usage
-         rop(firm,tech)              return on production
-         roc(firm,tech)              return on capacity
-         investments(firm,tech)      investments
-         retirements(firm,tech)
+    roi(firm,tech)              return on investment
+    cus(firm,tech)              capacity usage
+    rop(firm,tech)              return on production
+    roc(firm,tech)              return on capacity
+    investments(firm,tech)      investments
+    retirements(firm,tech)
 
-         price_avg                 expected price by region and season
-         price_avg_flat
-         price_trans_avg       expected price by region and season
-         price_avg_cost
+    price_avg                 expected price by region and season
+    price_avg_flat
+    price_trans_avg       expected price by region and season
+    price_avg_cost
 
-         production              production by player in TWH
-         transmission  transmission by ISO in TWH
-         trade_avg(firm,r,rr,e,l) expected interregional trade by each firm in TWH
-         arbitrage_avg(r,rr,e,l) expected interregional arbitrage by ISO in TWH
+    production              production by player in TWH
+    transmission  transmission by ISO in TWH
+    trade_avg(firm,r,rr,e,l) expected interregional trade by each firm in TWH
+    arbitrage_avg(r,rr,e,l) expected interregional arbitrage by ISO in TWH
 
-         error_demand
-         demand_actual
-         demand_total
-         demand_expected
-         reserve_capacity(r)
-         consumer(consumer_sets,r)                consumer surplus fuel subsisdies and fixed cost
-         social_surplus
+    error_demand
+    demand_actual
+    demand_total
+    demand_expected
+    reserve_capacity(r)
+    report(indicators,r)                consumer surplus fuel subsisdies and fixed cost
+    social_surplus
 
-         balancing_account(balancing_account_sets,r)
-         cs_threshold(r,e,l,s,ss)
+    balancing_account(balancing_account_sets,r)
+    cs_threshold(r,e,l,s,ss)
 ;
 
+parameter fixed_cost(h);
+fixed_cost(h)=sum(hh$(capadd(hh,h)>0),ici(hh)+capadd(hh,h)*om(hh))
 
 parameter consumer_share(consumer_type,r)
-         /       Residential.COA 0.538
-                 Commercial.COA  0.184
-                 Government.COA  0.165
-                 Industrial.COA  0.068
+    /       Residential.COA 0.538
+            Commercial.COA  0.184
+            Government.COA  0.165
+            Industrial.COA  0.068
 
-                 Residential.EOA 0.346
-                 Commercial.EOA  0.109
-                 Government.EOA  0.108
-                 Industrial.EOA  0.398
+            Residential.EOA 0.346
+            Commercial.EOA  0.109
+            Government.EOA  0.108
+            Industrial.EOA  0.398
 
-                 Residential.WOA 0.534
-                 Commercial.WOA  0.182
-                 Government.WOA  0.121
-                 Industrial.WOA  0.131
+            Residential.WOA 0.534
+            Commercial.WOA  0.182
+            Government.WOA  0.121
+            Industrial.WOA  0.131
 
-                 Residential.SOA 0.613
-                 Commercial.SOA  0.156
-                 Government.SOA  0.164
-                 Industrial.SOA  0.029/
+            Residential.SOA 0.613
+            Commercial.SOA  0.156
+            Government.SOA  0.164
+            Industrial.SOA  0.029/
 
-         consumer_tariff(consumer_type)
-         /       Residential 0.0447
-                 Commercial  0.0679
-                 Other       0.04
-                 Government  0.085
-                 Industrial  0.048 /
-         ;
-
-
-         consumer_share('Other',r) =
-          1-sum(consumer_type,consumer_share(consumer_type,r));
-
-
-
-
+    consumer_tariff(consumer_type)
+    /       Residential 0.0447
+            Commercial  0.0679
+            Other       0.04
+            Government  0.085
+            Industrial  0.048 /
+;
+consumer_share('Other',r) =1-sum(consumer_type,consumer_share(consumer_type,r));

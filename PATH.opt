@@ -5,5 +5,5 @@ crash_perturb no;
 nms_initial_reference_factor 10;
 nms_memory_size 2;
 nms_mstep_frequency 1;
-convergence_tolerance 1e-5;
+convergence_tolerance 1e-4;
 

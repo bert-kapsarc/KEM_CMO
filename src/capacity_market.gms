@@ -7,7 +7,6 @@ loop(l,
  m(r,e,l)$(
          smax((s,ss),demand.l(r,e,l,s,ss)) >
          sum((i,h),Cap_avail.l(i,h,r))*capacity_threshold
-
 *        sum((s,ss),prob(r,e,l,s,ss)*price.l(r,e,l,s,ss))>
 *        price_threshold*smin((ee,ll),sum((s,ss),prob(r,ee,ll,s,ss)*price.l(r,ee,ll,s,ss)))
         )=yes

@@ -7,7 +7,7 @@ fuel_price_intl('U-235',r)= 113;
 fuel_price_intl('oil',r) = 10;
 
 fuel_price('methane',r) = 3;
-fuel_price('oil',r) = 3.1;
+fuel_price('oil',r) = 3.01;
 fuel_price('u-235',r)= 113;
 
 fuel_price_admin('methane',r) = 1.25;

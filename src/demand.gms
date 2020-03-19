@@ -187,12 +187,12 @@ parameter        CDF_lo(r,seasons,l),
          CDF_x(r,seasons,l,s)=0;
 
 if(card(s)>1,
-  loop(s$(ord(s)<=card(s)),
+  loop(s,
 
          X_cdf(r,seasons,l,s)=CDF_lo(r,seasons,l)+ord(s)*diff(r,seasons,l)/card(s);
          CDF_x(r,seasons,l,s)= (cdfnorm(X_cdf(r,seasons,l,s),ELlcgw(r,seasons,l),ELlcgw_stddev(r,seasons,l))-CDF_alpha(r,seasons,l))/Z_cdf(r,seasons,l);
          prob(r,seasons,l,s,ss) = (CDF_x(r,seasons,l,s) - CDF_x(r,seasons,l,s-1))/card(ss);
-         X_cdf(r,seasons,l,s)=X_cdf(r,seasons,l,s)-(diff(r,seasons,l)/(2*card(s)))$(card(s)>1);
+         X_cdf(r,seasons,l,s)=X_cdf(r,seasons,l,s)-(diff(r,seasons,l)/(card(s)))$(card(s)>1);
          EL_Demand(r,seasons,l,s)= X_cdf(r,seasons,l,s);
   );
 else

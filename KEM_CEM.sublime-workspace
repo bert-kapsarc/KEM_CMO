@@ -1,0 +1,786 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"NGconne",
+				"NGconnecti"
+			],
+			[
+				"NGobj",
+				"NGobjval"
+			],
+			[
+				"GT",
+				"ELpGTtoCC"
+			],
+			[
+				"temp",
+				"temp_arg"
+			],
+			[
+				"fue",
+				"fuel-demand"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "src/equations.gms",
+			"settings":
+			{
+				"buffer_size": 10393,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/emp.gms",
+			"settings":
+			{
+				"buffer_size": 3236,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 81.0,
+		"last_filter": "git status",
+		"selected_items":
+		[
+			[
+				"git status",
+				"Git: Status"
+			],
+			[
+				"git pull",
+				"Git: Pull"
+			],
+			[
+				"git stash",
+				"Git: Stash Apply"
+			],
+			[
+				"git ",
+				"Git: Toggle Annotations"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"git fetch",
+				"Git: Fetch"
+			],
+			[
+				"git push",
+				"Git: Push"
+			],
+			[
+				"git comm",
+				"Git: Commit"
+			],
+			[
+				"git add",
+				"Git: Add All"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"git stat",
+				"Git: Status"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"github",
+				"Github: History"
+			],
+			[
+				"git",
+				"Git: Track Remote Branch"
+			],
+			[
+				"",
+				"Gams: Switch between code and listing"
+			],
+			[
+				"gams",
+				"Gams: Switch between code and listing"
+			],
+			[
+				"repo",
+				"Github: Repository"
+			],
+			[
+				"print",
+				"Package Control: Install Package"
+			],
+			[
+				"prv",
+				"PackageResourceViewer: Open Resource"
+			],
+			[
+				"package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"compare",
+				"Compare selections"
+			],
+			[
+				"com",
+				"Plugin Development: Convert Syntax to .sublime-syntax"
+			]
+		],
+		"width": 432.0
+	},
+	"console":
+	{
+		"height": 209.0,
+		"history":
+		[
+			"git",
+			"git stash"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/willbj0b/github/KEM_CMO",
+		"/C/Users/willbj0b/github/KEM_CMO/src"
+	],
+	"file_history":
+	[
+		"/C/Users/willbj0b/github/KEM_EMP/src/sets/power.gms",
+		"/C/Users/willbj0b/github/KEM_EMP/src/share/data.gms",
+		"/C/Users/willbj0b/github/KEM_EMP/src/sets/refinery.gms",
+		"/C/Users/willbj0b/github/KEM_EMP/src/sets/coal.gms",
+		"/C/Users/willbj0b/github/KEM_EMP/trash/solve_recursive.gms",
+		"/C/Users/willbj0b/github/KEM_EMP/src/equations/petchemsubmodel.gms",
+		"/C/Users/willbj0b/github/KEM_EMP/src/data/fuel.gms",
+		"/C/Users/willbj0b/github/KEM_EMP/src/equations/watersubmodel.gms",
+		"/C/Users/willbj0b/github/KEM_EMP/sectorsInit.gms",
+		"/C/Users/willbj0b/github/KEM_EMP/src/equations/powersubmodel.gms",
+		"/C/Users/willbj0b/github/KEM_EMP/src/equations/refiningsubmodel.gms",
+		"/C/Users/willbj0b/github/KEM_EMP/src/share/linkingVariables.gms",
+		"/C/Users/willbj0b/github/KEM_EMP/src/variables/power.gms",
+		"/C/Users/willbj0b/github/KEM_EMP/src/equations/fuelsubmodel.gms",
+		"/C/Users/willbj0b/github/KEM_EMP/src/share/sets.gms",
+		"/C/Users/willbj0b/github/KEM_EMP/tools/discounting.gms",
+		"/C/Users/willbj0b/github/KEM_EMP/tools/macros.gms",
+		"/C/Users/willbj0b/github/KEM_EMP/decisionFlags.gms",
+		"/C/Users/willbj0b/github/KEM_EMP/KEM_EMP.sublime-workspace",
+		"/C/Users/willbj0b/github/KEM_EMP/KEM_China.sublime-workspace",
+		"/C/Users/willbj0b/github/KEM_EMP/KEM_EMP.bat",
+		"/C/Users/willbj0b/github/KEM_EMP/KEM_EMP.sublime-project",
+		"/C/Users/willbj0b/github/KEM_EMP/src/equations/transmissionsubmodel.gms",
+		"/C/Users/willbj0b/github/KEM_EMP/future_integration/sector_power_residential.gms",
+		"/C/Users/willbj0b/github/KEM_EMP/src/equations/coalsubmodel.gms",
+		"/C/Users/willbj0b/github/KEM_EMP/src/equations/cementsubmodel.gms",
+		"/C/Users/willbj0b/github/KEM_EMP/build/dict.txt",
+		"/C/Users/willbj0b/github/KEM_EMP/KEM_EMP.gms",
+		"/C/Users/willbj0b/github/KEM_EMP/src/data/power.gms",
+		"/C/Users/willbj0b/github/KEM_EMP/GAMS_PARM.prm",
+		"/C/Users/willbj0b/github/KEM_EMP/KEM_China.sublime-project",
+		"/C/Users/willbj0b/github/KEM_EMP/.git/COMMIT_EDITMSG",
+		"/C/Users/willbj0b/github/KEM_EMP/.gitignore",
+		"/C/Users/willbj0b/github/KEM_EMP/src/data/water.gms",
+		"/C/Users/willbj0b/github/KEM_EMP/src/equations/KEM_China",
+		"/C/Users/willbj0b/github/KEM_EMP/build/data/NGquota.inc",
+		"/C/Users/willbj0b/github/KEM_EMP/build/data/NGtransexistlen.inc",
+		"/C/Users/willbj0b/github/KEM_EMP/build/data/NGrIPipe.inc",
+		"/C/Users/willbj0b/github/KEM_EMP/src/data/query/natgas.gms",
+		"/C/Users/willbj0b/github/KEM_EMP/build/data/NGrILng.inc",
+		"/C/Users/willbj0b/github/KEM_EMP/build/data/r.inc",
+		"/C/Users/willbj0b/github/KEM_EMP/build/data/NGstatus.inc",
+		"/C/Users/willbj0b/github/KEM_EMP/build/data/NGs.inc",
+		"/C/Users/willbj0b/github/KEM_EMP/build/data/NGpriceCap.inc",
+		"/C/Users/willbj0b/github/KEM_EMP/build/data/NGregasCapitalCost.inc",
+		"/C/Users/willbj0b/github/KEM_EMP/build/data/NGomCost.inc",
+		"/C/Users/willbj0b/github/KEM_EMP/build/data/NGpartner.inc",
+		"/C/Users/willbj0b/github/KEM_EMP/build/data/NGcapitalCost.inc",
+		"/C/Users/willbj0b/github/KEM_EMP/src/equations/natgasmodel.lst",
+		"/C/Users/willbj0b/github/KEM_EMP/src/equations/natgasmodel.gms",
+		"/C/Users/willbj0b/github/KEM_EMP/src/variables/natgas.gms",
+		"/C/Users/willbj0b/github/KEM_EMP/.git/MERGE_MSG",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/data/query/power.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/data/query/ACCESS_sets.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/.gitignore",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/data/natgas.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/.git/COMMIT_EDITMSG",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/equations/natgasmodel.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/equations/powersubmodel.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/variables/natgas.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/sets/natgas.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/build/dict.txt",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/decisionFlags.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/share/sets.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/share/linkingVariables.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/sectorsInit.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/data/fuel.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/variables/water.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/data/petchem.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/variables/petchem.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/data/water.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/data/refinery.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/variables/refinery.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/variables/fuel.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/variables/coal.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/data/coal.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/variables/cement.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/data/cement.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/variables/power.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/data/power.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/equations/coalsubmodel.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/sets/coal.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/KEM_EMP.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/equations/petchemsubmodel.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/build/08032017_11-32-51.07/dict.txt",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/share/data.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/build/08032017_11-39-29.42/dict.txt",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/data/trash/power_ksa.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/equations/cementsubmodel.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/dynamicSets/power.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/sets/power.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/data/query/ACCESS_HLC.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/data/query/ACCESS_EL.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/share/sets.~gm",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/test.gdx",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/data/query/ACCESS_CO.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/db/coal_tables.accdb",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/tools/discounting.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/tools/maxecongain.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/tools/projections.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/tools/subsidygrid_loop.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/trash/Integratedmodel.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/trash/solve_LP.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/tools/solve_subsidygrid.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/trash/solve_recursive.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/trash/solve_MCP_in_recursion.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/trash/solve_MCP.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/build/08012017_17-43-42.89/dict.txt",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/share/decisionFlags.gms",
+		"/C/Users/willbj0b/AppData/Roaming/Sublime Text 3/Packages/Terminal/Default (Windows).sublime-keymap",
+		"/C/Users/willbj0b/AppData/Roaming/Sublime Text 3/Packages/Terminal/Terminal.sublime-settings",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/equations/fuelsubmodel.gms",
+		"/C/Users/willbj0b/AppData/Roaming/Sublime Text 3/Packages/User/Terminal.sublime-settings",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/build/07262017_17-00-12.03/KEM_EMP.lst",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/build/07262017_16-55-54.60/KEM_EMP.lst",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/equations/watersubmodel.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/build/07262017_15-28-59.35/KEM_EMP.log",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/build/07262017_14-39-02.95/KEM_EMP.log",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/equations/cementsubmodel.~gm",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/build/07252017_15-09-08.51/KEM_EMP.gdx",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/path.opt",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/tools/optionFiles/jams.opt",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/equations/discounting.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/data/coal.~gm",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/build/data/coaltrans.gdx",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/equations/coaltranssubmodel.gms",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/build/KEM_EMP.gdx",
+		"/D/Dropbox (KAPSARC)/ES- KEM/KEM_EMP/src/equations/refiningsubmodel.gms"
+	],
+	"find":
+	{
+		"height": 64.0
+	},
+	"find_in_files":
+	{
+		"height": 96.0,
+		"where_history":
+		[
+			"C:\\Users\\willbj0b\\github\\KEM_EMP\\,*.gms",
+			"C:\\Users\\willbj0b\\github\\KEM_EMP\\src/sets,*.gms",
+			"C:\\Users\\willbj0b\\github\\KEM_EMP\\,*.gms",
+			"C:\\Users\\willbj0b\\github\\KEM_EMP\\,.gms",
+			"C:\\Users\\willbj0b\\github\\KEM_EMP\\",
+			"*.gms,C:\\Users\\willbj0b\\github\\KEM_EMP\\",
+			"*.gms,C:\\Users\\willbj0b\\github\\KEM_EMP\\src",
+			"*.gms",
+			"C:\\Users\\willbj0b\\github\\KEM_EMP\\src",
+			"",
+			"<open files>",
+			"*.gms,,<open files>",
+			"D:\\Dropbox (KAPSARC)\\ES- KEM\\KEM_EMP\\src\\data,*.gms",
+			"D:\\Dropbox (KAPSARC)\\ES- KEM\\KEM_EMP\\src\\data",
+			"<open files>",
+			"D:\\Dropbox (KAPSARC)\\ES- KEM\\KEM_EMP\\src",
+			"",
+			"<open files>",
+			"D:\\Dropbox (KAPSARC)\\ES- KEM\\KEM_EMP\\,*.gms,<open files>",
+			"D:\\Dropbox (KAPSARC)\\ES- KEM\\KEM_EMP\\,*.gms",
+			"D:\\Dropbox (KAPSARC)\\ES- KEM\\KEM_EMP\\src,*.gms",
+			"D:\\Dropbox (KAPSARC)\\ES- KEM\\KEM_EMP\\,*.gms",
+			"D:\\Dropbox (KAPSARC)\\ES- KEM\\KEM_EMP\\src,*.gms",
+			"D:\\Dropbox (KAPSARC)\\ES- KEM\\KEM_EMP\\src\\data,*.gms",
+			"D:\\Dropbox (KAPSARC)\\ES- KEM\\KEM_EMP\\data,*.gms",
+			"D:\\Dropbox (KAPSARC)\\ES- KEM\\KEM_EMP\\,*.gms",
+			"D:\\Dropbox (KAPSARC)\\ES- KEM\\KEM_EMP\\src",
+			"D:\\Dropbox (KAPSARC)\\ES- KEM\\KEM_EMP\\",
+			"D:\\Dropbox (KAPSARC)\\ES- KEM\\KEM_EMP\\src",
+			"D:\\Dropbox (KAPSARC)\\ES- KEM\\KEM_EMP",
+			"",
+			"D:\\Dropbox (KAPSARC)\\ES- KEM\\KEM_EMP\\src",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"Cap_avail",
+			"K",
+			"U",
+			"u",
+			"U",
+			"Cap_avail",
+			"NGstatus",
+			"ELcapavail",
+			"fuelcst",
+			"ELcaplim",
+			"ELtransbld",
+			"ELop",
+			"Gcond",
+			"MTBE",
+			"ethylene",
+			"naphtha",
+			"ngl",
+			"WAleadtime",
+			"WAleadtime(",
+			"t_ind",
+			"COsulfur",
+			"Sulf",
+			"SubcrSML",
+			"prop",
+			"ELlchours",
+			"ELhours",
+			"ELlhours",
+			"clc",
+			"cmc",
+			"ELfuelcons",
+			"call",
+			"c",
+			"call",
+			"ELfconsump.",
+			"ELfuelprice",
+			"ELop",
+			"DRFDEM_l",
+			"ELfconsump",
+			"call",
+			"ELFconsump",
+			"ELfconsump",
+			"ELFconsump",
+			"ELfconsump",
+			"ELfconsump.",
+			"ELfconsump",
+			"ELfconsump.",
+			"ELfconsump",
+			"ELfconsump.",
+			".fx",
+			"Equations",
+			".fx",
+			"\\",
+			".fx",
+			"ELfconsump.fx",
+			"ELfconsump",
+			"ELop",
+			"ELavail",
+			"TRELconsump.fx",
+			".fx",
+			"ELheatstorage",
+			"ELop",
+			"ELcaplim",
+			"ELAPf",
+			"DELsup",
+			"ELAPf",
+			"ELavail",
+			"e3024",
+			"WAELconsump",
+			"WAELsupply",
+			"e3603",
+			"call",
+			"fueluse",
+			"x612",
+			"dx612",
+			"dL_dx584",
+			"idir",
+			"KEM_EMP",
+			"NGpriceCap",
+			"NGwR",
+			");\n",
+			"NGimport",
+			"firminfo",
+			"NGimportEqn",
+			"NGwr",
+			"NGwR(NGw,r)",
+			"NGwR",
+			"NGimportPrice",
+			"NGimportPrice(NGw)",
+			"NGimportEqn(NGi,r)",
+			"NGimportEqn",
+			"NGimportContract(NGi,r)",
+			"NGimportContract(NGi)",
+			"NGimportContract",
+			"NGimportContract(r)",
+			"NGimportContract",
+			"(NGi,NGt,NGw)",
+			"NGtw(NGi,NGt,NGw)",
+			"NGtw(NGt,NGw)",
+			"NGop",
+			"rc",
+			"NGp",
+			"NGp_",
+			"NGp(NGi,r)",
+			"NGRegasLim",
+			"NGp_f",
+			"NGp(NGi,r)",
+			"NGp",
+			"NGcapitalCostLiq",
+			"NGimportEqn(r)",
+			"NGtransle",
+			"NGtrans",
+			"NGc",
+			"NGtrans",
+			"NGstatus",
+			"NGregasLim",
+			"NGc",
+			"NGconnecti",
+			"limit",
+			"NGbld",
+			"NGregasBld",
+			"NGregas",
+			"Ngtransb",
+			"Ngtrans",
+			"NGtransexist",
+			"NGregasLim(NGi,r)",
+			"NGregasLim",
+			"NGregLim",
+			"NGbldpa"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"KEM_China",
+			"NGiwR",
+			"empinfo",
+			"NGwR(NGi,NGw,r)",
+			"NGimportPrice(NGi,NGw)",
+			"NGimportEqn(NGi,NGw)",
+			"NGimportContract(NGi,NGw)",
+			"NGimportContract(NGi)",
+			"NGimportContract(NGi,r)",
+			"NGtw(NGi,NGt,NGw)",
+			"NGp_firm(NGi,r)",
+			"NGregasLim\nNGp_firm(NGi,r)",
+			"NGregasLim\nNGimportEqn(NGi,r)",
+			"NGregasLim\nNGconnect",
+			"NGregasLim",
+			".pipe.",
+			"firminfo",
+			"pipe(NGw)",
+			"NGplateau",
+			"NGtransMV",
+			"NGp(NGi,r)",
+			"NGdem(NGi,r)",
+			"NGtransP(NGi,NGii,r,rr)",
+			"NGtransPricEqn(NGi,NGii,r,rr)",
+			"NGconnecti(NGi,r,rr)",
+			"NGconnecti(NGii,r,rr)",
+			"NGtransOM",
+			"NGtransCost(NGw)",
+			"NGdem(NGi,NGm,r)",
+			"NGp(NGi,NGm,r)",
+			"NGtransOM(NGw)",
+			"NGdem(NGi,NGm,r)",
+			"NGp(NGi,r)",
+			"NGobjective(NGi)",
+			"NGdem(NGi,r)",
+			"NGdem(r)",
+			"NGp(NGm,r)",
+			"NGz(NGm,NGw,r)",
+			"NGpriceCapSlack(NGm,NGw,r)",
+			"NGpriceCapSlack(NGm,NGw,r)$",
+			"NGdem(NGm,r)",
+			"NGprice(NGi,NGm,r)",
+			"NGpriceEqn(NGi,NGm,r)",
+			"NGprice(NGm,r)",
+			"NGpriceEqn(NG,NGm,r)",
+			"NGsup(NGw,r)",
+			"NGz(NGi,NGm,NGw,r)",
+			"NGdem(NGm,r)",
+			"NGz(NGm,NGw,r)",
+			"NGp(NGm,r)",
+			"NGquota(NGi,NGm,NGW,r)",
+			"NGobjval",
+			"NGsup",
+			"NGp(NGi,NGw,r)",
+			"NGsup",
+			"NGcapitalCost(NGt,NGs,r)",
+			"NGcapitalCostLiq",
+			"NGcapitalCost(NGs,NGt,r)",
+			"NGtransOM(NGw,r,rr)",
+			"NGts(NGt,NGs,r)",
+			"put",
+			"NGshareEQn(NGi,NGs)",
+			"NGquotaEqn(NGi,NGm,NGw,r)",
+			"NGpriceCapSlack(NGi,NGm,NGw,r)",
+			"NGtransTariff(NGw,r,rr)",
+			"NGcapitalCostLiq(NGs,r)",
+			"COss",
+			"COs",
+			"NGcapHorizon(NGi,NGt,NGs,r)",
+			"NGhorizon(NGt,NGs,r)",
+			"NGcaplim(NGi,NGt,NGs,r).",
+			"NGbld(NGi,NGt,NGs,r)",
+			"NGop(NGi,NGt,NGs,NGw,r)",
+			"NGdem",
+			"NGtransCapLim",
+			"NGtransSup",
+			"NGtransCapLim",
+			"NGcapHorizon",
+			"NGcaphorizon",
+			"NGcaplim",
+			"NGquotaEqn",
+			"NGpriceCapSlack",
+			"NGinverseDemand",
+			"NGomCost",
+			"NGp",
+			"EQ_dem(NGi,NGm,r)",
+			"NGtransexist(NGi,r,rr)",
+			"NGop(NGi,NGs,NGw,r)",
+			"EQ2_7(NGw,NGi,r,rr)",
+			"NGc(NGi,NGw,NGii,r,rr)",
+			"NGc(NGii,NGw,NGi,r,rr)",
+			"NGtrans(NGii,NGw,NGi,r,rr)",
+			"NGtrans(NGi,NGw,NGii,r,rr)",
+			"NGc(NGi,NGw,NGii,r,rr)",
+			"NGconnect(NGi,r,rr)",
+			"NGii,NGw,r,rr",
+			"NGtrans(NGi,NGii,NGw,r,rr)",
+			"NGtransexist(NGi,NGw,r,rr)",
+			"NGtransOM(r,rr)",
+			"NGii,NGw,r,rr",
+			"NGtrans(NGi,NGw,r,rr)",
+			"NGtransexist(NGw,r,rr)",
+			"NGtrans(NGii,NGw,r,rr)",
+			"NGtransexist(r,rr)",
+			"EQ2_7(NGi,NGw,r,rr)",
+			"EQ2_6(NGi,NGw,r)",
+			"EQ2_5(NGi,NGs,r)",
+			"EQ2_4(NGi,NGs,r)",
+			"EQ2_3(NGi,NGw,r)",
+			"EQ2_2(NGi,NGw,r)",
+			"",
+			"NGsupplyQ",
+			"EQ2_1(NGi,NGw,r)",
+			"NGsupply(NGi,NGm,NGw,r)",
+			"p(NGi,NGm,r)",
+			"NGww",
+			"NGw",
+			"NGii",
+			"NGi",
+			"NGz(NGi,NGm,NGw,r)",
+			"z(NGi,NGm,NGw,r)",
+			"NGbld(NGi,NGs,r)",
+			"NGsupply(NGi,NGm,NGw,r,)",
+			"NGsupplyR(NGi,NGm,NGw,r)",
+			"NGbld(NGi,r,NGs)",
+			"NGsupplyR(NGi,NGm,r)",
+			"NGquota(NGi,NGm,r)",
+			"NGsupply(NGi,r,NGw)"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": true,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "src/equations.gms",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10393,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4547,
+								4547
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/GAMS language/Gams.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4384.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/emp.gms",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3236,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								814,
+								814
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/GAMS language/Gams.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 35.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "KEM_CEM.sublime-project",
+	"replace":
+	{
+		"height": 66.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"pipe",
+				"KEM_EMP.sublime-project"
+			],
+			[
+				"git",
+				".gitignore"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 992.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

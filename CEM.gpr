@@ -141,12 +141,12 @@ Decim=7
 PlaneRownr=-1
 
 [GDXDISP: HLC Par 2]
-PlaneDim=1
+PlaneDim=0
 RowDim=1
 Squeeze=1
-Order=1,2
+Order=2,1
 Decim=7
-PlaneRownr=3
+PlaneRownr=-1
 SqTrail0=0
 PlaneFilter1=WOA
 
@@ -224,7 +224,7 @@ RowDim=1
 Squeeze=1
 Order=3,1,2
 Decim=7
-PlaneRownr=3
+PlaneRownr=-1
 SqTrail0=0
 PlaneFilter1=WOA
 
@@ -572,7 +572,6 @@ Squeeze=1
 Order=1,2,4,3
 Decim=7
 PlaneRownr=-1
-SqTrail0=0
 
 [GDXDISP: b Par 4]
 PlaneDim=0
@@ -710,6 +709,17 @@ PlaneRownr=-1
 
 [RP:DEMAND_CALIBRATION]
 1=
+
+[GDXDISP: trans Var 5]
+PlaneDim=3
+RowDim=2
+Squeeze=1
+Order=6,1,2,4,5,3
+Decim=7
+PlaneRownr=-1
+PlaneFilter1=Level
+PlaneFilter2=EOA
+PlaneFilter3=COA
 
 [GDXDISP: r Set 1]
 PlaneDim=0
@@ -1332,17 +1342,6 @@ Decim=7
 PlaneRownr=-1
 SqTrail0=0
 
-[GDXDISP: arbitrage Var 5]
-PlaneDim=3
-RowDim=2
-Squeeze=1
-Order=6,1,2,4,5,3
-Decim=7
-PlaneRownr=-1
-PlaneFilter1=Level
-PlaneFilter2=COA
-PlaneFilter3=WOA
-
 [GDXDISP: trans_contra Var 5]
 PlaneDim=0
 RowDim=5
@@ -1828,16 +1827,6 @@ PlaneFilter1=Level
 PlaneFilter2=west
 PlaneFilter3=summer
 
-[GDXDISP: EL_demand Par 4]
-PlaneDim=2
-RowDim=1
-Squeeze=1
-Order=1,4,2,3
-Decim=7
-PlaneRownr=4
-PlaneFilter1=COA
-PlaneFilter2=s5
-
 [RP:RUNKEMCHINA]
 1=idir =model_files;db;integration_files;report_writer; gdx=test2
 2=idir =model_files;db;integration_files;report_writer; gdx=test
@@ -1867,14 +1856,12 @@ Decim=7
 PlaneRownr=-1
 
 [GDXDISP: price_trans Var 5]
-PlaneDim=1
-RowDim=3
+PlaneDim=0
+RowDim=4
 Squeeze=1
 Order=1,2,4,5,3,6
 Decim=7
-PlaneRownr=1
-SqTrail0=0
-PlaneFilter1=EOA
+PlaneRownr=-1
 
 [GDXDISP: trans_neg Var 6]
 PlaneDim=0
@@ -2315,6 +2302,14 @@ Order=1,2,3,4,5,6,7,8
 Decim=7
 PlaneRownr=-1
 SqTrail0=0
+
+[RP:KEM_EMP]
+1=idir=kem; gdx=test_emp_MCP
+2=idir=kem; gdx=test_emp_LP
+3=idir=kem; gdx=test_emp_LCP
+4=idir=kem; gdx=test_emp_LCP;
+5=idir=kem; gdx=test_emp
+6=
 
 [GDXDISP: DELsolutil Var 7]
 PlaneDim=0
@@ -2939,7 +2934,7 @@ PlaneRownr=-1
 
 [GDXDISP: CDF_hi Par 3]
 PlaneDim=0
-RowDim=3
+RowDim=2
 Squeeze=1
 SqTrail0=0
 Order=1,2,3
@@ -2954,6 +2949,18 @@ SqTrail0=0
 Order=1,2,3
 Decim=7
 PlaneRownr=-1
+
+[GDXDISP: b Par 5]
+PlaneDim=3
+RowDim=1
+Squeeze=1
+SqTrail0=0
+Order=4,5,1,2,3
+Decim=7
+PlaneRownr=-1
+PlaneFilter1=s1
+PlaneFilter2=s1
+PlaneFilter3=WOA
 
 [GDXDISP: Eq9_9 Equ 3]
 PlaneDim=1
@@ -3092,6 +3099,17 @@ Order=1,2
 Decim=7
 PlaneRownr=-1
 SqTrail0=0
+
+[GDXDISP: trans Var 6]
+PlaneDim=2
+RowDim=4
+Squeeze=1
+Order=1,7,2,3,5,6,4
+Decim=7
+PlaneRownr=-1
+PlaneFilter1=EOA
+SqTrail0=0
+PlaneFilter2=Level
 
 [GDXDISP: ccgt Set 1]
 PlaneDim=0
@@ -3424,15 +3442,14 @@ PlaneRownr=3
 PlaneFilter1=WOA
 
 [GDXDISP: kind Var 3]
-PlaneDim=2
-RowDim=1
+PlaneDim=1
+RowDim=2
 Squeeze=1
 SqTrail0=0
 Order=4,2,3,1
 Decim=7
-PlaneRownr=4
-PlaneFilter1=Level
-PlaneFilter2=WT
+PlaneRownr=-1
+PlaneFilter1=Upper
 
 [GDXDISP: hr Par 0]
 PlaneDim=0
@@ -3461,15 +3478,6 @@ Order=3,2,1
 Decim=7
 PlaneRownr=3
 PlaneFilter1=WOA
-
-[GDXDISP: X_cdf Par 4]
-PlaneDim=0
-RowDim=4
-Squeeze=1
-SqTrail0=0
-Order=1,2,3,4
-Decim=7
-PlaneRownr=-1
 
 [GDXDISP: ELcutoffspeed Par 0]
 PlaneDim=0
@@ -3855,15 +3863,18 @@ PlaneFilter1=WOA
 [RP:CAPACITY_AUCTION+20]
 1=idir=db;load;  gdx=capacity_auction+20
 
-[GDXDISP: transmission Par 4]
-PlaneDim=1
-RowDim=2
-Squeeze=1
-SqTrail0=0
-Order=1,2,3,4
-Decim=7
-PlaneRownr=-1
-PlaneFilter1=WOA
+[RP:CAPACITY_2]
+1=idir=db;load; gdx=test_1
+2=idir=db;load; gdx=capacity_90
+3=idir=db;load; gdx=capacity_price_50
+4=idir=db;load; gdx=capacity_80
+5=idir=db;load; gdx=capacity_price_25
+6=idir=db;load; gdx=capacity_summ
+7=idir=db;load; gdx=capacity_price
+8=idir=db;load; gdx=test_3
+9=idir=db;load; gdx=capacity
+10=idir=db;load; gdx=capacity_2
+11=
 
 [RP:CAPACITY_AUCTION-20]
 1=idir=db;load;  gdx=capacity_auction-20
@@ -3889,7 +3900,7 @@ Squeeze=1
 SqTrail0=0
 Order=2,1,3
 Decim=7
-PlaneRownr=2
+PlaneRownr=-1
 PlaneFilter1=summer
 
 [RP:ENERGY_TRANS_PLUS_WOA]
@@ -4007,6 +4018,15 @@ Order=1
 Decim=7
 PlaneRownr=-1
 
+[RP:BASELINE]
+1=idir=db;load; gdx=baseline_3
+2=idir=db;load; gdx=baseline_2
+3=idir=db;load; gdx=baseline
+4=idir=db;load; gdx=test
+5=idir=db;load;
+6=idir=db;load; 
+7=
+
 [RP:BASELINE_2]
 1=idir=db;load; gdx=test
 2=idir=db;load; gdx=baseline_2
@@ -4058,13 +4078,15 @@ Decim=7
 PlaneRownr=-1
 
 [GDXDISP: Cap_avail Var 3]
-PlaneDim=1
-RowDim=2
+PlaneDim=2
+RowDim=1
 Squeeze=1
 SqTrail0=0
 Order=4,3,1,2
 Decim=7
 PlaneRownr=-1
+PlaneFilter1=Level
+PlaneFilter2=SOA
 
 [GDXDISP: EQ9_13 Equ 6]
 PlaneDim=0
@@ -4104,6 +4126,9 @@ PlaneRownr=-1
 [RP:MACROS]
 1=
 
+[RP:ENERGY_COMP]
+1=
+
 [RP:CAPACITY]
 1=idir=db;load; gdx=capacity_price_25
 2=idir=db;load; gdx=capacit_price_25
@@ -4137,6 +4162,17 @@ SqTrail0=0
 Order=
 Decim=7
 PlaneRownr=-1
+
+[GDXDISP: sales Var 7]
+PlaneDim=2
+RowDim=5
+Squeeze=1
+SqTrail0=0
+Order=2,3,1,4,5,6,7,8
+Decim=7
+PlaneRownr=-1
+PlaneFilter1=o1
+PlaneFilter2=SOA
 
 [GDXDISP: Sales_bar Par 6]
 PlaneDim=1
@@ -4179,11 +4215,11 @@ Decim=7
 PlaneRownr=-1
 
 [GDXDISP: profit Var 1]
-PlaneDim=1
-RowDim=0
+PlaneDim=0
+RowDim=1
 Squeeze=1
 SqTrail0=0
-Order=2,1
+Order=1,2
 Decim=7
 PlaneRownr=-1
 
@@ -4211,8 +4247,8 @@ PlaneFilter1=Level
 PlaneFilter2=WOA
 
 [GDXDISP: K Var 5]
-PlaneDim=3
-RowDim=2
+PlaneDim=2
+RowDim=3
 Squeeze=1
 SqTrail0=0
 Order=6,3,2,4,5,1
@@ -4240,20 +4276,18 @@ Decim=7
 PlaneRownr=-1
 
 [GDXDISP: demand Var 5]
-PlaneDim=3
-RowDim=2
+PlaneDim=1
+RowDim=3
 Squeeze=1
 SqTrail0=0
-Order=1,6,2,4,5,3
+Order=1,3,4,5,2,6
 Decim=7
 PlaneRownr=3
-PlaneFilter1=COA
-PlaneFilter2=Level
-PlaneFilter3=summer-wknd
+PlaneFilter1=WOA
 
 [GDXDISP: fuel_set Set 3]
 PlaneDim=0
-RowDim=2
+RowDim=3
 Squeeze=1
 SqTrail0=0
 Order=1,2,3
@@ -4302,9 +4336,12 @@ Order=1,2,3,4
 Decim=7
 PlaneRownr=-1
 
+[RP:SOLAR]
+1=
+
 [GDXDISP: d Par 2]
 PlaneDim=0
-RowDim=2
+RowDim=1
 Squeeze=1
 SqTrail0=0
 Order=1,2
@@ -4340,13 +4377,14 @@ PlaneRownr=1
 PlaneFilter1=Marginal
 
 [GDXDISP: inv Var 3]
-PlaneDim=2
-RowDim=1
+PlaneDim=1
+RowDim=2
 Squeeze=1
 SqTrail0=0
-Order=4,3,1,2
+Order=4,1,3,2
 Decim=7
 PlaneRownr=-1
+PlaneFilter1=Upper
 
 [GDXDISP: arb_profit Var 0]
 PlaneDim=0
@@ -4357,19 +4395,11 @@ Order=1
 Decim=7
 PlaneRownr=-1
 
-[RP:DEMAND_CALIB_NEW]
+[RP:DEMAND_CALIB]
 1=
 
-[GDXDISP: Q Var 8]
-PlaneDim=2
-RowDim=6
-Squeeze=1
-SqTrail0=0
-Order=9,2,1,3,5,6,7,8,4
-Decim=7
-PlaneRownr=-1
-PlaneFilter1=Level
-PlaneFilter2=WT
+[RP:DEMAND_CALIB_NEW]
+1=
 
 [GDXDISP: Eq5_1 Equ 6]
 PlaneDim=0
@@ -4388,6 +4418,9 @@ SqTrail0=0
 Order=7,3,1,2,4,5,6
 Decim=7
 PlaneRownr=-1
+
+[RP:MARGINAL_COST]
+1=
 
 [GDXDISP: Cournot Set 1]
 PlaneDim=0
@@ -4408,16 +4441,19 @@ Decim=7
 PlaneRownr=1
 PlaneFilter1=winter-wknd
 
+[RP:DEMAND]
+1=
+
 [GDXDISP: price Var 5]
 PlaneDim=2
 RowDim=3
 Squeeze=1
 SqTrail0=0
-Order=6,2,1,4,5,3
+Order=6,1,2,4,5,3
 Decim=7
-PlaneRownr=3
+PlaneRownr=1
 PlaneFilter1=Level
-PlaneFilter2=summer-wknd
+PlaneFilter2=EOA
 
 [GDXDISP: EQ3_5 Equ 6]
 PlaneDim=0
@@ -4449,173 +4485,101 @@ PlaneRownr=-1
 [RP:UNTITLED_3]
 1=
 
+[RP:WIND]
+1=
+
 [RP:LOOP]
 1=
 
-[GDXDISP: prob Par 5]
-PlaneDim=3
-RowDim=2
-Squeeze=1
-SqTrail0=0
-Order=2,1,3,4,5
-Decim=7
-PlaneRownr=5
-PlaneFilter1=winter
-PlaneFilter2=COA
-PlaneFilter3=l6
+[RP:SCEN_CONFIG]
+1=
 
-[GDXDISP: b Par 5]
+[RP:OPTIONS]
+1=idir=db;load; gdx=options
+2=idir=db;load; gdx=options_2
+3=idir=db;load; gdx=options-
+4=
+
+[RP:CAPACITY_MARKET]
+1=
+
+[RP:CAPACITY_AUCTION]
+1=idir=db;load; gdx=capacity_auction_2
+2=idir=db;load; gdx=capacity_auction
+3=idir=db;load; 
+4=idir=db;load;  gdx=capacity_auction
+5=idir=db;load;
+6=idir=db;load; gdx=capacity_a
+
+[RP:ENERGY]
+1=idir=db;load; gdx=energy
+2=idir=db;load; gdx=test
+3=idir=db;load; gdx=test_2
+4=idir=db;load; gdx=energy_comp_2
+5=idir=db;load; gdx=energy_comp
+6=idir=db;load; gdx=energy_monop
+7=idir=db;load; gdx=test_1
+8=idir=db;load; gdx=energy_1
+9=idir=db;load; gdx=energy_2
+10=idir=db;load; 
+11=idir=db;load; gdx=energy_x
+12=idir=db;load; gdx=test2
+13=idir=db;load; gdx=energy2
+14=idir=db;load; gdx=energy3
+15=idir=db;load; gdx=energy_afp
+16=idir=db;load; gdx=energy_fuel
+17=idir=db;load; gdx=test3
+18=
+19=idir=db;load; gdx=testt2
+20=idir=db;load; gdx=energy_oligopoly
+
+[GDXDISP: arb_profit Var 4]
 PlaneDim=0
-RowDim=5
+RowDim=4
 Squeeze=1
-SqTrail0=0
 Order=1,2,3,4,5
 Decim=7
 PlaneRownr=-1
 
-[GDXDISP: EL_demand Par 5]
-PlaneDim=2
-RowDim=2
-Squeeze=1
-SqTrail0=0
-Order=1,2,4,5,3
-Decim=7
-PlaneRownr=2
-PlaneFilter1=COA
-PlaneFilter2=summer
-
-[RP:OPTIONS_2]
-1=
-
-[GDXDISP: total_sales Var 5]
-PlaneDim=2
-RowDim=3
-Squeeze=1
-SqTrail0=0
-Order=6,1,4,5,2,3
-Decim=7
-PlaneRownr=-1
-
-[GDXDISP: majority Set 2]
+[GDXDISP: fuel_price_intl Par 2]
 PlaneDim=0
 RowDim=2
 Squeeze=1
-SqTrail0=0
 Order=1,2
 Decim=7
 PlaneRownr=-1
 
-[RP:OPTIONS_TRADE_INTL]
-1=idir=src; gdx=reliability_options_intl
-2=
-
-[GDXDISP: WT Set 1]
+[GDXDISP: c Par 4]
 PlaneDim=0
-RowDim=1
+RowDim=4
 Squeeze=1
-SqTrail0=0
-Order=1
+Order=1,2,3,4
 Decim=7
 PlaneRownr=-1
 
-[GDXDISP: X Par 1]
-PlaneDim=0
-RowDim=1
+[GDXDISP: ELcapuptime Var 5]
+PlaneDim=1
+RowDim=5
 Squeeze=1
-SqTrail0=0
-Order=1
+Order=6,1,2,3,4,5
 Decim=7
 PlaneRownr=-1
 
-[GDXDISP: Z Var 7]
-PlaneDim=0
-RowDim=7
+[GDXDISP: ELcapuptime Var 4]
+PlaneDim=1
+RowDim=3
 Squeeze=1
-SqTrail0=0
-Order=1,2,3,4,5,6,7,8
+Order=5,1,3,4,2
 Decim=7
 PlaneRownr=-1
+PlaneFilter1=Level
+PlaneFilter2=g1
 
-[GDXDISP: zeta Var 8]
+[GDXDISP: demand_actual Par 3]
 PlaneDim=0
-RowDim=8
+RowDim=2
 Squeeze=1
-SqTrail0=0
-Order=1,2,3,4,5,6,7,8,9
-Decim=7
-PlaneRownr=-1
-
-[GDXDISP: Zm Var 7]
-PlaneDim=0
-RowDim=7
-Squeeze=1
-SqTrail0=0
-Order=1,2,3,4,5,6,7,8
-Decim=7
-PlaneRownr=-1
-
-[RP:OPTIONS_TRADE]
-1=idir=src; gdx=reliability_options_trade
-2=idir=src; 
-3=
-
-[RP:ENERGY_TRADE]
-1=idir=src; gdx=energy_trade
-2=
-
-[GDXDISP: oo Alias 1]
-PlaneDim=0
-RowDim=1
-Squeeze=1
-SqTrail0=0
-Order=1
-Decim=7
-PlaneRownr=-1
-
-[RP:OPTIONS]
-1=idir=src; gdx=reliability_options
-2=idir=src; gdx=options
-3=idir=db;load; gdx=options
-4=idir=db;load; gdx=options_2
-5=idir=db;load; gdx=options-
-6=
-
-[RP:ENERGY_COMP]
-1=idir=src; gdx=energy_comp
-2=
-
-[RP:ENERGY]
-1=idir=src gdx=energy_comp
-2=idir=src gdx=energy_only
-3=idir=src
-4=idir=src gdx=energy_only_high_oil
-5=idir=db;load; gdx=energy_only
-6=idir=db;load; gdx=energy
-7=idir=db;load; gdx=test_2
-8=idir=db;load; gdx=test
-9=idir=db;load; gdx=energy_comp_2
-10=idir=db;load; gdx=energy_comp
-11=idir=db;load; gdx=energy_monop
-12=idir=db;load; gdx=test_1
-13=idir=db;load; gdx=energy_1
-14=idir=db;load; gdx=energy_2
-15=idir=db;load; 
-16=idir=db;load; gdx=energy_x
-17=idir=db;load; gdx=test2
-18=idir=db;load; gdx=energy2
-19=idir=db;load; gdx=energy3
-20=idir=db;load; gdx=energy_afp
-
-[RP:OPTIONS_COMP]
-1=idir=src; gdx=reliability_options_comp
-2=idir=src; gdx=reliability_options
-
-[GDXDISP: price_avg_cost Par 1]
-PlaneDim=0
-RowDim=1
-Squeeze=1
-SqTrail0=0
-Order=1
+Order=1,2,3
 Decim=7
 PlaneRownr=-1
 
@@ -4623,314 +4587,843 @@ PlaneRownr=-1
 PlaneDim=0
 RowDim=1
 Squeeze=1
-SqTrail0=0
 Order=1
 Decim=7
 PlaneRownr=-1
 
-[GDXDISP: EqX_3 Equ 2]
+[GDXDISP: price_avg_cost Par 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: price_trans_avg Par 3]
 PlaneDim=0
 RowDim=2
 Squeeze=1
-SqTrail0=0
-Order=1,2,3
+Order=2,3,1
 Decim=7
 PlaneRownr=-1
 
-[GDXDISP: demand_actual Par 3]
-PlaneDim=0
-RowDim=3
-Squeeze=1
-SqTrail0=0
-Order=1,2,3
-Decim=7
-PlaneRownr=-1
-
-[GDXDISP: demand_capacity Var 2]
-PlaneDim=0
-RowDim=2
-Squeeze=1
-SqTrail0=0
-Order=1,2,3
-Decim=7
-PlaneRownr=-1
-
-[RP:ENERGY_INTL]
-1=idir=src; gdx=energy_intl
-2=idir=src; gdx=test
-3=idir=src; gdx=energy_trade
-4=idir=src; gdx=energy_intl_comp
-
-[RP:ENERGY_INTL_COMP]
-1=idir=src; gdx=test
-2=idir=src; gdx=energy_intl_comp
-3=
-
-[RP:OPTIONS_INTL_COMP]
-1=idir=src; gdx=options_intl_comp
-2=idir=src; gdx=reliability_options_intl_comp
-3=
-
-[GDXDISP: sales Var 7]
-PlaneDim=2
-RowDim=5
-Squeeze=1
-SqTrail0=0
-Order=8,1,3,4,5,6,7,2
-Decim=7
-PlaneRownr=-1
-
-[RP:OPTIONS_INTL_2]
-1=idir=src; gdx=test
-2=
-
-[RP:OPTIONS_INTL]
-1=idir=src; gdx=options_intl
-2=idir=src; gdx=test
-3=idir=src; gdx=reliability_options_intl
-4=idir=src; 
-5=
-
-[RP:OPTIONS_INTL_4]
-1=idir=src; gdx=options_intl_4
-2=
-
-[RP:OPTIONS_INTL_3]
-1=idir=src; gdx=options_intl_3
-2=idir=src; gdx=test_2
-3=
-
-[RP:SOLVE_LP]
+[RP:EMP]
 1=
 
-[RP:SECTOR_WATER]
-1=
-
-[GDXDISP: arb_profit Var 4]
-PlaneDim=1
-RowDim=3
-Squeeze=1
-SqTrail0=0
-Order=5,1,3,4,2
-Decim=7
-PlaneRownr=-1
-
-[GDXDISP: trans_m Var 6]
-PlaneDim=0
-RowDim=6
-Squeeze=1
-SqTrail0=0
-Order=1,2,3,4,5,6,7
-Decim=7
-PlaneRownr=-1
-
-[GDXDISP: trans_p Var 5]
-PlaneDim=0
-RowDim=5
-Squeeze=1
-SqTrail0=0
-Order=1,2,3,4,5,6
-Decim=7
-PlaneRownr=-1
-
-[GDXDISP: trans Var 6]
-PlaneDim=1
-RowDim=5
-Squeeze=1
-SqTrail0=0
-Order=7,1,2,3,5,6,4
-Decim=7
-PlaneRownr=-1
-
-[GDXDISP: trans Var 5]
-PlaneDim=2
-RowDim=3
-Squeeze=1
-SqTrail0=0
-Order=6,1,2,5,4,3
-Decim=7
-PlaneRownr=-1
-PlaneFilter1=Level
-PlaneFilter2=EOA
-
-[GDXDISP: iso_profit Var 4]
+[GDXDISP: util_hrs Par 4]
 PlaneDim=0
 RowDim=4
 Squeeze=1
-SqTrail0=0
-Order=1,2,3,4,5
+Order=1,2,3,4
 Decim=7
 PlaneRownr=-1
 
-[RP:KEM_CEM_2]
-1=idir=src gdx=options_2
-2=idir=src gdx=options
-3=idir=src
-4=
+[GDXDISP: heat_rate Par 3]
+PlaneDim=1
+RowDim=2
+Squeeze=1
+Order=1,2,3
+Decim=7
+PlaneRownr=-1
+PlaneFilter1=Nuclear
 
-[RP:DEMAND]
-1=
+[GDXDISP: fuel_efficiency Par 3]
+PlaneDim=1
+RowDim=2
+Squeeze=1
+Order=1,2,3
+Decim=7
+PlaneRownr=-1
+PlaneFilter1=GTtoCC
 
-[RP:SOLAR]
-1=
+[GDXDISP: EL_Demand Par 4]
+PlaneDim=0
+RowDim=3
+Squeeze=1
+Order=1,2,3,4
+Decim=7
+PlaneRownr=-1
 
-[RP:WIND]
-1=
+[SOLVERS]
+NLP=CONOPT
 
-[RP:CREATE_MODELS]
-1=
+[GDXDISP: EQ3_2 Equ 7]
+PlaneDim=3
+RowDim=4
+Squeeze=1
+Order=8,4,5,1,3,6,7,2
+Decim=7
+PlaneRownr=19
+PlaneFilter1=Level
+PlaneFilter2=summer
+PlaneFilter3=l4
+
+[GDXDISP: ELcost Var 0]
+PlaneDim=0
+RowDim=0
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
 
 [GDXDISP: Eq5_1 Equ 4]
 PlaneDim=0
 RowDim=4
 Squeeze=1
-SqTrail0=0
 Order=1,2,3,4,5
 Decim=7
 PlaneRownr=-1
 
-[GDXDISP: Eq5_3 Equ 6]
-PlaneDim=3
-RowDim=3
+[GDXDISP: model_report Par 2]
+PlaneDim=0
+RowDim=1
 Squeeze=1
-SqTrail0=0
-Order=6,1,7,2,5,3,4
+Order=1,2
+Decim=7
+PlaneRownr=-1
+PlaneFilter1=New Project Total CAPEX (BBUSD)
+
+[GDXDISP: Reference_GDP Par 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
 Decim=7
 PlaneRownr=-1
 
-[RP:CAPACITY_2]
-1=idir=db;load; gdx=test_1
-2=idir=db;load; gdx=capacity_90
-3=idir=db;load; gdx=capacity_price_50
-4=idir=db;load; gdx=capacity_80
-5=idir=db;load; gdx=capacity_price_25
-6=idir=db;load; gdx=capacity_summ
-7=idir=db;load; gdx=capacity_price
-8=idir=db;load; gdx=test_3
-9=idir=db;load; gdx=capacity
-10=idir=db;load; gdx=capacity_2
-11=
+[GDXDISP: residual Set 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: objective Equ 0]
+PlaneDim=0
+RowDim=0
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLgdpbal Equ 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLinvest Equ 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLinvestCap Equ 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLinvestment Var 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLinvestment_tight_oil Var 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLinvestmentCap Var 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLinvsannl Par 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLinvscst Par 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLlambda_m Var 2]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=1,2,3
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLp_bar Var 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLp_cel Equ 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLp_flo Equ 2]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=1,2,3
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLpriceAve Equ 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLprodcst Par 2]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLprodcst_v Var 2]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=1,2,3
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLproddec Equ 2]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=1,2,3
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLprodTotal Par 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLrevenue Equ 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLsm Var 2]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=1,2,3
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLsp Var 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLspare Par 2]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLspareweight Par 3]
+PlaneDim=0
+RowDim=3
+Squeeze=1
+Order=1,2,3
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLsup Equ 2]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=1,2,3
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLsupbld Equ 3]
+PlaneDim=0
+RowDim=3
+Squeeze=1
+Order=1,2,3,4
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLsupC Equ 2]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=1,2,3
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLsupply Var 2]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=1,2,3
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLsupplybld Var 3]
+PlaneDim=0
+RowDim=3
+Squeeze=1
+Order=1,2,3,4
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLsupplyCap Par 2]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLtightCapUS Equ 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OLtotalCapex Par 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OPEC_assets Set 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OPEC_assets_no_Saudi Set 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: OPEC_prod_no_Saudi Set 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: opex Par 5]
+PlaneDim=0
+RowDim=5
+Squeeze=1
+Order=1,2,3,4,5
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: p_ceiling Par 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: p_floor Par 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: policy Set 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: price_ratio Par 5]
+PlaneDim=0
+RowDim=5
+Squeeze=1
+Order=1,2,3,4,5
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: productionAnnual Par 5]
+PlaneDim=0
+RowDim=5
+Squeeze=1
+Order=1,2,3,4,5
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: productionMax Par 4]
+PlaneDim=0
+RowDim=4
+Squeeze=1
+Order=1,2,3,4
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: Reference_Oil_cons Par 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: refineryGains_production Par 5]
+PlaneDim=0
+RowDim=5
+Squeeze=1
+Order=1,2,3,4,5
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: regular_production Par 5]
+PlaneDim=0
+RowDim=5
+Squeeze=1
+Order=1,2,3,4,5
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: RM Par 2]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: rp Par 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: rp_bar Par 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: runt Alias 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: SameAs Set 2]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: Saudi_asset Set 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: scenario Par 0]
+PlaneDim=0
+RowDim=0
+Squeeze=1
+Order=
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: solve_method Set 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: sour_production Par 5]
+PlaneDim=0
+RowDim=5
+Squeeze=1
+Order=1,2,3,4,5
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: MI Par 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[RP:PARAMETERS]
+1=
 
 [GDXDISP: Gamma Var 6]
 PlaneDim=0
 RowDim=6
 Squeeze=1
-SqTrail0=0
 Order=1,2,3,4,5,6,7
 Decim=7
 PlaneRownr=-1
 
-[RP:DEMAND_CALIB]
-1=
-
-[RP:CAPACITY_AUCTION_COA]
-1=idir=src gdx=results/capacity_auction_coa
-2=idir=src gdx=results/capacity_payment_coa
-3=
-
-[RP:CAPACITY_AUCTION]
-1=idir=src gdx=results/capacity_auction
-2=idir=db;load; gdx=capacity_auction_2
-3=idir=db;load; gdx=capacity_auction
-4=idir=db;load; 
-5=idir=db;load;  gdx=capacity_auction
-6=idir=db;load;
-7=idir=db;load; gdx=capacity_a
-
-[RP:SCEN_CONFIG]
-1=
-
-[RP:BASELINE]
-1=idir=src; gdx=baseline
-2=idir=db;load; gdx=baseline
-3=idir=db;load; gdx=baseline_3
-4=idir=db;load; gdx=baseline_2
-5=idir=db;load; gdx=test
-6=idir=db;load;
-7=idir=db;load; 
-8=
-
-[GDXDISP: c Par 4]
+[GDXDISP: DEq5_2 Var 5]
 PlaneDim=0
-RowDim=4
+RowDim=5
 Squeeze=1
-SqTrail0=0
+Order=1,2,3,4,5,6
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: Cap_uptime Par 3]
+PlaneDim=1
+RowDim=1
+Squeeze=1
+Order=1,2,3
+Decim=7
+PlaneRownr=-1
+PlaneFilter1=GT
+
+[GDXDISP: p Var 2]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=1,2,3
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: o Var 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: a Par 2]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: C Par 3]
+PlaneDim=0
+RowDim=3
+Squeeze=1
+Order=1,2,3
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: costs Par 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: t Var 2]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=1,2,3
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: v Var 3]
+PlaneDim=0
+RowDim=3
+Squeeze=1
 Order=1,2,3,4
 Decim=7
 PlaneRownr=-1
 
-[RP:ENERGY_INTL_OIL]
-1=idir=src gdx=results/energy_intl_oil
-2=
+[GDXDISP: u Var 3]
+PlaneDim=0
+RowDim=3
+Squeeze=1
+Order=1,2,3,4
+Decim=7
+PlaneRownr=-1
 
-[RP:ENERGY_INTL_OIL_COMP]
-1=idir=src gdx=results/energy_intl_oil_comp   
-2=idir=src 
-3=idir=src gdx=results/energy_intl_oil_comp
-4=cournot(i)$genco(i) =yes;
-5=
+[GDXDISP: x Var 4]
+PlaneDim=2
+RowDim=1
+Squeeze=1
+Order=5,4,1,3,2
+Decim=7
+PlaneRownr=-1
 
-[RP:ENERGY_ONLY]
-1=idir=src gdx=results/energy_only_comp
-2=idir=src gdx=results/energy_only
-3=idir=src gdx=test
-4=i
-5=
+[GDXDISP: P_cap Par 0]
+PlaneDim=0
+RowDim=0
+Squeeze=1
+Order=
+Decim=7
+PlaneRownr=-1
 
-[RP:KEM_EMP]
-1=idir=src;tools, O=build\KEM_EMP.lst, Optdir=tools\optionFiles, LF=build\KEM_EMP.log, LO=4, gdx=build\KEM_EMP
-2=idir=src;tools
-3=
+[GDXDISP: q Var 2]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=1,2,3
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: demand Var 2]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=1,2,3
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: E Par 2]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=2,1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: s Var 2]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=1,2,3
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: r Var 2]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=1,2,3
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: k Set 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: jj Alias 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: z Var 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: b Par 2]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=1,2
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: EQ_buyer Equ 2]
+PlaneDim=0
+RowDim=2
+Squeeze=1
+Order=1,2,3
+Decim=7
+PlaneRownr=-1
+
+[RP:APPENDIX_3]
+1=gdx=test2
+2=gdx=test
+3=test
 4=
 
-[RP:EMP]
-1=
-
-[RP:CAPACITY_MARKET]
-1=idir=src gdx=results/capacity_payment
-2=idir=src gdx=results/energy_onl
-3=
-
-[RP:NATGASMODEL]
-1=
-
-[GDXDISP: DEQ5_3 Var 6]
-PlaneDim=0
-RowDim=6
+[GDXDISP: prob Par 5]
+PlaneDim=2
+RowDim=2
 Squeeze=1
-Order=1,2,3,4,5,6,7
+Order=4,5,1,2,3
 Decim=7
 PlaneRownr=-1
 
-[GDXDISP: DEQ5_4 Var 6]
+[GDXDISP: trans_node Set 2]
 PlaneDim=0
-RowDim=6
+RowDim=2
 Squeeze=1
-Order=1,2,3,4,5,6,7
+Order=1,2
 Decim=7
 PlaneRownr=-1
 
-[GDXDISP: Eq1_2 Equ 5]
+[GDXDISP: trans_node_end Set 2]
 PlaneDim=0
-RowDim=5
+RowDim=2
 Squeeze=1
-Order=1,2,3,4,5,6
+Order=1,2
 Decim=7
 PlaneRownr=-1
 
-[GDXDISP: Eq1_3 Equ 5]
+[GDXDISP: zeta Var 8]
+PlaneDim=0
+RowDim=8
+Squeeze=1
+Order=1,2,3,4,5,6,7,8,9
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: EL_demand Par 5]
 PlaneDim=0
 RowDim=5
 Squeeze=1
-Order=1,2,3,4,5,6
+Order=1,2,3,4,5
 Decim=7
 PlaneRownr=-1
 
-[GDXDISP: Eq2 Equ 4]
+[RP:REPORT]
+1=
+
+[GDXDISP: X Par 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: X_cdf Par 4]
+PlaneDim=0
+RowDim=3
+Squeeze=1
+Order=1,2,3,4
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: Sales_bar Par 5]
+PlaneDim=0
+RowDim=5
+Squeeze=1
+Order=1,2,3,4,5
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: season Alias 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: WT Set 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[RP:SETSANDVARIABLES]
+1=
+
+[GDXDISP: arbitrage Var 5]
 PlaneDim=0
 RowDim=4
 Squeeze=1
-Order=1,2,3,4,5
+Order=2,3,4,5,1,6
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: transn Var 6]
+PlaneDim=1
+RowDim=5
+Squeeze=1
+Order=7,1,2,3,4,5,6
 Decim=7
 PlaneRownr=-1
 
@@ -4942,157 +5435,215 @@ Order=1,2,3
 Decim=7
 PlaneRownr=-1
 
-[GDXDISP: Eq3_11 Equ 3]
+[RP:KEM_CEM_2]
+1=idir=src
+
+[RP:KEM_CEM]
+1=idir=src; gdx=base
+2=idir=src; gdx=test
+3=idir=src; gdx=test2
+4=idir=src
+5=idir
+6=
+
+[GDXDISP: transmission Par 4]
+PlaneDim=2
+RowDim=1
+Squeeze=1
+Order=4,1,3,2
+Decim=7
+PlaneRownr=-1
+PlaneFilter1=p
+PlaneFilter2=COA_WOA
+
+[GDXDISP: Q Var 8]
+PlaneDim=3
+RowDim=5
+Squeeze=1
+Order=9,2,4,3,5,6,7,8,1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: EQcapuptime Equ 5]
+PlaneDim=2
+RowDim=3
+Squeeze=1
+Order=6,1,2,4,5,3
+Decim=7
+PlaneRownr=1
+PlaneFilter1=Level
+PlaneFilter2=g1
+
+[GDXDISP: trade Par 4]
 PlaneDim=0
 RowDim=3
 Squeeze=1
-Order=1,2,3,4
+Order=2,3,4,1
 Decim=7
 PlaneRownr=-1
 
-[GDXDISP: EQ3_2 Equ 7]
-PlaneDim=0
-RowDim=7
-Squeeze=1
-Order=1,2,3,4,5,6,7,8
-Decim=7
-PlaneRownr=-1
-
-[GDXDISP: EQ3_3 Equ 3]
-PlaneDim=0
-RowDim=3
-Squeeze=1
-Order=1,2,3,4
-Decim=7
-PlaneRownr=-1
-
-[GDXDISP: EQ3_4 Equ 5]
-PlaneDim=0
-RowDim=5
-Squeeze=1
-Order=1,2,3,4,5,6
-Decim=7
-PlaneRownr=-1
-
-[GDXDISP: EQ4_1 Equ 4]
-PlaneDim=0
-RowDim=4
-Squeeze=1
-Order=1,2,3,4,5
-Decim=7
-PlaneRownr=-1
-
-[GDXDISP: EQ4_2 Equ 4]
-PlaneDim=0
-RowDim=4
-Squeeze=1
-Order=1,2,3,4,5
-Decim=7
-PlaneRownr=-1
-
-[GDXDISP: Eq5_2 Equ 5]
-PlaneDim=0
-RowDim=5
-Squeeze=1
-Order=1,2,3,4,5,6
-Decim=7
-PlaneRownr=-1
-
-[GDXDISP: Eq5_4 Equ 6]
-PlaneDim=0
-RowDim=6
-Squeeze=1
-Order=1,2,3,4,5,6,7
-Decim=7
-PlaneRownr=-1
-
-[GDXDISP: Eq5_5 Equ 5]
-PlaneDim=0
-RowDim=5
-Squeeze=1
-Order=1,2,3,4,5,6
-Decim=7
-PlaneRownr=-1
-
-[GDXDISP: Eq5_6 Equ 6]
-PlaneDim=0
-RowDim=6
-Squeeze=1
-Order=1,2,3,4,5,6,7
-Decim=7
-PlaneRownr=-1
-
-[GDXDISP: EqX_2 Equ 2]
+[GDXDISP: majority Set 2]
 PlaneDim=0
 RowDim=2
 Squeeze=1
-Order=1,2,3
+Order=1,2
 Decim=7
 PlaneRownr=-1
 
-[GDXDISP: EqX_4 Equ 2]
-PlaneDim=0
-RowDim=2
-Squeeze=1
-Order=1,2,3
-Decim=7
-PlaneRownr=-1
-
-[GDXDISP: transn Var 6]
-PlaneDim=0
+[GDXDISP: Eq5_3 Equ 6]
+PlaneDim=1
 RowDim=6
 Squeeze=1
-Order=1,2,3,4,5,6,7
+Order=7,1,2,3,4,5,6
 Decim=7
-PlaneRownr=-1
-
-[RP:20170228_PPA MODEL]
-1=
-
-[RP:20170312_PPA MODEL_V3]
-1=
-
-[RP:PPA_SELLER SIDEV2]
-1=
-
-[RP:MARGINAL_COST]
-1=
-
-[RP:PARAMETERS]
-1=
+PlaneRownr=1
+PlaneFilter1=Marginal
 
 [RP:EQUATIONS]
 1=
 
-[RP:REPORT]
-1=
+[GDXDISP: approval Par 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
 
-[RP:SETSANDVARIABLES]
-1=
+[GDXDISP: OPEX_pr_bbl Par 5]
+PlaneDim=0
+RowDim=4
+Squeeze=1
+Order=1,2,3,4,5
+Decim=7
+PlaneRownr=-1
+SqTrail0=0
 
-[RP:KEM_CEM]
-1=idir=src gdx=options
-2=idir=src gdx=options_2
-3=idir=src gdx=energy_only
-4=idir=src
-5=
+[GDXDISP: production Par 5]
+PlaneDim=0
+RowDim=5
+Squeeze=1
+Order=1,2,3,4,5
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: start Par 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: asset Set 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: breakeven Par 4]
+PlaneDim=0
+RowDim=4
+Squeeze=1
+Order=1,2,3,4
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: CAPEX_total Par 4]
+PlaneDim=0
+RowDim=4
+Squeeze=1
+Order=1,2,3,4
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: country Set 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: group Set 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[RP:RUN]
+1=idir=src; gdx=cournot_price_reform
+2=idir=src; gdx=cournot_price_reform_psc
+3=idir=src; gdx=longer_maintenance_ppa
+4=idir=src; gdx=longer_maintenance_ppa_set
+5=idir=src;
+6=idir=src; gdx=shorter_maintenance_ppa
+7=idir=src; gdx=shorter_maintenance
+8=idir=src; gdx=shorter_maintenance_set
+9=idir=src; gdx=longer_maintenance_set
+10=idir=src; gdx=cournot_set_maintenance
+11=idir=src; gdx=cournot
+12=idir=src; gdx=set_maintenance_cournot
+13=idir=src; gdx=longer_maintenance_cournot
+14=idir=src; gdx=longer_maintenance
+15=idir=src; gdx=test
+16=idir=src; gdx=opt_dr
+17=idir=src; gdx=opt
+18=idir=src; gdx=opt_mp_r
+19=idir=src; gdx=opt_mp
+20=idir=src; gdx=test2
+
+[GDXDISP: type Set 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: CAPEX_annual Par 5]
+PlaneDim=0
+RowDim=5
+Squeeze=1
+Order=1,2,3,4,5
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: last_year Par 1]
+PlaneDim=0
+RowDim=1
+Squeeze=1
+Order=1
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: max_production Par 4]
+PlaneDim=0
+RowDim=4
+Squeeze=1
+Order=1,2,3,4
+Decim=7
+PlaneRownr=-1
 
 [MRUFILES]
-1=C:\Users\willbj0b\github\KEM_CMO\src\SetsAndVariables.gms
-2=C:\Users\willbj0b\github\KEM_CMO\src\report.gms
-3=C:\Users\willbj0b\github\KEM_CMO\src\equations.gms
-4=C:\Users\willbj0b\github\KEM_CMO\src\parameters.gms
-5=C:\Users\willbj0b\github\KEM_CMO\src\marginal_cost.gms
-6=C:\Users\willbj0b\github\KEM_CMO\src\emp.gms
-7=C:\Users\willbj0b\github\KEM_CMO\src\demand_calib.gms
-8=C:\Users\willbj0b\github\KEM_CMO\src\demand.gms
+1=C:\Users\willbj0b\github\KOMNRS\build\data\tables_combined_1.gdx
+2=D:\Dropbox (KAPSARC)\Market with no residual supplier\Data\results.gdx
+3=C:\Users\willbj0b\RYSTAD DATA\tables.gdx
+4=C:\Users\willbj0b\RYSTAD DATA\price_ratio.gdx
+5=C:\Users\willbj0b\github\KEM_CMO\run.lst
+6=C:\Users\willbj0b\github\KEM_CMO\longer_maintenance_ppa.gdx
+7=C:\Users\willbj0b\github\KEM_CMO\longer_maintenance.gdx
+8=C:\Users\willbj0b\github\KEM_CMO\db\load.gdx
 
 [OPENWINDOW_1]
-FILE0=C:\Users\willbj0b\github\KEM_CMO\KEM_CEM.gms
-FILE1=C:\Users\willbj0b\github\KEM_CMO\KEM_CEM.lst
-FILE2=C:\Users\willbj0b\github\KEM_CMO\KEM_CEM.lst
+FILE0=C:\Users\willbj0b\github\KEM_CMO\run.gms
+FILE1=C:\Users\willbj0b\github\KEM_CMO\run.gms
 MAXIM=0
-TOP=116
-LEFT=283
-HEIGHT=664
-WIDTH=1604
+TOP=72
+LEFT=54
+HEIGHT=434
+WIDTH=1094

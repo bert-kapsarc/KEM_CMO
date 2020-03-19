@@ -4,6 +4,7 @@
 **/*.accdb
 db/*.xlsx
 **/*.xlsx
+results/*.docx
 **/*.log
 **/225*/
 **/GDX/*
@@ -13,3 +14,4 @@ db/*.xlsx
 runs/*
 gdx/*
 **/*.gdx
+*.gdx
