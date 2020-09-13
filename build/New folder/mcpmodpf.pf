@@ -1,0 +1,21 @@
+ssolu="C:\Users\willbj0b\github\KEM_CMO\225t\empsolu.dat"
+sstat="C:\Users\willbj0b\github\KEM_CMO\225t\empstat.dat"
+scntr="C:\Users\willbj0b\github\KEM_CMO\225t\empcntr.dat"
+smatr="C:\Users\willbj0b\github\KEM_CMO\225t\empmatr.dat"
+suppress=1 AL=1 LO=1
+LP=CPLEX
+MIP=CPLEX
+RMIP=CPLEX
+NLP=PATHNLP
+MCP=path
+MPEC=NLPEC
+RMPEC=NLPEC
+CNS=path
+DNLP=CONOPT
+RMINLP=CONOPT
+MINLP=DICOPT
+QCP=CONOPT
+MIQCP=SBB
+RMIQCP=CONOPT
+optfile=1
+procDirPath="C:\Users\willbj0b\github\KEM_CMO"

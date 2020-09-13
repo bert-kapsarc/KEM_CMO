@@ -7,14 +7,14 @@ loop(scenario,
      market_share_cap('fringe') = 0.2*(ord(scenario)-1)/card(scenario);
 
 *        Capacity market configuration
-     m(r,e,l) = no;
+     m(h,r,e,l) = no;
 *$ontext
 *        Used to customize capacity markets based on expected prices that are greater than double the baseload prices
 
 
 Execute_Load 'energy_high.gdx', results_prices ;
          loop(l,
-          m(r,e,l)$(    results_prices(scenario,'energy price, USD/MWH',r,e,l)>
+          m(h,r,e,l)$(    results_prices(scenario,'energy price, USD/MWH',r,e,l)>
                          2*smin(ll,results_prices(scenario,'energy price, USD/MWH',r,e,ll))
                  )=yes
          );

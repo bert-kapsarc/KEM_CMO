@@ -4,8 +4,10 @@ PUT empinfo 'equilibrium';
 loop((e,l,s,ss),
   PUT / 'max', iso_profit(e,l,s,ss);
   loop(r,PUT Load(r,e,l,s,ss));
+  loop(n,PUT trans(n,e,l,s,ss));
   PUT EQ5_1(e,l,s,ss);
   loop((n,dir),PUT EQ5_2(n,e,l,s,ss,dir));
+  loop(n,PUT EQ5_3(n,e,l,s,ss));
 );
 loop((e,l,s,ss),
   PUT / 'max', arb_profit(e,l,s,ss);
@@ -18,13 +20,16 @@ loop((e,l,s,ss),
 
 loop(i,
   PUT / 'max', profit(i);
-  loop((h,f,r,e,l,s,ss)$fuel_set(h,f,r), PUT Q(i,h,f,r,e,l,s,ss));
+  loop((h,f,r,e,l,s,ss)$fuel_set(h,f,r),
+    PUT  Q(i,h,f,r,e,l,s,ss);
+    PUT$spin(h) Qs(i,h,f,r,e,l,s,ss);
+  );
   loop((h,r),
        PUT inv(i,h,r);
        PUT$(not gttocc(h)) ret(i,h,r);
   );
   loop((r,e,l,s,ss),
-       PUT sales(i,r,e,l,s,ss);
+    PUT sales(i,r,e,l,s,ss);
   );
 
   PUT EQ4_1(i);
@@ -36,7 +41,8 @@ loop(i,
   );
 
   loop((e,l,s,ss),
-       PUT EQ4_4(i,e,l,s,ss);
+    PUT EQ4_4(i,e,l,s,ss);
+    loop(r, PUT EQ4_spin(i,r,e,l,s,ss));
   );
 
   loop(r,
@@ -54,16 +60,17 @@ loop(i,
   loop((f,r)$(fuel_quota(f,r)>0),
            PUT EqX_5(i,f,r);
   );
+
 $ontext
   loop((h,r,s,ss)$(not ren(h) and not gttocc(h)),
     PUT EQcapuptime(i,h,r,s,ss);
   )
 $offtext
 );
-
+put / 'vi EQ_profitR profitR';
 PUT / 'vi EQ1 price';
 PUT / 'vi EQ1_demand demand';
-PUT$(sum((r,e,l)$m(r,e,l),1)>0) / 'vi EQ2 delta';
+PUT$(sum((h,r,e,l)$m(h,r,e,l),1)>0) / 'vi EQ2 delta';
 PUT / 'vi EQ2_capacity total_capacity';
 PUT / 'vi EQ2_firm_capacity Cap_avail';
 PUT / 'vi EQ3 price_trans';

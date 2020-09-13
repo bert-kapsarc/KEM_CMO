@@ -2,4 +2,4 @@
 subsolver path
 subsolveropt 1
 filename build\mcpmod.gms
-dict build\dict.txt
+*dict build\dict.txt

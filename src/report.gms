@@ -1,28 +1,20 @@
-
-
-elasticity(r,e,l,s) = 1/b(r,e,l,s) * price.l(r,e,l,s,'s1')/ (
-                   sum((i,o),sales.l(i,r,e,l,s,'s1'))
-                  +arbitrage.l(r,e,l,s,'s1'));
-
+elasticity(r,e,l,s) = 1/b(r,e,l,s) * price.l(r,e,l,s,'s1')/demand.l(r,e,l,s,'s1');
 demand_projected(r,e,l) =sum((s,ss),prob(r,e,l,s,ss)*EL_demand(r,e,l,s)*d(e,l));
 demand_projected_total(r) = sum((e,l),demand_projected(r,e,l));
 demand_projected_total("national") = sum(r, demand_projected_total(r));
 demand_actual(r,e,l)=sum((s,ss),prob(r,e,l,s,ss)*demand.l(r,e,l,s,ss)*d(e,l));
 demand_total(r) =  sum((e,l),demand_actual(r,e,l));
-demand_total("national") = sum(r, demand_total(r));
+*demand_total("national") = sum(r, demand_total(r));
 
-error_demand(r,e,l) =
--sum((s,ss),prob(r,e,l,s,ss)*
-        (EL_demand(r,e,l,s)*d(e,l)-demand.l(r,e,l,s,ss)*d(e,l))
-)/demand_projected(r,e,l);
+demand_err(r,e,l,s,ss) =-(EL_demand(r,e,l,s)-demand.l(r,e,l,s,ss))/EL_demand(r,e,l,s);
 
-scalar error_total ;
-error_total =  sum((r,e,l,s,ss),prob(r,e,l,s,ss)*demand.l(r,e,l,s,ss)*d(e,l))/sum((r,e,l),demand_projected(r,e,l))-1;
+scalar demand_err_tot ;
+demand_err_tot =  sum((r,e,l,s,ss),prob(r,e,l,s,ss)*demand.l(r,e,l,s,ss)*d(e,l))/sum((r,e,l),demand_projected(r,e,l))-1;
 
 reserve_capacity(r) = sum((i,h)$(not ren(h)),Cap_avail.l(i,h,r))/
     smax((e,l,s,ss),demand.l(r,e,l,s,ss))-1;
 
-report('profit',r) =sum((i),profit.l(i))
+report('profit',r) =sum((i),profitR.l(i,r))
 ;
 report('surplus',r) =
 sum((e,l,s,ss),prob(r,e,l,s,ss)*d(e,l)*(
@@ -34,14 +26,15 @@ report('fuel subsidy',r) = sum((i,f,h,e,l,s,ss),prob(r,e,l,s,ss)*
 q.l(i,h,f,r,e,l,s,ss)*heat_rate(h,f,r)*d(e,l))
 ;
 report('fixed cost',r) =
-sum((e,l)$m(r,e,l),d(e,l)*(
-   +sum((i,h),delta.l(r,e,l)*Cap_avail.l(i,h,r))
-));
-report('social surplus',r) =
+sum((i,h,e,l)$m(h,r,e,l),
+    d(e,l)*delta.l(h,r,e,l)*Cap_avail.l(i,h,r)
+);
+report('total surplus',r) =
      report('surplus',r)
+    +report('profit',r)
     -report('fuel subsidy',r)
     -report('fixed cost',r)
-    -report('profit',r)
+
 ;
 
 cs_threshold(r,e,l,s,ss) = demand.l(r,e,l,s,ss)-2*a(r,e,l,s)/b(r,e,l,s);
@@ -51,8 +44,8 @@ parameter production
 
 production(i,h)=sum((f,r,e,l,s,ss)$fuel_set(h,f,r),
          prob(r,e,l,s,ss)*q.l(i,h,f,r,e,l,s,ss)*d(e,l));
-production(i,'all')=sum(h,production(i,h)) ;
-production('all','all')=sum((i,h),production(i,h)) ;
+*production(i,'all')=sum(h,production(i,h)) ;
+*production('all','all')=sum((i,h),production(i,h)) ;
 
 
 balancing_account('purchases energy',r)=
@@ -60,7 +53,7 @@ balancing_account('purchases energy',r)=
                 prob(r,e,l,s,ss)*q.l(i,h,f,r,e,l,s,ss)*d(e,l));
 
 balancing_account('purchases capacity',r)=
-         sum((i,h,e,l)$m(r,e,l),delta.l(r,e,l)*Cap_avail.l(i,h,r)*d(e,l));
+         sum((i,h,e,l)$m(h,r,e,l),delta.l(h,r,e,l)*Cap_avail.l(i,h,r)*d(e,l));
 
 balancing_account('consumer sales',r)=
          sum((i,h,f,e,l,s,ss,consumer_type),consumer_share(consumer_type,r)*
@@ -99,7 +92,31 @@ trade(i,r,e,l) = sum((s,ss),prob(r,e,l,s,ss)*d(e,l)*(
 );
 transmission(n,e,l,dir) =sum((s,ss,r),PTDF(n,r,dir)*Load.l(r,e,l,s,ss)*prob(r,e,l,s,ss)*d(e,l));
 *       arbitrage_avg(r,rr,e,l) =sum((s,ss),prob(r,e,l,s,ss)*arbitrage.l(r,rr,e,l,s,ss)*d(e,l));
+;
 
+execute_unload  'build%SLASH%merge%SLASH%%scenario%',
+    profitR,
+    report,
+    price,
+    price_avg,
+    price_avg_flat,
+    price_avg_cost,
+    price_trans_avg,
+    transmission,
+    production,
+    retirements,
+    investments,
+    Cap_avail,
+    reserve_capacity,
+    balancing_account,
+    trade,
+    demand_actual,
+    demand_total,
+    elasticity,
+    demand_err,
+    demand_err_tot;
+execute 'gdxmerge build%SLASH%merge%SLASH%*.gdx output=build%SLASH%report';
+execute_unload  'build%SLASH%%scenario%';
 
 *********compute other indicators
 $ontext

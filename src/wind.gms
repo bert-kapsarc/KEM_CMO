@@ -32,33 +32,32 @@ their results suggest that with monthly mean wind speeds, the error in hourly sp
 is between 12 to 14%, and the error in the maximum hourly speed is between 5.1 to 20.4%.
 $offtext
 Table ELwindspeed(l,seasons,r) wind speeds in meters per second
-               WOA          SOA          COA          EOA
-L1.summer        0.785        2.818        4.883        2.641
-L2.summer        1.812        3.188        3.255        2.879
-L3.summer        4.424        3.782        3.740        4.728
-L4.summer        5.329        5.631        3.512        5.502
-L5.summer        6.046        6.767        3.353        6.579
-L6.summer        3.940        3.837        3.726        5.155
-L7.summer        3.411        2.903        5.019        4.292
-L8.summer        2.283        2.029        5.833        2.883
+            WOA          SOA          COA          EOA
+L1.summer   0.785        2.818        4.883        2.641
+L2.summer   1.812        3.188        3.255        2.879
+L3.summer   4.424        3.782        3.740        4.728
+L4.summer   5.329        5.631        3.512        5.502
+L5.summer   6.046        6.767        3.353        6.579
+L6.summer   3.940        3.837        3.726        5.155
+L7.summer   3.411        2.903        5.019        4.292
+L8.summer   2.283        2.029        5.833        2.883
 
-L1.winter        1.278        2.680        4.418        2.262
-L2.winter        2.061        2.798        3.115        3.454
-L3.winter        4.286        3.794        3.991        5.155
-L4.winter        4.473        4.280        3.460        6.597
-L5.winter        7.411        5.838        3.257        6.662
-L6.winter        4.451        3.543        3.996        4.786
-L7.winter        4.123        2.601        4.203        3.296
-L8.winter        2.436        1.904        4.458        2.724
-
-L1.spring-fall   0.953        1.052        4.329        1.489
-L2.spring-fall   1.434        2.369        3.244        3.248
-L3.spring-fall   3.128        3.133        4.534        3.847
-L4.spring-fall   6.315        4.612        3.212        5.670
-L5.spring-fall   6.404        6.784        3.022        7.939
-L6.spring-fall   4.006        5.579        3.220        6.743
-L7.spring-fall   2.946        2.621        3.345        4.355
-L8.spring-fall   2.496        0.903        4.826        2.472
+L1.winter   1.278        2.680        4.418        2.262
+L2.winter   2.061        2.798        3.115        3.454
+L3.winter   4.286        3.794        3.991        5.155
+L4.winter   4.473        4.280        3.460        6.597
+L5.winter   7.411        5.838        3.257        6.662
+L6.winter   4.451        3.543        3.996        4.786
+L7.winter   4.123        2.601        4.203        3.296
+L8.winter   2.436        1.904        4.458        2.724
+L1.spfa     0.953        1.052        4.329        1.489
+L2.spfa     1.434        2.369        3.244        3.248
+L3.spfa     3.128        3.133        4.534        3.847
+L4.spfa     6.315        4.612        3.212        5.670
+L5.spfa     6.404        6.784        3.022        7.939
+L6.spfa     4.006        5.579        3.220        6.743
+L7.spfa     2.946        2.621        3.345        4.355
+L8.spfa     2.496        0.903        4.826        2.472
 ;
 
 parameter average_wind_spee_80m(r)
@@ -101,16 +100,34 @@ ELwindpower(l,seasons,r)$(ELwindspeed(l,seasons,r)>=ELcutoffspeed)=0;
 *By taking the normalization approach, we remove the need to specify a sweep area
 *or turbine conversion efficiency. Moreover, this approach simulates the wind turbine
 *power output to be proportional to the power in the wind:
-Parameter ELwindpowernorm(l,seasons,r) power generated normalized by maximum annual value (regional);
-ELwindpowernorm(l,e,r)=ELwindpower(l,e,r)/(0.5*ELairdensity(r)*ELratedspeed**3);
-
-
-*The following table considers the impact of incrementally adding wind capacity
-*in each region. These capacities are defined as the nominal peak output
-*throughout the year since this is at the point of load. The wind contribution is
-*multiplied by 0.96 to account for losses between generation and point of load.
-Parameter ELdiffGWwind(l,seasons,r) difference in load resulting from introducing wind turbine output in GW;
-ELdiffGWwind(l,seasons,r)=ELwindpowernorm(l,seasons,r)*0.96;
-*Display ;
-*abort ELwindpower,ELdiffGWwind ;
+table ELwindpowernorm(l,seasons,r) power generated normalized by maximum annual value (regional)
+            WOA         SOA         COA         EOA
+L1.summer   0           0           0.4416      0
+L2.summer   0.0154      0.0409      0.0615      0.0657
+L3.summer   0.1599      0.0946      0.5074      0.1092
+L4.summer   0.9600      0.3016      0.0589      0.3497
+L5.summer   0.9600      0.9600      0.0450      0.9600
+L6.summer   0.3359      0.5339      0.0596      0.5882
+L7.summer   0.1336      0.0554      0.0702      0.1585
+L8.summer   0           0.0812      0.6119      0
+L1.winter   0           0.0688      0.1304      0.0353
+L2.winter   0.0311      0.0996      0.0624      0.0458
+L3.winter   0.4524      0.1663      0.2848      0.2028
+L4.winter   0.7907      0.5490      0.0863      0.3195
+L5.winter   0.9600      0.9528      0.0709      0.5463
+L6.winter   0.3196      0.1737      0.1103      0.2628
+L7.winter   0.2074      0.0752      0.6883      0.1517
+L8.winter   0.0622      0.0257      0.9600      0.0460
+L1.spfa     0           0.0592      0.4694      0
+L2.spfa     0.0457      0.0674      0.1645      0.0791
+L3.spfa     0.4114      0.1679      0.3461      0.2628
+L4.spfa     0.4676      0.2411      0.0810      0.5508
+L5.spfa     0.9600      0.6118      0.0626      0.5673
+L6.spfa     0.4607      0.1367      0.1464      0.2103
+L7.spfa     0.3662      0.0541      0.4042      0.0687
+L8.spfa     0.0755      0.0212      0.4823      0.0388
 ;
+
+ELwindpowernorm(l,'summer-wknd',r)=ELwindpowernorm(l,'summer',r);
+ELwindpowernorm(l,'winter-wknd',r)=ELwindpowernorm(l,'winter',r);
+ELwindpowernorm(l,'spf-wknd',r)=ELwindpowernorm(l,'spfa',r);

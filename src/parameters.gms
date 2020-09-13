@@ -1,59 +1,47 @@
 Parameters
-           v(firm)   CONJECTURAL VARIANTION for production by player /g1 0, g2 0, g3 0, g4 0, fringe -1/
-           X(firm)   CONJECTURAL VARIANTION for capacity by player /g1 0, g2 0, g3 0, g4 0, fringe -1/
+    v(firm)   CONJECTURAL VARIANTION for production by player /g1 0, g2 0, g3 0, g4 0, fringe -1/
+    X(firm)   CONJECTURAL VARIANTION for capacity by player /g1 0, g2 0, g3 0, g4 0, fringe -1/
 
-           capital_cost(tech) Capital cost in USD per GW /CCGT 1102, GT 1016, ST 1680, Nuclear 6500, GTtoCC 600, PV 2584, WT 1569/;
-           capital_cost(CCGT) = 1102;
-           capital_cost(GT) = 1016;
-           capital_cost(ST) = 1680;
-*           capital_cost(h) Capital cost in USD per GW /CCGT 1740, GT 1485, ST 2120, Nuclear 4896, GTtoCC 600/
-
+    capital_cost(tech) Capital cost in USD per KW /
+     CCGT 1032, GT 882, ST 1026, Nuclear 5288, GTtoCC 240, PV 1153, WT 1400/;
 Parameters
-           ic(tech)  investment cost USD per GW
-           om(tech) Fixed O&M cost USD per GW  /GT 10.68, GTtoCC 19.94, CCGT 19.94, ST 38.67, Nuclear 130, PV 26.75, WT 39.625 /
-;
-           om(GT) = 10.68;
-           om(CCGT) = 19.94;
-           om(ST) = 38.67;
-*           om(h) Fixed O&M cost USD per GW  /GT 11.2, GTtoCC 12.4, CCGT 12.4, ST 11.2, Nuclear 68.8/
-
-Parameters
-           K0(h,r) existent capacity of technology h in region r before liberalization
+           ic(tech)  investment cost USD per KW
+           om(tech) Fixed O&M cost USD per KW  /GT 11.2, GTtoCC 12.4, CCGT 12.4, ST 11.2, Nuclear 68.8, PV 9, WT 35 /
+*           om(h) Fixed O&M cost USD per KW  /GT 11.2, GTtoCC 12.4, CCGT 12.4, ST 11.2, Nuclear 68.8/
 
 *Design operating life for ST, GT, and CCGT from KFUPM generation report.
-           lifetime(tech) plant lifetime /CCGT 35, GT 30, ST 40, Nuclear 55, GTtoCC 20, PV 20, WT 20/
-           discrate discount rate used for power plant investments /0.06/
+    lifetime(tech) plant lifetime /CCGT 35, GT 30, ST 40, Nuclear 55, GTtoCC 20, PV 25, WT 20/
+    discrate discount rate used for power plant investments /0.06/
 
-           market_share_inv(firm) cap on a companies market share by investment
-           market_share_prod(firm) cap on a companies market share by investment
+    market_share_inv(firm) cap on a companies market share by investment
+    market_share_prod(firm) cap on a companies market share by investment
 ;
-         market_share_inv(i) = 1;
-         market_share_prod(i) = 1;
+market_share_inv(i) = 1;
+market_share_prod(i) = 1;
 
-           Table capadd(hh,h) a factor for adding capacity (only applicable to dispatchable tech)
-                  GT      CCGT
-         GTtoCC   -1      1.5
-         ;
+Table capadd(hh,h) a factor for adding capacity (only applicable to dispatchable tech)
+            GT      CCGT
+    GTtoCC  -1      1.5
+ ;
+capadd(h,h)$(not gttocc(h)) = 1
+;
+lifetime(CCGT)= 30;
+lifetime(gttocc)= 20;
+lifetime(GT)= 25;
+lifetime(ST)= 35;
 
-             capadd(h,h)$(not gttocc(h)) = 1 ;
-
-
+sets    time /2015*2040/
+        t dummy time set /2020/
+        tt(t) /2020/
+        index /1*1000/
 ;
 
-    lifetime(CCGT)= 35;
-    lifetime(GT)= 30;
-    lifetime(ST)= 40;
-sets     time /2015*2040/
-         t dummy time set /2020/
-         tt(t) /2020/
-         index /1*1000/;
-
-parameter discoef   ;
+parameter discoef ;
 
 *        Discounting plant capital costs over lifetime
-         discoef(h,t)$(lifetime(h)>0) = discounting(lifetime(h),discrate,index,t,tt);
+discoef(h,t)$(lifetime(h)>0) = discounting(lifetime(h),discrate,index,t,tt);
 
-         ic(h)=capital_cost(h)*discoef(h,'2020');
+ic(h)=capital_cost(h)*discoef(h,'2020');
 
 
 Parameters ici(h)  investment cost
@@ -64,14 +52,20 @@ ici(h) = ic(h)
 icr(h) = ic(h)*0.15;
 *icr(h) = 0;
 
-parameter mc(tech,f,r) marginal cost in USD per MWh
-         mc_non_fuel(tech,r) variable cost non fuel;
+parameter fuel_price_intl(f,r) price of fuels in USD per mmbtu and KG U235
+        fuel_price_admin(f,r) price of fuels in USD per mmbtu and KG U235
+        fuel_price(f,r) price of fuels in USD per mmbtu and KG U235
+        mc(tech,f,r) marginal cost in USD per MWh
+        mc_non_fuel(tech,r) variable cost non fuel
+        mc_baseline(h,f,r) marginal cost of baseline scenario in usd per mwh
+        mc_reform(h,f,r) marginal cost after price reform in usd per mwh
+        mc_intl(h,f,r)
+;
 
-mc_non_fuel(ccgt,r)  = 1.2449 ;
-mc_non_fuel(ccgt,'EOA')  = 1.1833 ;
-mc_non_fuel(GT,r) =  1.6840;
-mc_non_fuel(ST,r) =  1.2261;
-mc_non_fuel('Nuclear',r) = 6.9;
+mc_non_fuel(ccgt,r)  = 3.76 ;
+mc_non_fuel(GT,r) = 4.6;
+mc_non_fuel(ST,r) =  1.87;
+mc_non_fuel('Nuclear',r) = 2.56;
 
 * Uranium-235 use is in g/GWh
 parameter   heat_rate(tech,f,r) fuel burn rate in mmbtu and g per MWH
@@ -79,8 +73,9 @@ parameter   heat_rate(tech,f,r) fuel burn rate in mmbtu and g per MWH
             Cap_uptime(tech,r,seasons) max uptime for tech h in region r season e
 ;
 
-fuel_efficiency(CCGT,'methane',r) = 0.45;
-fuel_efficiency(CCGT,'oil',r) = 0.35;
+fuel_efficiency(CCGT,'methane',r) = 0.5;
+fuel_efficiency(CCGT,'oil',r) = 0.47;
+
 fuel_efficiency('CCGT1','methane',r) = 0.53;
 fuel_efficiency('CCGT2','methane',r) = 0.41;
 fuel_efficiency('CCGT3','methane',r) = 0.39;
@@ -90,7 +85,7 @@ fuel_efficiency('CCGT2','methane','WOA') = 0;
 fuel_efficiency('CCGT2','oil','WOA') = 0.33;
 
 fuel_efficiency(GT,'methane',r) = 0.30;
-fuel_efficiency(GT,'oil',r) = 0.25;
+fuel_efficiency(GT,'oil',r) = 0.27;
 fuel_efficiency('GT1','methane',r) = 0.33;
 fuel_efficiency('GT2','methane',r) = 0.28;
 fuel_efficiency('GT3','methane',r) = 0.25;
@@ -100,12 +95,10 @@ fuel_efficiency('GT2','methane','WOA') = 0;
 fuel_efficiency('GT3','oil','WOA') = 0.20;
 fuel_efficiency('GT3','methane','WOA') = 0;
 
-fuel_efficiency(ST,'oil',r) = 0.33;
+fuel_efficiency(ST,'methane',r) = 0.37;
+fuel_efficiency(ST,'oil',r) = 0.35;
 fuel_efficiency('ST1','oil',r) = 0.36;
-fuel_efficiency('ST1','oil','SOA') = 0.45;
-
-
-
+fuel_efficiency('ST1','oil','SOA') = 0.37;
 
 heat_rate(tech,f,r)$(fuel_efficiency(tech,f,r)>0) = 3.412/fuel_efficiency(tech,f,r);
 $ontext
@@ -121,80 +114,79 @@ heat_rate('Nuclear','U-235',r)=0.120;
 
 
 table fuel_quota(f,r)
-
                  COA     EOA     SOA     WOA
- methane         400     600     0.1      200
+ methane         450     1750    0.01    150
 ;
 
-fuel_quota(f,r) = fuel_quota(f,r)*1.409;
+*fuel_quota(f,r) = fuel_quota(f,r)*1.409;
 
 Parameters  a(r,e,l,s) intercept of energy demand curve,
             b(r,e,l,s) slope of energy demand curve
             a1(r,e,l,s),a2(r,e,l,s),b1(r,e,l,s),b2(r,e,l,s),
-            theta(r,e,l) intercept of capacity demand curve,
-            xi(r,e,l) slope of capacity demand curve
+            theta(h,r,e,l) intercept of capacity demand curve,
+            xi(h,r,e,l) slope of capacity demand curve
 ;
-
+theta(h,r,e,l)=0;
+xi(h,r,e,l)=0;
 
 parameter P_cap(o,r,e,l), Sales_bar(o,r,e,l,s);
 
 table kind0(firm,tech,r) firms existing generation capacity in GW
 
-                 COA             EOA             SOA             WOA
+                COA             EOA            SOA              WOA
+*g1.CCGT         2.389
+g1.CCGT1        1.748
+g1.CCGT2        1.328
+*g1.CCGT3        4.630
+g1.GT           9
+*g1.GT1          0.492
+*g1.GT2          0.31787
+g1.GT3          0.5616
+g1.ST           0.01
 
-g1.CCGT          2.389           0               0               0
-g1.CCGT1         1.748           0               0               0
-g1.CCGT2         1.328           0               0               0
-g1.CCGT3         4.630           0               0               0
-g1.GT            11.69873        0               0               0
-g1.GT1           0.492           0               0               0
-g1.GT2           0.31787         0               0               0
-g1.GT3           0.5616          0               0               0
-g1.ST            0.01            0               0               0
+g2.CCGT                         2.739
+*g2.GT                           7.4663
+g2.GT                           4.090
+g2.GT1                          0.501
+g2.GT2                          0.6475
+*g2.GT3                          0.3279
+*g2.ST                           10.192
+g2.ST                           5.220
+g2.ST1                          4.272
 
-g2.CCGT          0               0               0               0
-g2.CCGT1         0               5.306           0               0
-*g2.GT            0               7.4663          0               0
-g2.GT            0               5.990           0               0
-g2.GT1           0               0.501           0               0
-g2.GT2           0               0.6475          0               0
-g2.GT3           0               0.3279          0               0
-*g2.ST            0               10.192          0               0
-g2.ST            0               5.220           0               0
-g2.ST1           0               4.972           0               0
+*g3.GT                                          4.11314
+g3.GT                                          1.49
+*g3.GT2                                         1.61413
+*g3.GT3                                         0.109
+g3.ST1                                         2.640
 
-*g3.GT            0               0               4.11314         0
-g3.GT            0               0               2.39001         0
-g3.GT2           0               0               1.61413         0
-g3.GT3           0               0               0.109           0
-g3.ST1           0               0               2.640           0
+*g4.CCGT                                                         1.288
+g4.CCGT                                                         1.980
+g4.CCGT1                                                        1.25
+g4.CCGT3                                                        0.948
+*g4.GT                                                           7.358
+g4.GT                                                           4.2602
+*g4.GT1                                                          3.6
+g4.GT2                                                          1.9448
+g4.GT3                                                          0.218
+*g4.ST                                                           13.518
+g4.ST                                                           9.5354
+g4.ST1                                                          1.03
 
-*g4.CCGT          0               0               0               1.288
-g4.CCGT          0               0               0               1.200
-g4.CCGT1         0               0               0               0.3024
-g4.CCGT3         0               0               0               0.948
-*g4.GT            0               0               0               7.358
-g4.GT            0               0               0               4.2602
-g4.GT1           0               0               0               0.155
-g4.GT2           0               0               0               1.9448
-g4.GT3           0               0               0               0.998
-*g4.ST            0               0               0               13.518
-g4.ST            0               0               0               11.5354
-g4.ST1           0               0               0               1.9826
-
-fringe.CCGT      0               2.56737         0               0
-fringe.GT        1.116           2.144           0               0.60056
-fringe.ST        0.706           3.4968          1.128           2.51877
-fringe.PV        0.9             0               0               1
-fringe.WT        0.2             0               0.2             0.8
+fringe.CCGT     0               2.56737         0               4.6
+fringe.GT       1.416           4.844           0               1.30056
+fringe.ST       2.4             6.2             2.428           4.51877
+*fringe.PV       0.9             0               0               1
+*fringe.WT       0.2             0               0.2             0.8
 ;
 
 kind0(firm,'CCGT',r) = sum(ccgt, kind0(firm,ccgt,r));
 kind0(firm,'GT',r) = sum(gt, kind0(firm,gt,r));
 kind0(firm,'ST',r) = sum(st, kind0(firm,st,r));
-K0(h,r) = sum(genco,kind0(genco,h,r));
 
-heat_rate(h,f,r)$(K0(h,r)=0 and not h_default(h)) = 0;
+*kind0(firm,CCGT,r)=0;
+
+heat_rate(h,f,r)$(sum(genco,kind0(genco,h,r))=0 and not h_default(h)) = 0;
 
 set fuel_set(tech,f,r);
 fuel_set(h,f,r)$(heat_rate(h,f,r)>0) = yes;
@@ -309,12 +301,6 @@ parameter
     Cap_uptime('ST1','SOA',spring) =  1;
 
 
-
-
-
-
-
-
 table     PTDF(n,r,dir)
                   COA.p    EOA.p     WOA.p     SOA.p
          COA_EOA   0       -1         0         0
@@ -322,12 +308,7 @@ table     PTDF(n,r,dir)
          SOA_WOA  -1       -1         0        -1
 
 ;
-           PTDF(n,r,'m')=  -PTDF(n,r,'p')
-
-
-
-
-
+PTDF(n,r,'m')=  -PTDF(n,r,'p')
 
 parameter  ELretirement(firm,h,time,r), ELaddition(firm,h,time,r);
 
@@ -427,24 +408,18 @@ parameter  ELretirement(firm,h,time,r), ELaddition(firm,h,time,r);
          ELretirement('fringe','ST','2020','EOA')=2.306;
          ELretirement('fringe','ST','2020','WOA')=1.203;
 
-         kind0(firm,h,r) =kind0(firm,h,r)+ sum(time$(ord(time)<=6),ELaddition(firm,h,time,r))
-                         - sum(time$(ord(time)<=6),ELretirement(firm,h,time,r));
+*         kind0(firm,h,r) =kind0(firm,h,r)+ sum(time$(ord(time)<=6),ELaddition(firm,h,time,r))
+*                         - sum(time$(ord(time)<=6),ELretirement(firm,h,time,r));
 
 parameter Genco_PPA(h,r);
 Genco_PPA(h,r) = 0;
-
-parameter kind_save
-;
-
-         kind_save(firm,h,r) = kind0(firm,h,r);
-
-
 
 *        REPORT WRITER PARAMS
 
 *$ontext
 
-set indicators /'profit', 'surplus','fuel subsidy','fixed cost','social surplus'/
+
+set indicators /'profit', 'surplus','fuel subsidy','fixed cost','total surplus'/
     balancing_account_sets /'purchases energy','purchases capacity','consumer sales'/
     consumer_type /'Residential', 'Commercial', 'Government', 'Industrial', 'Other'/
 ;
@@ -462,12 +437,12 @@ Parameters
     price_trans_avg       expected price by region and season
     price_avg_cost
 
-    production              production by player in TWH
-    transmission  transmission by ISO in TWH
+    production               production by player in TWH
+    transmission             transmission by ISO in TWH
     trade_avg(firm,r,rr,e,l) expected interregional trade by each firm in TWH
     arbitrage_avg(r,rr,e,l) expected interregional arbitrage by ISO in TWH
 
-    error_demand
+    demand_err
     demand_actual
     demand_total
     demand_projected

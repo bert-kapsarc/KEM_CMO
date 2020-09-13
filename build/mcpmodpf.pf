@@ -2,7 +2,7 @@ ssolu="C:\Users\willbj0b\github\KEM_CMO\225a\empsolu.dat"
 sstat="C:\Users\willbj0b\github\KEM_CMO\225a\empstat.dat"
 scntr="C:\Users\willbj0b\github\KEM_CMO\225a\empcntr.dat"
 smatr="C:\Users\willbj0b\github\KEM_CMO\225a\empmatr.dat"
-suppress=1 AL=1 LO=3
+suppress=1 AL=1 LO=1
 LP=CPLEX
 MIP=CPLEX
 RMIP=CPLEX
