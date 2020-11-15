@@ -1,7 +1,7 @@
-ssolu="C:\Users\willbj0b\github\KEM_CMO\225a\empsolu.dat"
-sstat="C:\Users\willbj0b\github\KEM_CMO\225a\empstat.dat"
-scntr="C:\Users\willbj0b\github\KEM_CMO\225a\empcntr.dat"
-smatr="C:\Users\willbj0b\github\KEM_CMO\225a\empmatr.dat"
+ssolu="C:\Users\willbj0b\git\KEM_CMO\225g\empsolu.dat"
+sstat="C:\Users\willbj0b\git\KEM_CMO\225g\empstat.dat"
+scntr="C:\Users\willbj0b\git\KEM_CMO\225g\empcntr.dat"
+smatr="C:\Users\willbj0b\git\KEM_CMO\225g\empmatr.dat"
 suppress=1 AL=1 LO=1
 LP=CPLEX
 MIP=CPLEX
@@ -18,4 +18,4 @@ QCP=CONOPT
 MIQCP=SBB
 RMIQCP=CONOPT
 optfile=1
-procDirPath="C:\Users\willbj0b\github\KEM_CMO"
+procDirPath="C:\Users\willbj0b\git\KEM_CMO"

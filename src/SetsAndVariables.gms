@@ -10,6 +10,7 @@ Sets
 *    h(tech) technology       /CCGT, CCGT1, CCGT2, CCGT3, GT, GT1, GT2, GT3, ST, ST1, PV, WT,GTtoCC/
     h(tech) technology       /CCGT, GT, ST, PV, WT,GTtoCC/
     h_default(h) /CCGT GT, ST/
+
     o reliability option /o1,o2/
     CCGT(tech) /CCGT, CCGT1, CCGT2, CCGT3, CCconv/
     gttocc(tech) /GTtoCC/
@@ -43,15 +44,16 @@ Sets
     n power lines /COA_EOA,COA_WOA,SOA_WOA/
 
     m(h,r,e,l) capacity markets
+
     scen /s1*s10/
 
-    s(scen) scenarios for energy demand
-$ifThen set calibration
+    s(scen) scenarios for energy demand   /s1*s5/
+*$ifThen set calibration
 * no demand scenarios used for calibration scenario
-    /s1*s5/
-$else
-    /s1*s5/
-$endIf
+*    /s1*s5/
+*$else
+*    /s1*s5/
+*$endIf
     ss(scen) scenarios for renewables       /s1/
     dir /p,m/
     majority(genco,r)
@@ -108,3 +110,10 @@ $ontext
     Gamma(i,r,e,l,s,ss)
 $offtext
 ;
+
+set   hm(h,hh) other technologies hh belonging to a capacity market group of h
+;
+
+hm(h,hh)$(not ren(h) and not ren(hh) and not GTtoCC(h) and not GTtoCC(h)) = yes;
+hm(h,hh)$(ren(h) and ren(hh)) = yes;
+*abort hm;

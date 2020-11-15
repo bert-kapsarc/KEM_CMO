@@ -44,9 +44,9 @@ $endIF
         +demand(r,e,l,s,ss)$(not Cournot(i)) \
     ))
 $macro delta_m(i,h,r,e,l) (theta(h,r,e,l) \
-    -xi(h,r,e,l)*( \
-        sum(ii,Cap_avail_m(ii,h,r))$Cournot(i) \
-        +total_capacity(h,r)$(not Cournot(i)) \
+    -xi(h,r,e,l)*sum(hh$hm(h,hh), \
+        sum(ii,Cap_avail_m(ii,hh,r))$Cournot(i) \
+        +total_capacity(hh,r)$(not Cournot(i)) \
     ))
 
 $macro Cap_avail_m(ii,hh,r) (kind(ii,hh,r)-ret(ii,hh,r) \

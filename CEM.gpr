@@ -4590,9 +4590,6 @@ PlaneRownr=-1
 PlaneFilter1=GTtoCC
 SqTrail0=0
 
-[SOLVERS]
-NLP=CONOPT
-
 [GDXDISP: EQ3_2 Equ 7]
 PlaneDim=3
 RowDim=4
@@ -4957,6 +4954,7 @@ Squeeze=1
 Order=1,2,3,4,5
 Decim=7
 PlaneRownr=-1
+SqTrail0=0
 
 [GDXDISP: productionAnnual Par 5]
 PlaneDim=0
@@ -5421,6 +5419,7 @@ Squeeze=1
 Order=1
 Decim=7
 PlaneRownr=-1
+SqTrail0=0
 
 [GDXDISP: OPEX_pr_bbl Par 5]
 PlaneDim=0
@@ -6398,15 +6397,6 @@ PlaneRownr=-1
 [RP:REPORT]
 1=
 
-[GDXDISP: investments Par 3]
-PlaneDim=0
-RowDim=3
-Squeeze=1
-SqTrail0=0
-Order=1,2,3
-Decim=7
-PlaneRownr=-1
-
 [GDXDISP: price_avg Par 4]
 PlaneDim=0
 RowDim=4
@@ -6472,15 +6462,6 @@ Order=1,2
 Decim=7
 PlaneRownr=-1
 
-[GDXDISP: price Var 6]
-PlaneDim=2
-RowDim=5
-Squeeze=1
-SqTrail0=0
-Order=7,6,1,2,3,4,5
-Decim=7
-PlaneRownr=-1
-
 [GDXDISP: demand Var 5]
 PlaneDim=0
 RowDim=5
@@ -6536,28 +6517,6 @@ PlaneRownr=-1
 [RP:CAPACITY_MARKET]
 1=
 
-[RP:RUN]
-1=idir=src; --cournot=true --capacity=auction
-2=idir=src; --calibration=true
-3=idir=src; --cournot=true
-4=idir=src; gdx=test
-5=idir=src; gdx=test;
-6=idir=src;
-7=idir=src; cournot=true
-8=idir=src; --counot=true
-9=idir=src; --counor=true
-10=idir=src; --capacity=price
-11=idir=src; --capacity=price --cournot=true
-12=idir=src; --noFuelSubsidy=true
-13=idir=src; --cournot=true --capacity=price --PVratio=52
-14=idir=src; --cournot=true --capacity=price --PVratio=55
-15=idir=src; --capacity=price_70
-16=idir=src; --capacity=price_65
-17=idir=src; --capacity=price_
-18=idir=src; capacity=price
-19=idir=src; gdx=cournot_price_reform
-20=idir=src; gdx=cournot_price_reform_psc
-
 [GDXDISP: Cap_target Par 2]
 PlaneDim=0
 RowDim=2
@@ -6567,24 +6526,47 @@ Order=1,2
 Decim=7
 PlaneRownr=-1
 
+[SOLVERS]
+DNLP=CONOPT
+NLP=CONOPT
+
+[RP:RUN]
+1=idir=src;
+2=idir=src; --calibration=true
+
+[GDXDISP: price Var 6]
+PlaneDim=2
+RowDim=5
+Squeeze=1
+SqTrail0=0
+Order=6,7,1,2,3,4,5
+Decim=7
+PlaneRownr=-1
+
+[GDXDISP: investments Par 3]
+PlaneDim=0
+RowDim=3
+Squeeze=1
+SqTrail0=0
+Order=1,2,3
+Decim=7
+PlaneRownr=-1
+
 [MRUFILES]
-1=C:\Users\willbj0b\github\KEM_CMO\run.lst
-2=C:\Users\willbj0b\github\KEM_EMP\build\GCCscenarios\calibration.gdx
-3=C:\Users\willbj0b\github\KEM_CMO\run_2.gms
-4=C:\Users\willbj0b\github\KEM_CMO\KEM.lst
-5=C:\Users\willbj0b\github\KEM_CMO\build\report.gdx
-6=C:\Users\willbj0b\github\KEM_CMO\build\merge\capacity_price_cournot.gdx
-7=C:\Users\willbj0b\github\KEM_CMO\build\energy_cournot.gdx
+1=C:\Users\willbj0b\git\KOMNRS\build\data\tables_combined.gdx
+2=C:\Users\willbj0b\git\KEM_CMO\run.lst
+3=C:\Users\willbj0b\git\KEM_CMO\run.gms
+4=C:\Users\willbj0b\github\KEM_CMO\run.lst
+5=C:\Users\willbj0b\github\KEM_EMP\build\GCCscenarios\calibration.gdx
+6=C:\Users\willbj0b\github\KEM_CMO\run_2.gms
+7=C:\Users\willbj0b\github\KEM_CMO\KEM.lst
+8=C:\Users\willbj0b\github\KEM_CMO\build\report.gdx
 
 [OPENWINDOW_1]
-FILE0=C:\Users\willbj0b\github\KEM_CMO\build\capacity_auction_cournot.gdx
-FILE1=C:\Users\willbj0b\github\KEM_CMO\build\capacity_auction_PV50_cournot.gdx
-FILE2=C:\Users\willbj0b\github\KEM_CMO\run.gms
-FILE3=C:\Users\willbj0b\github\KEM_CMO\src\capacity_market.gms
-FILE4=C:\Users\willbj0b\github\KEM_CMO\src\equations.gms
-FILE5=C:\Users\willbj0b\github\KEM_CMO\build\capacity_auction_cournot.gdx
+FILE0=C:\Users\willbj0b\git\KEM_CMO\build\report.gdx
+FILE1=C:\Users\willbj0b\git\KEM_CMO\build\report.gdx
 MAXIM=0
-TOP=56
-LEFT=0
-HEIGHT=643
-WIDTH=1414
+TOP=43
+LEFT=23
+HEIGHT=1381
+WIDTH=1053

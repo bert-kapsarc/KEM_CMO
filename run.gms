@@ -38,13 +38,6 @@ $setglobal scenario energy
 $endIf.capacity
 $endIf
 ;
-$ifThen set cournot
-$setglobal energy_market energy_cournot
-$setglobal scenario %scenario%_cournot
-$else
-$setglobal energy_market energy
-$endIf
-
 
 $ifThen set capacity
 * Configure capacity market segments
@@ -52,22 +45,33 @@ $ifThen set capacity
 $include capacity_market.gms
 $endIf
 
+$ifThen set cournot
+$setglobal energy_market energy_cournot
+$setglobal scenario %scenario%_cournot
+$else
+$setglobal energy_market energy
+$endIf
+
 $ifThen set noFuelSubsidy
 $setglobal scenario %scenario%_fuelReform
 $endIF
 
-
-
-$ifThen.loadpoint exist build%SLASH%%scenario%.gdx
-    execute_load 'build%SLASH%%scenario%'
-$else.loadpoint
-    execute_load 'build%SLASH%energy'
-$endif.loadpoint
 ;
+
 inv.fx(i,h,r)$GTtoCC(h)=0
 Option Savepoint=1;
 model CMO_opt_downtime /cmo/ ;
 CMO.optfile =  1;
+
+
+$ifThen.loadpoint exist build%SLASH%%scenario%.gdx
+    execute_loadpoint 'build%SLASH%%scenario%'
+$else.loadpoint
+$ifThen.loadpointD exist build%SLASH%energy.gdx
+    execute_loadpoint 'build%SLASH%energy'
+$endif.loadpointD
+$endif.loadpoint
+
 $ifThen set LP
     demand.fx(r,e,l,s,ss) = EL_demand(r,e,l,s)
     SOLVE power using NLP minimizing ELcost;
