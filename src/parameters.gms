@@ -10,7 +10,7 @@ Parameters
 *           om(h) Fixed O&M cost USD per KW  /GT 11.2, GTtoCC 12.4, CCGT 12.4, ST 11.2, Nuclear 68.8/
 
 *Design operating life for ST, GT, and CCGT from KFUPM generation report.
-    lifetime(tech) plant lifetime /CCGT 35, GT 30, ST 40, Nuclear 55, GTtoCC 20, PV 25, WT 20/
+    lifetime(tech) plant lifetime /CCGT 35, GT 30, ST 40, Nuclear 55, GTtoCC 20, PV 25, WT 25/
     discrate discount rate used for power plant investments /0.06/
 
     market_share_inv(firm) cap on a companies market share by investment

@@ -25,7 +25,12 @@ $endIf
 ;
 scalar PVratio /0/;
 $ifThen.pv set PVratio
+$ifThen.reserve not set reserve
+* if we have not flagged scenario with reserve targets
+* turn off cpacaity market segments for conventional tech.
 m(h,r,e,l)$(not ren(h)) = no;
+$endIf.reserve
+
 m(h,r,e,l)$(
     (Elsolcurvenorm(l,e,r)>0 and sameas(h,'PV'))
     or (ELwindpowernorm(l,e,r)>0 and sameas(h,'WT'))
@@ -49,7 +54,7 @@ theta(h,r,e,l) =
     sum((ee,ll),d(ee,ll))
 ;
 theta(h,r,e,l)$(ren(h) and sum((ee,ll)$m(h,r,ee,ll),d(ee,ll))>0) =
-    (ici(h)+om(h))*PVratio
+    (ici(h)+om(h))*PVratio*(1+0.2$WT(h))
 *    *(Elsolcurvenorm(l,e,r)$sameas(h,'PV')
 *     +ELwindpowernorm(l,e,r)$sameas(h,'WT'))
     /sum((ee,ll)$m(h,r,ee,ll),d(ee,ll))
@@ -61,24 +66,23 @@ Parameter Cap_target(h,r)
 /
     PV.COA  15
     PV.WOA  15
-    PV.EOA  10
+    PV.EOA  5
     PV.SOA  5
+    WT.WOA  14
+    WT.SOA  2
 $ifThen.reserve set reserve
-    GT.COA  50
-    GT.SOA  7
+    GT.COA  5
+    GT.SOA  1
+    CCGT.COA  15
 $endIf.reserve
 /;
 
 $ifThen.reserve set reserve
-m(h,r,e,l)$(not ren(h) and CAP_target(h,r)>0 and
-    smax((s,ss),demand.l(r,e,l,s,ss)) >
-    sum((i,hh),Cap_avail.l(i,hh,r))*capacity_threshold
-)=yes;
 hm(h,hh)$(not ren(h) and not ren(hh))=no;
 hm('GT','GT') = yes;
+hm('CCGT','CCGT') = yes;
+m('GT',r,e,l)$m('PV',r,e,l) = m('PV',r,e,l);
 $endIf.reserve
-
-
 
 scalar capTargetM /1/;
 $ifthen.captarget set capTargetM
@@ -100,11 +104,11 @@ xi(h,r,e,l)$(not ren(h) and m(h,r,e,l) and sum((ee,ll),d(ee,ll))>0 and Cap_targe
     /sum((ee,ll),d(ee,ll))/Cap_target(h,r)
 ;
 theta(h,r,e,l)$(ren(h) and sum((ee,ll)$m(h,r,ee,ll),d(ee,ll))>0 and Cap_target(h,r)>0) =
-    2*(ici(h)+om(h))*PVratio
+    2*(ici(h)+om(h))*PVratio*(1+0.2$WT(h))
     /sum((ee,ll)$m(h,r,ee,ll),d(ee,ll))
 ;
 xi(h,r,e,l)$(ren(h) and sum((ee,ll)$m(h,r,ee,ll),d(ee,ll))>0 and Cap_target(h,r)>0) =
-    (ic(h)+om(h))*PVratio
+    (ic(h)+om(h))*PVratio*(1+0.2$WT(h))
     /sum((ee,ll)$m(h,r,ee,ll),d(ee,ll))/Cap_target(h,r)
 ;
 

@@ -62,13 +62,13 @@ L8.spfa     2.496        0.903        4.826        2.472
 
 parameter average_wind_spee_80m(r)
 /
-         WOA     7.5
-         EOA     6.5
-         COA     7
-         SOA     7
+    WOA     7.2
+    EOA     6.5
+    COA     7
+    SOA     7.2
 /;
 
- ELwindspeed(l,seasons,r) = ELwindspeed(l,seasons,r)/(sum((ll,sseasons),ELwindspeed(ll,sseasons,r))/24)*average_wind_spee_80m(r);
+ ELwindspeed(l,seasons,r) = ELwindspeed(l,seasons,r)/(sum((ll,ee),ELwindspeed(ll,ee,r)*d(ee,ll))/sum((ll,ee),d(ee,ll)))*average_wind_spee_80m(r);
 
 *If we opt to model wind power generation using different wind turbine technlogies
 *or sizes, we may have to include air densities specific to the measurement locations.
@@ -127,6 +127,10 @@ L6.spfa     0.4607      0.1367      0.1464      0.2103
 L7.spfa     0.3662      0.0541      0.4042      0.0687
 L8.spfa     0.0755      0.0212      0.4823      0.0388
 ;
+
+
+ELwindpowernorm(l,seasons,r)
+=0.96*ELwindpower(l,seasons,r)/(0.5*ELairdensity(r)*(ELratedspeed)**3);
 
 ELwindpowernorm(l,'summer-wknd',r)=ELwindpowernorm(l,'summer',r);
 ELwindpowernorm(l,'winter-wknd',r)=ELwindpowernorm(l,'winter',r);

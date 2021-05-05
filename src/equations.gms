@@ -106,7 +106,7 @@ EQ_cost.. ELcost =e=
 EQ4_2(i,h,r,e,l,s,ss)$(not gttocc(h)) ..
     Cap_avail_m(i,h,r)*(
          1$(not ren(h))
-        +ELwindpowernorm(l,e,r)*0$WT(h)
+        +ELwindpowernorm(l,e,r)$WT(h)
         +Elsolcurvenorm(l,e,r)*solar_outage(ss)$PV(h)
     )
     -sum((f)$fuel_set(h,f,r),

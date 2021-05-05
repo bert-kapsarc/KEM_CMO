@@ -1,7 +1,7 @@
-ssolu="C:\Users\willbj0b\git\KEM_CMO\225g\empsolu.dat"
-sstat="C:\Users\willbj0b\git\KEM_CMO\225g\empstat.dat"
-scntr="C:\Users\willbj0b\git\KEM_CMO\225g\empcntr.dat"
-smatr="C:\Users\willbj0b\git\KEM_CMO\225g\empmatr.dat"
+ssolu="C:\Users\willbj0b\git\KEM_CMO\225e\empsolu.dat"
+sstat="C:\Users\willbj0b\git\KEM_CMO\225e\empstat.dat"
+scntr="C:\Users\willbj0b\git\KEM_CMO\225e\empcntr.dat"
+smatr="C:\Users\willbj0b\git\KEM_CMO\225e\empmatr.dat"
 suppress=1 AL=1 LO=1
 LP=CPLEX
 MIP=CPLEX

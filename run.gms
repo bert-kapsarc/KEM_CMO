@@ -15,15 +15,11 @@ $INCLUDE Macros.gms
 $FuncLibIn stolib stodclib
 function cdfnorm /stolib.cdfnormal/;
 
+
 $INCLUDE SetsAndVariables.gms
-$INCLUDE Demand.gms
-$include parameters.gms
-$include marginal_cost.gms
-$include demand_calib.gms
-$INCLUDE equations.gms
-$include scen_config.gms
-;
+
 $ifThen set calibration
+$setglobal fuelPriceAdmin true
 $setglobal scenario calib
 inv.fx(i,h,r)=0;
 ret.fx(i,h,r)=0;
@@ -39,6 +35,14 @@ $endIf.capacity
 $endIf
 ;
 
+$INCLUDE Demand.gms
+$include parameters.gms
+$include marginal_cost.gms
+$include demand_calib.gms
+$INCLUDE equations.gms
+$include scen_config.gms
+;
+
 $ifThen set capacity
 * Configure capacity market segments
 * Load energy only market data to configure capacity market segments
@@ -52,10 +56,13 @@ $else
 $setglobal energy_market energy
 $endIf
 
-$ifThen set noFuelSubsidy
+$ifThen.fuelprice set fuelPriceAdmin
+$ifThen not set calibration
+$setglobal scenario %scenario%_fuelAdmin
+$endIf
+$elseIf.fuelprice set noFuelSubsidy
 $setglobal scenario %scenario%_fuelReform
-$endIF
-
+$endIf.fuelprice
 ;
 
 inv.fx(i,h,r)$GTtoCC(h)=0

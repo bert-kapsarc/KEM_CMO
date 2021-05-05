@@ -19,11 +19,13 @@ mc_baseline(h,f,r)$fuel_set(h,f,r) = mc_non_fuel(h,r)+heat_rate(h,f,r)*fuel_pric
 mc_reform(h,f,r)$fuel_set(h,f,r) = mc_non_fuel(h,r)+heat_rate(h,f,r)*fuel_price(f,r);
 mc_intl(h,f,r)$fuel_set(h,f,r) = mc_non_fuel(h,r)+heat_rate(h,f,r)*fuel_price_intl(f,r);
 
-$ifThen set calibration
+$ifThen.fuelprice set fuelPriceAdmin 
     fuel_price(f,r) = fuel_price_admin(f,r) ;
-$elseIf set noFuelSubsidy
-     fuel_price(f,r) = fuel_price_intl(f,r);
+$else.fuelprice 
+$ifThen set noFuelSubsidy
+    fuel_price(f,r) = fuel_price_intl(f,r);
 $endIf
+$endIf.fuelprice
 mc(h,f,r)$fuel_set(h,f,r)=
     mc_non_fuel(h,r)+heat_rate(h,f,r)*fuel_price(f,r);
 
